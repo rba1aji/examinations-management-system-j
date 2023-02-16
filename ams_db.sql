@@ -8,9 +8,9 @@ alter default privileges grant all on sequences to ams;
 
 create table students
 (
-    id            integer primary key,
+    id            varchar primary key,
     dateofbirth   varchar(10) not null,
-    fullname      varchar not null,
+    fullname      varchar     not null,
     degree        varchar,
     branch        varchar,
     section       varchar(1),
@@ -18,15 +18,14 @@ create table students
     yearofpassout varchar(4),
     email         varchar,
     phone         varchar,
-    address       varchar,
-    blocked       boolean
+    address       varchar
 );
 
 create table faculties
 (
-    id          integer primary key,
+    id          varchar primary key,
     dateofbirth varchar(10) not null,
-    fullname    varchar not null,
+    fullname    varchar     not null,
     email       varchar,
     phone       varchar
 );
@@ -34,7 +33,7 @@ create table faculties
 create table marks
 (
     id        integer primary key,
-    studentid integer not null,
+    studentid varchar not null,
     examid    integer not null,
     courseid  varchar not null,
     mark      float
@@ -50,10 +49,10 @@ create table exams
 
 create table courses
 (
-    id   varchar primary key,
-    name varchar not null,
-    degree varchar,
-    branch varchar,
+    id       varchar primary key,
+    name     varchar not null,
+    degree   varchar,
+    branch   varchar,
     semester integer
 );
 
@@ -61,6 +60,11 @@ create table grades
 (
     id   integer primary key,
     cgpa float
+);
+
+create table blocked_students
+(
+    id integer primary key
 );
 
 create sequence student_id_seq increment by 1 start 1;

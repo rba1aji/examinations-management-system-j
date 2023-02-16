@@ -1,7 +1,7 @@
 package server.rba1aji.academicmanagementsystem.models;
 
 public class Student {
-    private Integer id;
+    private String id;
     private String dateofbirth;
     private String fullname;
     private String degree;
@@ -12,12 +12,11 @@ public class Student {
     private String email;
     private String phone;
     private String address;
-    private Boolean blocked;
 
     public Student() {
     }
 
-    public Student(Integer id, String dateofbirth, String fullname, String degree, String branch, String section, String yearofjoin, String yearofpassout, String email, String phone, String address) {
+    public Student(String id, String dateofbirth, String fullname, String degree, String branch, String section, String yearofjoin, String yearofpassout, String email, String phone, String address) {
         this.id = id;
         this.dateofbirth = dateofbirth;
         this.fullname = fullname;
@@ -29,14 +28,13 @@ public class Student {
         this.email = email;
         this.phone = phone;
         this.address = address;
-        this.blocked = false;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -120,11 +118,4 @@ public class Student {
         this.address = address;
     }
 
-    public Boolean getBlocked() {
-        return blocked;
-    }
-
-    public void setBlocked(Boolean blocked) {
-        this.blocked = blocked;
-    }
 }

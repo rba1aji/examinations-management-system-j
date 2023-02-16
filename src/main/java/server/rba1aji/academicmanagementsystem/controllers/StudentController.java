@@ -9,6 +9,7 @@ import server.rba1aji.academicmanagementsystem.models.Student;
 import server.rba1aji.academicmanagementsystem.services.IStudentService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,8 +26,16 @@ public class StudentController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PostMapping("/registerMultiple")
+    public ResponseEntity<Map<String,Boolean>> registerMultiple(@RequestBody List<Student> studentList) throws AuthException {
+        studentService.registerMultiple(studentList);
+        var res = new HashMap<String,Boolean>();
+        res.put("registration", true);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
     @GetMapping("/login")
-    public ResponseEntity<Map<String, Student>> login(@RequestParam int id, @RequestParam String dateofbirth) {
+    public ResponseEntity<Map<String, Student>> login(@RequestParam String id, @RequestParam String dateofbirth) {
         Student student = studentService.getByIdDob(id, dateofbirth);
         var res = new HashMap<String, Student>();
         res.put("student", student);

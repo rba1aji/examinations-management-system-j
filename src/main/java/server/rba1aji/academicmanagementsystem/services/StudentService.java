@@ -18,17 +18,22 @@ public class StudentService implements IStudentService {
 
     @Override
     public Student register(Student student) throws Exception {
-        Integer id = studentRepo.create(student);
+        String id = studentRepo.create(student);
         return studentRepo.getById(id);
     }
 
     @Override
-    public Student getByIdDob(int id, String dateofbirth) {
+    public Student getByIdDob(String id, String dateofbirth) {
         return studentRepo.getByIdDob(id, dateofbirth);
     }
 
     @Override
     public List<Student> getAll() {
         return null;
+    }
+
+    @Override
+    public void registerMultiple(List<Student> studentList) throws AuthException {
+        studentRepo.createMultiple(studentList);
     }
 }
