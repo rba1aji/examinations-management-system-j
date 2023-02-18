@@ -27,10 +27,10 @@ public class StudentController {
     }
 
     @PostMapping("/registerMultiple")
-    public ResponseEntity<Map<String,Boolean>> registerMultiple(@RequestBody List<Student> studentList) throws AuthException {
-        studentService.registerMultiple(studentList);
-        var res = new HashMap<String,Boolean>();
-        res.put("registration", true);
+    public ResponseEntity<Map<String, String>> registerMultiple(@RequestBody List<Student> studentList) throws AuthException {
+        String message = studentService.registerMultiple(studentList);
+        var res = new HashMap<String, String>();
+        res.put("message", message);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
@@ -39,6 +39,14 @@ public class StudentController {
         Student student = studentService.getByIdDob(id, dateofbirth);
         var res = new HashMap<String, Student>();
         res.put("student", student);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("getAll")
+    public ResponseEntity<Map<String, List<Student>>> getAll() {
+        List<Student> studentList = studentService.getAll();
+        var res = new HashMap<String, List<Student>>();
+        res.put("studentsList", studentList);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }

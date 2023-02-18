@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
-import static server.rba1aji.academicmanagementsystem.repositories.StudentsSQL.*;
+import static server.rba1aji.academicmanagementsystem.sqlqueries.StudentSQL.*;
 
 @Repository
 @Transactional
@@ -27,7 +27,7 @@ public class StudentRepo implements IStudentRepo {
         try {
             KeyHolder keyholder = new GeneratedKeyHolder();
             jdbcTemplate.update(con -> {
-                PreparedStatement ps = con.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement ps = con.prepareStatement(SQL_STUDENT_CREATE, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, student.getId());
                 ps.setString(2, student.getDateofbirth());
                 ps.setString(3, student.getFullname());
@@ -48,24 +48,36 @@ public class StudentRepo implements IStudentRepo {
     }
 
     @Override
-    public void createMultiple(List<Student> studentList) throws AuthException {
-        for(Student student : studentList ){
-            create(student);
+    public String createMultiple(List<Student> studentList) throws AuthException {
+        String res = "";
+        for (Student student : studentList) {
+            try {
+                create(student);
+            } catch (Exception e) {
+                res += e.getMessage();
+            }
         }
+        return res.equals("") ? "registration success for all students" : res;
     }
 
     @Override
     public Student getById(String id) throws Exception {
-        return jdbcTemplate.queryForObject(SQL_FIND_BY_ID, new Object[]{id}, studentRowMapper);
+        return jdbcTemplate.queryForObject(SQL_STUDENT_FIND_BY_ID, new Object[]{id}, studentRowMapper);
     }
 
     @Override
     public Student getByIdDob(String id, String dateofbirth) {
-        return jdbcTemplate.queryForObject(SQL_FIND_BY_ID_DOB, new Object[]{id, dateofbirth}, studentRowMapper);
+        return jdbcTemplate.queryForObject(SQL_STUDENT_FIND_BY_ID_DOB, new Object[]{id, dateofbirth}, studentRowMapper);
+    }
+
+    @Override
+    public List<Student> findAll() {
+        return jdbcTemplate.query(SQL_STUDENT_FIND_ALL, new Object[]{}, studentRowMapper);
     }
 
     private RowMapper<Student> studentRowMapper = ((rs, rowNo) ->
-            new Student(rs.getString("ID"),
+            new Student(
+                    rs.getString("ID"),
                     rs.getString("DATEOFBIRTH"),
                     rs.getString("FULLNAME"),
                     rs.getString("DEGREE"),
@@ -75,6 +87,7 @@ public class StudentRepo implements IStudentRepo {
                     rs.getString("YEAROFPASSOUT"),
                     rs.getString("EMAIL"),
                     rs.getString("PHONE"),
-                    rs.getString("ADDRESS"))
+                    rs.getString("ADDRESS")
+            )
     );
 }

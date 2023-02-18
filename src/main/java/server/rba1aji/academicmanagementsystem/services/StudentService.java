@@ -1,6 +1,5 @@
 package server.rba1aji.academicmanagementsystem.services;
 
-import jakarta.annotation.Nullable;
 import jakarta.security.auth.message.AuthException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import server.rba1aji.academicmanagementsystem.models.Student;
 import server.rba1aji.academicmanagementsystem.repositories.IStudentRepo;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -17,8 +18,8 @@ public class StudentService implements IStudentService {
     IStudentRepo studentRepo;
 
     @Override
-    public Student register(Student student) throws Exception {
-        String id = studentRepo.create(student);
+    public Student register(Student newstudent) throws Exception {
+        String id = studentRepo.create(newstudent);
         return studentRepo.getById(id);
     }
 
@@ -28,12 +29,19 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public List<Student> getAll() {
-        return null;
+    public String registerMultiple(List<Student> studentList) throws AuthException {
+        return studentRepo.createMultiple(studentList);
     }
 
     @Override
-    public void registerMultiple(List<Student> studentList) throws AuthException {
-        studentRepo.createMultiple(studentList);
+    public List<Student> getAll() {
+        List<Student> students = studentRepo.findAll();
+        Collections.sort(students, new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                return Long.compare(Long.parseLong(o1.getId()), Long.parseLong(o2.getId()));
+            }
+        });
+        return students;
     }
 }

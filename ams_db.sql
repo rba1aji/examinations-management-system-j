@@ -24,6 +24,7 @@ create table students
 create table faculties
 (
     id          varchar primary key,
+    password    varchar,
     dateofbirth varchar(10) not null,
     fullname    varchar     not null,
     email       varchar,
@@ -43,17 +44,18 @@ create table exams
 (
     id       integer primary key,
     name     varchar not null,
-    year     varchar(4),
-    semester integer
+    semester integer,
+    batch    varchar
 );
 
 create table courses
 (
-    id       varchar primary key,
-    name     varchar not null,
-    degree   varchar,
-    branch   varchar,
-    semester integer
+    id          varchar primary key,
+    name        varchar not null,
+    degree      varchar,
+    branch      varchar,
+    semester    integer,
+    batch       varchar
 );
 
 create table grades

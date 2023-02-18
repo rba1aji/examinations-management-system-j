@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface IStudentRepo {
     String create(Student student) throws AuthException;
-    void createMultiple(List<Student> studentList) throws AuthException;
+    String createMultiple(List<Student> studentList) throws AuthException;
     Student getById(String id) throws Exception;
     Student getByIdDob(String id, String dateofbirth);
+    List<Student> findAll();
 }
