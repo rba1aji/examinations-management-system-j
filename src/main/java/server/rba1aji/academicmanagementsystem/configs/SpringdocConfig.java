@@ -12,6 +12,6 @@ public class SpringdocConfig {
 
     @Bean
     public OpenAPI baseOpenAPI(){
-        return new OpenAPI().info(new Info().title("Spring Doc").version("1.0.0").description("Spring doc"));
+        return new OpenAPI().info(new Info().title("AMS API Doc").version("1.0.0").description("Academic Management System"));
     }
 }

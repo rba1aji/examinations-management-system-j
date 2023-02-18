@@ -11,4 +11,6 @@ public interface IStudentService {
     String registerMultiple(List<Student> studentList) throws AuthException;
     Student getByIdDob(String id, String dateofbirth);
     List<Student> getAll();
+    Student update(String id, Student student) throws Exception;
+    Student getById(String id) throws Exception;
 }

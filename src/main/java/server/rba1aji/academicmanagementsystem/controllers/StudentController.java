@@ -49,4 +49,14 @@ public class StudentController {
         res.put("studentsList", studentList);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Map<String, Student>> update(@PathVariable String id, @RequestParam Student student) throws Exception {
+        studentService.update(id, student);
+        Student updatedStudent = studentService.getById(id);
+
+        var res = new HashMap<String, Student>();
+        res.put("student", updatedStudent);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
 }

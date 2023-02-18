@@ -11,4 +11,5 @@ public interface IStudentRepo {
     Student getById(String id) throws Exception;
     Student getByIdDob(String id, String dateofbirth);
     List<Student> findAll();
+    void update(String id, Student student);
 }

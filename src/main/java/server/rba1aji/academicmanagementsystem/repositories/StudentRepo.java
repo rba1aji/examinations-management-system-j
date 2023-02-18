@@ -75,6 +75,15 @@ public class StudentRepo implements IStudentRepo {
         return jdbcTemplate.query(SQL_STUDENT_FIND_ALL, new Object[]{}, studentRowMapper);
     }
 
+    @Override
+    public void update(String id, Student st) {
+        jdbcTemplate.update(SQL_STUDENT_UPDATE,
+                new Object[]{
+                        st.getId(), st.getDateofbirth(), st.getFullname(), st.getDegree(), st.getBranch(), st.getSection(),
+                        st.getYearofjoin(), st.getYearofpassout(), st.getEmail(), st.getPhone(), st.getAddress()
+                });
+    }
+
     private RowMapper<Student> studentRowMapper = ((rs, rowNo) ->
             new Student(
                     rs.getString("ID"),

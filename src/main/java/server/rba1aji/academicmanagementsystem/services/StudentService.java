@@ -44,4 +44,15 @@ public class StudentService implements IStudentService {
         });
         return students;
     }
+
+    @Override
+    public Student update(String id, Student student) throws Exception {
+        studentRepo.update(id, student);
+        return studentRepo.getById(student.getId());
+    }
+
+    @Override
+    public Student getById(String id) throws Exception {
+        return studentRepo.getById(id);
+    }
 }
