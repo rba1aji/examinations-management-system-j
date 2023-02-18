@@ -20,12 +20,12 @@ public class StudentService implements IStudentService {
     @Override
     public Student register(Student newstudent) throws Exception {
         String id = studentRepo.create(newstudent);
-        return studentRepo.getById(id);
+        return studentRepo.findById(id);
     }
 
     @Override
     public Student getByIdDob(String id, String dateofbirth) {
-        return studentRepo.getByIdDob(id, dateofbirth);
+        return studentRepo.findByIdDob(id, dateofbirth);
     }
 
     @Override
@@ -48,11 +48,11 @@ public class StudentService implements IStudentService {
     @Override
     public Student update(String id, Student student) throws Exception {
         studentRepo.update(id, student);
-        return studentRepo.getById(student.getId());
+        return studentRepo.findById(student.getId());
     }
 
     @Override
     public Student getById(String id) throws Exception {
-        return studentRepo.getById(id);
+        return studentRepo.findById(id);
     }
 }

@@ -61,12 +61,12 @@ public class StudentRepo implements IStudentRepo {
     }
 
     @Override
-    public Student getById(String id) throws Exception {
+    public Student findById(String id) throws Exception {
         return jdbcTemplate.queryForObject(SQL_STUDENT_FIND_BY_ID, new Object[]{id}, studentRowMapper);
     }
 
     @Override
-    public Student getByIdDob(String id, String dateofbirth) {
+    public Student findByIdDob(String id, String dateofbirth) {
         return jdbcTemplate.queryForObject(SQL_STUDENT_FIND_BY_ID_DOB, new Object[]{id, dateofbirth}, studentRowMapper);
     }
 

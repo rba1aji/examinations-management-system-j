@@ -1,7 +1,7 @@
 drop database amsdb;
 drop user ams;
 create user ams with password 'password';
-create database amsdb with template=template0 owner=ams;
+create database amsdb with template =template0 owner =ams;
 \connect amsdb;
 alter default privileges grant all on tables to ams;
 alter default privileges grant all on sequences to ams;
@@ -50,12 +50,13 @@ create table exams
 
 create table courses
 (
-    id          varchar primary key,
-    name        varchar not null,
-    degree      varchar,
-    branch      varchar,
-    semester    integer,
-    batch       varchar
+    id       varchar primary key,
+    name     varchar not null,
+    credit   integer,
+    degreeid   varchar,
+    branchid   varchar,
+    semester integer,
+    batch    varchar
 );
 
 create table grades
@@ -69,5 +70,32 @@ create table blocked_students
     id integer primary key
 );
 
-create sequence student_id_seq increment by 1 start 1;
-create sequence faculty_id_seq increment by 1 start 1;
+-- create sequence student_id_seq increment by 1 start 1;
+-- create sequence faculty_id_seq increment by 1 start 1;
+
+-- static data
+
+create table degrees
+(
+    id   varchar,
+    name varchar
+);
+
+create table branches
+(
+    id       varchar,
+    name     varchar,
+    degreeid varchar
+);
+
+insert into degrees values ('BE', 'BE');
+insert into degrees values ('BTECH', 'BTECH');
+
+insert into branches values ('CSE', 'Computer Science and Engineering', 'BE');
+insert into branches values ('IT', 'Information Technology', 'BTECH');
+insert into branches values ('CSE', 'Computer Science and Engineering', 'BE');
+insert into branches values ('ECE', 'Electrical and Electronical Engineering', 'BE');
+insert into branches values ('MECH', 'Mechanical Engineering', 'BE');
+insert into branches values ('CIVIL', 'Civil Engineering', 'BE');
+insert into branches values ('CSBS', 'Computer Science and Buisness Systems', 'BTECH');
+insert into branches values ('AIDS', 'Artificial Intelligence and Data Science', 'BTECH');

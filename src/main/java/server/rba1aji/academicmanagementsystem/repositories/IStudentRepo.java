@@ -8,8 +8,8 @@ import java.util.List;
 public interface IStudentRepo {
     String create(Student student) throws AuthException;
     String createMultiple(List<Student> studentList) throws AuthException;
-    Student getById(String id) throws Exception;
-    Student getByIdDob(String id, String dateofbirth);
+    Student findById(String id) throws Exception;
+    Student findByIdDob(String id, String dateofbirth);
     List<Student> findAll();
     void update(String id, Student student);
 }
