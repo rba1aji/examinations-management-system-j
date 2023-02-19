@@ -2,7 +2,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MenuBar from './components/MenuBar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { routes, studentRoutes, adminRoutes } from './reducers/Routes';
+import { studentRoutes, adminRoutes, defaultRoutes, AdminWorkspaceRoutes } from './reducers/Routes';
 
 function App() {
 
@@ -16,14 +16,15 @@ function App() {
         <br />
         <br />
         <Routes>
-          {[...routes, ...studentRoutes, ...adminRoutes].map((item, index) => (
-            <Route
-              key={index}
-              path={item.path}
-              exact
-              element={item.component}
-            ></Route>
-          ))}
+          {[...defaultRoutes, ...studentRoutes, ...adminRoutes, ...AdminWorkspaceRoutes]
+            .map((item, index) => (
+              <Route
+                key={index}
+                path={item.path}
+                exact
+                element={item.component}
+              ></Route>
+            ))}
         </Routes>
       </BrowserRouter>
       <br />

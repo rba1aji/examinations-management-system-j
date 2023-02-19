@@ -4,7 +4,7 @@ import { adminRoutes, studentRoutes } from '../reducers/Routes'
 export default function MenuBar() {
   return (
     <>
-      <Navbar collapseOnSelect bg="white" expand="lg" fixed="top" className='border border-1'>
+      <Navbar collapseOnSelect bg="light" expand="lg" fixed="top" className='border border-1'>
         <Container>
           <span className="mb-1">
             logo
@@ -16,7 +16,7 @@ export default function MenuBar() {
             <a href='/ '
               className='text-decoration-none ps-5'
             >
-              AMS
+              COEAMS
             </a>
           </p>
           <Navbar.Toggle
@@ -24,9 +24,9 @@ export default function MenuBar() {
             style={{ border: 'none' }}
           />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="ms-auto">
+            <Nav className="ms-auto text-dark">
 
-              <NavDropdown title="Student" >
+              <NavDropdown title="Student" className='text-dark' >
                 {
                   studentRoutes.map((item, index) => {
                     return <NavDropdown.Item

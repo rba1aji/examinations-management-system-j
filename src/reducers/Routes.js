@@ -1,29 +1,38 @@
 import Home from "../pages/Home"
 import StudentLogin from "../pages/Student/Login"
 import StudentWorkspace from "../pages/Student/Workspace"
-import StudentsData from "../pages/Admin/StudentsData"
+import ManageStudents from "../pages/Admin/ManageStudents"
 import AdminWorkspace from "../pages/Admin/Workspace"
-import RegisterStudents from "../pages/Admin/RegisterStudents"
+// import RegisterStudents from "../pages/Admin/RegisterStudents"
+import ManageCourses from "../pages/Admin/ManageCourses"
 
-export const routes = [
+export const AdminWorkspaceRoutes = [
+    {
+        path: '/admin/manage-students',
+        title: 'Manage students',
+        component: <ManageStudents />
+    },
+    // {
+    //     path: '/register-students',
+    //     title: 'Register students',
+    //     component: <RegisterStudents />
+    // },
+    {
+        path: '/admin/manage-courses',
+        title: 'Manage courses',
+        component: <ManageCourses />
+    }
+];
+
+export const defaultRoutes = [
     {
         path: '/',
         title: "Home",
         component: <Home />
     },
     {
-        path: '/students-data',
-        title: 'Students Data',
-        component: <StudentsData />
-    },
-    {
         path: '/student/marks',
         title: 'View marks',
-    },
-    {
-        path: '/register-students',
-        title: 'Register students',
-        component: <RegisterStudents />
     }
 ]
 

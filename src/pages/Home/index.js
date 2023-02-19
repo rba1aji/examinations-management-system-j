@@ -1,7 +1,7 @@
 export default function Home() {
     return (
         <>
-            <h1 className="text-center">Academic Management System</h1>
+            <div className="text-center h2">Center Of Examinations Academic Management System</div>
         </>
     )
 }
