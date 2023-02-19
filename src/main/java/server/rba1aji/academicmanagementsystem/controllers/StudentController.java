@@ -42,7 +42,7 @@ public class StudentController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     public ResponseEntity<Map<String, List<Student>>> getAll() {
         List<Student> studentList = studentService.getAll();
         var res = new HashMap<String, List<Student>>();

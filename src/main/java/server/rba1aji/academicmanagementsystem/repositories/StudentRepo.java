@@ -72,7 +72,7 @@ public class StudentRepo implements IStudentRepo {
 
     @Override
     public List<Student> findAll() {
-        return jdbcTemplate.query(SQL_STUDENT_FIND_ALL, new Object[]{}, studentRowMapper);
+        return jdbcTemplate.query(SQL_STUDENT_FIND_ALL, studentRowMapper);
     }
 
     @Override

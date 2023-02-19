@@ -21,6 +21,14 @@ public class CourseService implements ICourseService{
     }
 
     @Override
+    public String registerMultiple(List<Course> courseList) {
+        for(Course course: courseList){
+            courseRepo.create(course);
+        }
+        return "Registration success for all courses";
+    }
+
+    @Override
     public List<Course> getByDegreeBranchSemesterBatch(String degreeid, String branchid, Integer semester, String batch) {
         return courseRepo.findByDegreeBranchSemesterBatch(degreeid, branchid, semester, batch);
     }
