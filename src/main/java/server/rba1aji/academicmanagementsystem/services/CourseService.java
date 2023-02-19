@@ -31,6 +31,11 @@ public class CourseService implements ICourseService{
     }
 
     @Override
+    public List<Course> getAll() {
+        return courseRepo.findAll();
+    }
+
+    @Override
     public Course delete(Integer id) {
         return null;
     }

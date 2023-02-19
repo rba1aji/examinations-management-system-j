@@ -9,5 +9,6 @@ public interface ICourseService {
     Course register(Course course);
     List<Course> getByDegreeBranchSemesterBatch(String degreeid, String branchid, Integer semester, String batch);
     Course update(Course course);
+    List<Course> getAll();
     Course delete(Integer id);
 }

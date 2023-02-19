@@ -7,6 +7,7 @@ public class CourseSQL {
     public static final String SQL_COURSE_UPDATE = "UPDATE COURSES " +
             "SET ID = ?, NAME = ?, CREDITS = ?, DEGREEID = ?, BRANCHID = ?, SEMESTER = ?, BATCH = ? " +
             "WHERE ID = ?";
+    public static final String SQL_COURSE_FIND_ALL = "SELECT * FROM COURSES";
     public static final String SQL_COURSE_DELETE = "DELETE " +
             "FROM COURSES " +
             "WHERE ID = ?";

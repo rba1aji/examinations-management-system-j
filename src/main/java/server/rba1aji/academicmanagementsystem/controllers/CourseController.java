@@ -27,8 +27,17 @@ public class CourseController {
 
     @GetMapping("/getByDegreeBranchSemesterBatch")
     public ResponseEntity<Map<String, List<Course>>> getByDegBranchSemBatch(
-            @RequestParam String degreeid, @RequestParam String branchid, @RequestParam Integer semester, @RequestParam String batch){
+            @RequestParam String degreeid, @RequestParam String branchid, @RequestParam Integer semester, @RequestParam String batch
+    ) {
         List<Course> courseList = courseService.getByDegreeBranchSemesterBatch(degreeid, branchid, semester, batch);
+        var res = new HashMap<String, List<Course>>();
+        res.put("courseList", courseList);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("getAll")
+    public ResponseEntity<Map<String, List<Course>>> getAll() {
+        List<Course> courseList = courseService.getAll();
         var res = new HashMap<String, List<Course>>();
         res.put("courseList", courseList);
         return new ResponseEntity<>(res, HttpStatus.OK);

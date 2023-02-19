@@ -50,6 +50,11 @@ public class CourseRepo implements ICourseRepo {
         );
     }
 
+    @Override
+    public List<Course> findAll() {
+        return jdbcTemplate.query(SQL_COURSE_FIND_ALL, courseRowMapper);
+    }
+
 
     @Override
     public Course update(Course updatedCourse) {
