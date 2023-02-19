@@ -14,7 +14,7 @@ function MyVerticallyCenteredModal(props) {
         console.log(data)
         axios({
             method: 'post',
-            url: serverurl + '/Courses/registerMultiple',
+            url: serverurl + '/courses/registerMultiple',
             data: data
         })
             .then(async (res) => {
@@ -33,7 +33,7 @@ function MyVerticallyCenteredModal(props) {
         for (let i = 1; i < aoa.length; i++) {
             const obj = {};
             for (let j = 0; j < headers.length; j++) {
-                obj[headers[i]] = aoa[i][j];
+                obj[headers[j]] = aoa[i][j];
             }
             json.push(obj);
         }
