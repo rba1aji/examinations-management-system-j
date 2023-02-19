@@ -16,7 +16,7 @@ export default function MenuBar() {
             <a href='/ '
               className='text-decoration-none ps-5'
             >
-              COEAMS
+              CEAMS
             </a>
           </p>
           <Navbar.Toggle

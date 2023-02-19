@@ -1,37 +1,25 @@
-import { useEffect } from "react";
-import { Table } from "react-bootstrap";
-import { AppState } from "../../../reducers/AppContextProvider";
+import { Table } from "react-bootstrap"
+import RegisterMultipleCourses from "./RegisterCourses"
+import CourseTable from "./CourseTable"
 
-export default function ManageCourses() {
-    const { degrees, branches } = AppState();
-    useEffect(() => {
-        console.log(degrees, branches);
-    }, [degrees, branches])
+export default function ManageStudents() {
+
     return (
-        <>
-            <div style={{
-                margin: '0 7.5vw'
+        <div style={{
+            margin: '0 5vw',
+        }}>
+            <div className="h6 text-end ">Manage Courses</div>
+            <Table style={{
+                width: '100%'
             }}>
-                <div className="h6 text-end">Manage Courses</div>
-
-                <Table style={{
-                    fontSize: '80%',
-                }}
-                    bordered>
-                    <thead>
-                        <tr>
-                            <th>Sno</th>
-                            <th>CourseID</th>
-                            <th>Name</th>
-                            <th>Credits</th>
-                            <th>Degree</th>
-                            <th>Branch</th>
-                            <th>Semester</th>
-                            <th>Batch</th>
-                        </tr>
-                    </thead>
-                </Table>
-            </div>
-        </>
+                <tbody>
+                    <tr>
+                        <td><RegisterMultipleCourses /></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </Table>
+            <CourseTable />
+        </div>
     )
 }

@@ -1,6 +1,6 @@
 import { Table } from "react-bootstrap"
-import RegisterMultipleStudents from "./RegisterMultiple"
-import StudentsData from "./StudentsData"
+import RegisterMultipleStudents from "./RegisterStudents"
+import StudentsTable from "./StudentsTable"
 
 export default function ManageStudents() {
 
@@ -19,7 +19,7 @@ export default function ManageStudents() {
                     </tr>
                 </tbody>
             </Table>
-            <StudentsData />
+            <StudentsTable />
         </div>
     )
 }

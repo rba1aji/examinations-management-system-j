@@ -3,7 +3,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { serverurl } from "../../../reducers/Constants";
 
-export default function StudentsData() {
+export default function StudentsTable() {
     const [data, seData] = useState([]);
 
     useEffect(() => {
