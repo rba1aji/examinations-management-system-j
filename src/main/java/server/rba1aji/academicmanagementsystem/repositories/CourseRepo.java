@@ -8,7 +8,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import server.rba1aji.academicmanagementsystem.models.Course;
-import server.rba1aji.academicmanagementsystem.models.Student;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -29,10 +28,11 @@ public class CourseRepo implements ICourseRepo {
             PreparedStatement ps = con.prepareStatement(SQL_COURSE_CREATE, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, course.getId());
             ps.setString(2, course.getName());
-            ps.setString(3, course.getDegree());
-            ps.setString(4, course.getBranch());
-            ps.setInt(5, course.getSemester());
-            ps.setString(6, course.getBatch());
+            ps.setInt(3, course.getCredits());
+            ps.setString(4, course.getDegreeid());
+            ps.setString(5, course.getBranchid());
+            ps.setInt(6, course.getSemester());
+            ps.setString(7, course.getBatch());
             return ps;
         }, keyHolder);
         return (String) keyHolder.getKeys().get("ID");
@@ -44,9 +44,9 @@ public class CourseRepo implements ICourseRepo {
     }
 
     @Override
-    public List<Course> findByDegreeBranchSemesterBatch(String degree, String branch, Integer semester, String batch) {
+    public List<Course> findByDegreeBranchSemesterBatch(String degreeid, String branchid, Integer semester, String batch) {
         return jdbcTemplate.query(
-                SQL_COURSE_FIND_BY_DEGREE_BRANCH_SEMESTER_BATCH, new Object[]{degree, branch, semester, batch}, courseRowMapper
+                SQL_COURSE_FIND_BY_DEGREE_BRANCH_SEMESTER_BATCH, new Object[]{degreeid, branchid, semester, batch}, courseRowMapper
         );
     }
 
@@ -57,15 +57,16 @@ public class CourseRepo implements ICourseRepo {
     }
 
     @Override
-    public Course delete(Course course) {
+    public Course delete(Integer id) {
         return null;
     }
 
     private RowMapper<Course> courseRowMapper = ((rs, rowNo) -> (
             new Course(rs.getString("ID"),
                     rs.getString("NAME"),
-                    rs.getString("DEGREE"),
-                    rs.getString("BRANCH"),
+                    rs.getInt("CREDITS"),
+                    rs.getString("DEGREEID"),
+                    rs.getString("BRANCHID"),
                     rs.getInt("SEMESTER"),
                     rs.getString("BATCH")
             )

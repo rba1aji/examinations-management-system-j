@@ -52,7 +52,7 @@ create table courses
 (
     id       varchar primary key,
     name     varchar not null,
-    credit   integer,
+    credits   integer,
     degreeid   varchar,
     branchid   varchar,
     semester integer,

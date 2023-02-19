@@ -3,16 +3,18 @@ package server.rba1aji.academicmanagementsystem.models;
 public class Course {
     private String id;
     private String name;
-    private String degree;
-    private String branch;
+    private Integer credits;
+    private String degreeid;
+    private String branchid;
     private Integer semester;
     private String batch;
 
-    public Course(String id, String name, String degree, String branch, Integer semester, String batch) {
+    public Course(String id, String name, Integer credits, String degreeid, String branchid, Integer semester, String batch) {
         this.id = id;
         this.name = name;
-        this.degree = degree;
-        this.branch = branch;
+        this.credits = credits;
+        this.degreeid = degreeid;
+        this.branchid = branchid;
         this.semester = semester;
         this.batch = batch;
     }
@@ -33,27 +35,35 @@ public class Course {
         this.name = name;
     }
 
-    public String getDegree() {
-        return degree;
+    public Integer getCredits() {
+        return credits;
     }
 
-    public void setDegree(String degree) {
-        this.degree = degree;
+    public void setCredits(Integer credits) {
+        this.credits = credits;
     }
 
-    public String getBranch() {
-        return branch;
+    public String getDegreeid() {
+        return degreeid;
     }
 
-    public void setBranch(String branch) {
-        this.branch = branch;
+    public void setDegreeid(String degreeid) {
+        this.degreeid = degreeid;
+    }
+
+    public String getBranchid() {
+        return branchid;
+    }
+
+    public void setBranchid(String branchid) {
+        this.branchid = branchid;
     }
 
     public Integer getSemester() {
         return semester;
     }
 
-    public void setSemester(int semester) {
+    public void setSemester(Integer semester) {
         this.semester = semester;
     }
 

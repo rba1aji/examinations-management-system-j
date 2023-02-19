@@ -21,8 +21,8 @@ public class CourseService implements ICourseService{
     }
 
     @Override
-    public List<Course> getByDegreeBranchSemesterBatch(String degree, String branch, Integer semester, String batch) {
-        return courseRepo.findByDegreeBranchSemesterBatch(degree, branch, semester, batch);
+    public List<Course> getByDegreeBranchSemesterBatch(String degreeid, String branchid, Integer semester, String batch) {
+        return courseRepo.findByDegreeBranchSemesterBatch(degreeid, branchid, semester, batch);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class CourseService implements ICourseService{
     }
 
     @Override
-    public Course delete(Course course) {
+    public Course delete(Integer id) {
         return null;
     }
 }

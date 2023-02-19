@@ -9,8 +9,8 @@ public interface ICourseRepo {
 
     Course findById(String id);
 
-    List<Course> findByDegreeBranchSemesterBatch(String degree, String branch, Integer semester, String batch);
+    List<Course> findByDegreeBranchSemesterBatch(String degreeid, String branchid, Integer semester, String batch);
     Course update(Course updatedCourse);
 
-    Course delete(Course course);
+    Course delete(Integer id);
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ICourseService {
     Course register(Course course);
-    List<Course> getByDegreeBranchSemesterBatch(String degree, String branch, Integer semester, String batch);
+    List<Course> getByDegreeBranchSemesterBatch(String degreeid, String branchid, Integer semester, String batch);
     Course update(Course course);
-    Course delete(Course course);
+    Course delete(Integer id);
 }
