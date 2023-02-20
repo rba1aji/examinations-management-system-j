@@ -1,0 +1,10 @@
+package server.rba1aji.academicmanagementsystem.sqlqueries;
+
+public class ExamSQL {
+    public static final String SQL_EXAM_CREATE = "INSERT INTO EXAMS(ID, NAME, SEMESTER, BATCH) " +
+            "VALUES(?, ?, ?, ?)";
+    public static final String SQL_EXAM_FIND_ALL = "SELECT * FROM EXAMS";
+    public static final String SQL_EXAM_FIND_BY_ID = "SELECT * FROM EXAMS WHERE ID = ?";
+    public static final String SQL_BRANCH_EXAM_CREATE = "INSERT INTO BRANCH_EXAM(EXAMID, BRANCHID) " +
+            "VALUES(?, ?)";
+}

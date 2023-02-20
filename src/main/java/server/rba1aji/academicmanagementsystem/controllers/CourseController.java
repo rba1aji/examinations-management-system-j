@@ -39,7 +39,7 @@ public class CourseController {
     ) {
         List<Course> courseList = courseService.getByDegreeBranchSemesterBatch(degreeid, branchid, semester, batch);
         var res = new HashMap<String, List<Course>>();
-        res.put("courseList", courseList);
+        res.put("courses", courseList);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
@@ -47,7 +47,7 @@ public class CourseController {
     public ResponseEntity<Map<String, List<Course>>> getAll() {
         List<Course> courseList = courseService.getAll();
         var res = new HashMap<String, List<Course>>();
-        res.put("courseList", courseList);
+        res.put("courses", courseList);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }

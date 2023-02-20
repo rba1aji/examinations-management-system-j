@@ -42,7 +42,7 @@ create table marks
 
 create table exams
 (
-    id       integer primary key,
+    id       varchar primary key,
     name     varchar not null,
     semester integer,
     batch    varchar
@@ -52,9 +52,9 @@ create table courses
 (
     id       varchar primary key,
     name     varchar not null,
-    credits   integer,
-    degreeid   varchar,
-    branchid   varchar,
+    credits  integer,
+    degreeid varchar,
+    branchid varchar,
     semester integer,
     batch    varchar
 );
@@ -77,25 +77,41 @@ create table blocked_students
 
 create table degrees
 (
-    id   varchar,
+    id   varchar primary key ,
     name varchar
 );
 
 create table branches
 (
-    id       varchar,
+    id       varchar primary key ,
     name     varchar,
     degreeid varchar
 );
 
-insert into degrees values ('BE', 'BE');
-insert into degrees values ('BTECH', 'BTECH');
+create table branch_exam
+(
+    examid   varchar references exams (id),
+    branchid varchar references branches (id),
+    primary key (examid, branchid)
+);
 
-insert into branches values ('CSE', 'Computer Science and Engineering', 'BE');
-insert into branches values ('IT', 'Information Technology', 'BTECH');
-insert into branches values ('CSE', 'Computer Science and Engineering', 'BE');
-insert into branches values ('ECE', 'Electrical and Electronical Engineering', 'BE');
-insert into branches values ('MECH', 'Mechanical Engineering', 'BE');
-insert into branches values ('CIVIL', 'Civil Engineering', 'BE');
-insert into branches values ('CSBS', 'Computer Science and Buisness Systems', 'BTECH');
-insert into branches values ('AIDS', 'Artificial Intelligence and Data Science', 'BTECH');
+
+insert into degrees
+values ('BE', 'BE');
+insert into degrees
+values ('BTECH', 'BTECH');
+
+insert into branches
+values ('CSE', 'Computer Science and Engineering', 'BE');
+insert into branches
+values ('IT', 'Information Technology', 'BTECH');
+insert into branches
+values ('ECE', 'Electrical and Electronical Engineering', 'BE');
+insert into branches
+values ('MECH', 'Mechanical Engineering', 'BE');
+insert into branches
+values ('CIVIL', 'Civil Engineering', 'BE');
+insert into branches
+values ('CSBS', 'Computer Science and Buisness Systems', 'BTECH');
+insert into branches
+values ('AIDS', 'Artificial Intelligence and Data Science', 'BTECH');
