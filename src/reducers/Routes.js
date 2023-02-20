@@ -5,6 +5,7 @@ import ManageStudents from "../pages/Admin/ManageStudents"
 import AdminWorkspace from "../pages/Admin/Workspace"
 // import RegisterStudents from "../pages/Admin/RegisterStudents"
 import ManageCourses from "../pages/Admin/ManageCourses"
+import ManageMarks from "../pages/Admin/ManageMarks"
 
 export const AdminWorkspaceRoutes = [
     {
@@ -12,15 +13,15 @@ export const AdminWorkspaceRoutes = [
         title: 'Manage students',
         component: <ManageStudents />
     },
-    // {
-    //     path: '/register-students',
-    //     title: 'Register students',
-    //     component: <RegisterStudents />
-    // },
     {
         path: '/admin/manage-courses',
         title: 'Manage courses',
         component: <ManageCourses />
+    },
+    {
+        path: '/admin/manage-exam-marks',
+        title: 'Manage exam marks',
+        component: <ManageMarks />
     }
 ];
 

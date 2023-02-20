@@ -72,16 +72,14 @@ function MyVerticallyCenteredModal(props) {
             <Modal.Header closeButton style={{
                 padding: '10px 20px'
             }}>
-                <div className=''>
-                    Register Courses
-                </div>
+                Register Courses
             </Modal.Header>
             <Modal.Body >
                 <div className='text-center'>Drop an Excel/CSV file</div>
                 <br />
                 <div className='bg-light'
                     style={{
-                        margin: '0 15vw',
+                        margin: '0 10vw',
                         borderRadius: '10px',
                         border: '1px solid #adb5bd'
                     }}>
