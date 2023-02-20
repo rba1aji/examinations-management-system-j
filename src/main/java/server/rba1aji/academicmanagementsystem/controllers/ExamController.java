@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.*;
+import server.rba1aji.academicmanagementsystem.models.Branch;
 import server.rba1aji.academicmanagementsystem.models.Exam;
 import server.rba1aji.academicmanagementsystem.services.IExamService;
 
@@ -34,6 +35,15 @@ public class ExamController {
 
         var res = new HashMap<String, String>();
         res.put("message", exam.getName() + " is registered");
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/{examid}/getBranches")
+    public ResponseEntity<Map<String, List<Branch>>> getBranchesByExamid(@PathVariable String examid){
+        List<Branch> branchList = examService.getBranchesByExamid(examid);
+
+        var res = new HashMap<String, List<Branch>>();
+        res.put("branches", branchList);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 

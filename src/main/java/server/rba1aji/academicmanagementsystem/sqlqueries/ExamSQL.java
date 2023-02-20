@@ -7,4 +7,6 @@ public class ExamSQL {
     public static final String SQL_EXAM_FIND_BY_ID = "SELECT * FROM EXAMS WHERE ID = ?";
     public static final String SQL_BRANCH_EXAM_CREATE = "INSERT INTO BRANCH_EXAM(EXAMID, BRANCHID) " +
             "VALUES(?, ?)";
+    public static final String SQL_BRANCH_EXAM_FIND_BRANCHIDS = "SELECT * FROM BRANCH_EXAM " +
+            "WHERE EXAMID = ?";
 }

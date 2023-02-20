@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import server.rba1aji.academicmanagementsystem.models.Branch;
 import server.rba1aji.academicmanagementsystem.models.Student;
 import server.rba1aji.academicmanagementsystem.services.IStudentService;
 
@@ -48,6 +49,11 @@ public class StudentController {
         var res = new HashMap<String, List<Student>>();
         res.put("studentsList", studentList);
         return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/getByBranches")
+    public ResponseEntity<Map<String, List<Student>>> getByBranches(@RequestBody List<Branch> branchList){
+        return null;
     }
 
     @PutMapping("/update/{id}")

@@ -7,4 +7,5 @@ import java.util.List;
 public interface IExamRepo {
     void create(Exam exam);
     void createExamForBranch(String examid, String branchid);
+    List<String> findBranchidlistByExamid(String examid);
 }
