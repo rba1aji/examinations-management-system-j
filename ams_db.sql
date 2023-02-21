@@ -6,19 +6,29 @@ create database amsdb with template =template0 owner =ams;
 alter default privileges grant all on tables to ams;
 alter default privileges grant all on sequences to ams;
 
+create table degrees
+(
+    id   varchar primary key,
+    name varchar
+);
+
+create table branches
+(
+    id       varchar primary key,
+    name     varchar,
+    degreeid varchar
+);
+
 create table students
 (
-    id            varchar primary key,
-    dateofbirth   varchar(10) not null,
-    fullname      varchar     not null,
-    degree        varchar,
-    branch        varchar,
-    section       varchar(1),
-    yearofjoin    varchar(4),
-    yearofpassout varchar(4),
-    email         varchar,
-    phone         varchar,
-    address       varchar
+    id          varchar primary key,
+    dateofbirth varchar(10) not null,
+    fullname    varchar     not null,
+    degreeid    varchar references degrees (id),
+    branchid    varchar references branches (id),
+    section     varchar(1),
+    batch       varchar(9),
+    phone       varchar
 );
 
 create table faculties
@@ -34,10 +44,10 @@ create table faculties
 create table marks
 (
     id        integer primary key,
-    studentid varchar not null,
-    examid    integer not null,
-    courseid  varchar not null,
-    mark      float
+    mark      float,
+    studentid varchar references students (id),
+    examid    integer references exams (id),
+    courseid  varchar references courses (id)
 );
 
 create table exams
@@ -53,8 +63,8 @@ create table courses
     id       varchar primary key,
     name     varchar not null,
     credits  integer,
-    degreeid varchar,
-    branchid varchar,
+    degreeid varchar references degrees (id),
+    branchid varchar references branches (id),
     semester integer,
     batch    varchar
 );
@@ -73,20 +83,6 @@ create table blocked_students
 -- create sequence student_id_seq increment by 1 start 1;
 -- create sequence faculty_id_seq increment by 1 start 1;
 
--- static data
-
-create table degrees
-(
-    id   varchar primary key ,
-    name varchar
-);
-
-create table branches
-(
-    id       varchar primary key ,
-    name     varchar,
-    degreeid varchar
-);
 
 create table branch_exam
 (
@@ -95,6 +91,19 @@ create table branch_exam
     primary key (examid, branchid)
 );
 
+create table exam_batches
+(
+    id              varchar primary key,
+    courseid        varchar references courses (id),
+    examid          varchar references exams (id),
+    branchid        varchar references branches (id),
+    start_studentid varchar references students (id),
+    end_studentid   varchar references students (id),
+    starttime       timestamp,
+    endtime         timestamp
+);
+
+-- static data
 
 insert into degrees
 values ('BE', 'BE');
@@ -106,7 +115,9 @@ values ('CSE', 'Computer Science and Engineering', 'BE');
 insert into branches
 values ('IT', 'Information Technology', 'BTECH');
 insert into branches
-values ('ECE', 'Electrical and Electronical Engineering', 'BE');
+values ('ECE', 'Electrics and Communication Engineering', 'BE');
+insert into branches
+values ('EEE', 'Electrical and Electronical Engineering', 'BE');
 insert into branches
 values ('MECH', 'Mechanical Engineering', 'BE');
 insert into branches

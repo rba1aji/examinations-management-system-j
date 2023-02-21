@@ -31,14 +31,11 @@ public class StudentRepo implements IStudentRepo {
                 ps.setString(1, student.getId());
                 ps.setString(2, student.getDateofbirth());
                 ps.setString(3, student.getFullname());
-                ps.setString(4, student.getDegree());
-                ps.setString(5, student.getBranch());
+                ps.setString(4, student.getDegreeid());
+                ps.setString(5, student.getBranchid());
                 ps.setString(6, student.getSection());
-                ps.setString(7, student.getYearofjoin());
-                ps.setString(8, student.getYearofpassout());
-                ps.setString(9, student.getEmail());
-                ps.setString(10, student.getPhone());
-                ps.setString(11, student.getAddress());
+                ps.setString(7, student.getBatch());
+                ps.setString(8, student.getPhone());
                 return ps;
             }, keyholder);
             return (String) keyholder.getKeys().get("ID");
@@ -76,11 +73,16 @@ public class StudentRepo implements IStudentRepo {
     }
 
     @Override
+    public List<Student> findByBranch(String branchid) {
+        return jdbcTemplate.query(SQL_STUDENT_FIND_BY_BRANCH, new Object[]{branchid}, studentRowMapper);
+    }
+
+    @Override
     public void update(String id, Student st) {
         jdbcTemplate.update(SQL_STUDENT_UPDATE,
                 new Object[]{
-                        st.getId(), st.getDateofbirth(), st.getFullname(), st.getDegree(), st.getBranch(), st.getSection(),
-                        st.getYearofjoin(), st.getYearofpassout(), st.getEmail(), st.getPhone(), st.getAddress()
+                        st.getId(), st.getDateofbirth(), st.getFullname(), st.getDegreeid(),
+                        st.getBranchid(), st.getSection(), st.getBatch(), st.getPhone()
                 });
     }
 
@@ -89,14 +91,11 @@ public class StudentRepo implements IStudentRepo {
                     rs.getString("ID"),
                     rs.getString("DATEOFBIRTH"),
                     rs.getString("FULLNAME"),
-                    rs.getString("DEGREE"),
-                    rs.getString("BRANCH"),
+                    rs.getString("DEGREEID"),
+                    rs.getString("BRANCHID"),
                     rs.getString("SECTION"),
-                    rs.getString("YEAROFJOIN"),
-                    rs.getString("YEAROFPASSOUT"),
-                    rs.getString("EMAIL"),
-                    rs.getString("PHONE"),
-                    rs.getString("ADDRESS")
+                    rs.getString("BATCH"),
+                    rs.getString("PHONE")
             )
     );
 }

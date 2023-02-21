@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import server.rba1aji.academicmanagementsystem.models.Student;
 import server.rba1aji.academicmanagementsystem.repositories.IStudentRepo;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -43,6 +44,15 @@ public class StudentService implements IStudentService {
             }
         });
         return students;
+    }
+
+    @Override
+    public List<Student> getByBranchidList(List<String> branchidList) {
+        List<Student> studentList = new ArrayList<>();
+        for(String branchid: branchidList){
+            studentList.addAll(studentRepo.findByBranch(branchid));
+        }
+        return studentList;
     }
 
     @Override

@@ -8,9 +8,16 @@ import java.util.List;
 
 public interface IStudentService {
     Student register(Student newstudent) throws Exception;
+
     String registerMultiple(List<Student> studentList) throws AuthException;
+
     Student getByIdDob(String id, String dateofbirth);
+
     List<Student> getAll();
+
+    List<Student> getByBranchidList(List<String> branchidList);
+
     Student update(String id, Student student) throws Exception;
+
     Student getById(String id) throws Exception;
 }
