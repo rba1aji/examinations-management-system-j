@@ -18,6 +18,7 @@ function MyVerticallyCenteredModal(props) {
     const [selectedBranch, setSelectedBranch] = useState([]);
     const { onHide } = props;
 
+
     async function handleRegisterExam(e) {
         e.preventDefault();
         console.log(newExam, selectedBranch);
@@ -114,6 +115,16 @@ function MyVerticallyCenteredModal(props) {
                             width: '50%',
                             padding: '2% 5% 2% 5%',
                         }}>
+                            <Form.Group className="mb-3" >
+                                <Form.Label>Students Batch</Form.Label>
+                                <Form.Control
+                                    placeholder='yyyy-YYYY'
+                                    value={newExam.batch}
+                                    onChange={(e) => setNewExam({ ...newExam, batch: e.target.value })}
+                                    required={true}
+                                    type='text'
+                                />
+                            </Form.Group>
                             <Form.Group className="mb-2" style={{
                             }}>
                                 <Form.Label>Degrees</Form.Label>
@@ -166,21 +177,11 @@ function MyVerticallyCenteredModal(props) {
                                     ))}
                                 </div>
                             </Form.Group>
-                            <Form.Group className="mb-3" style={{
-                                // maxHeight: '33.3%'
-                            }}>
-                                <Form.Label>Students Batch</Form.Label>
-                                <Form.Control placeholder='yyyy-YYYY'
-                                    value={newExam.batch}
-                                    onChange={(e) => setNewExam({ ...newExam, batch: e.target.value })}
-                                    required={true}
-                                    type='text'
-                                />
-                            </Form.Group>
+
                         </td>
                     </tr></tbody></table>
                     <div className='text-center pb-3'>
-                        <Button type='submit'>Register</Button>
+                        <Button type='submit' variant='info'>Register</Button>
                     </div>
                 </Form>
             </Modal.Body>
@@ -193,8 +194,8 @@ export default function RegisterExam() {
 
     return (
         <>
-            <Button variant="primary" onClick={() => setModalShow(true)}>
-                Register new exam
+            <Button variant="info" onClick={() => setModalShow(true)}>
+                Register new Exam
             </Button>
 
             <MyVerticallyCenteredModal

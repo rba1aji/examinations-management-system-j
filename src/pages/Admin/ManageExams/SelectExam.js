@@ -2,11 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import { serverurl } from "../../../reducers/Constants";
-import RegisterExam from "./RegisterExam";
 
 export default function SelectExam(props) {
     const [exams, setExams] = useState([]);
-    const { selectedExam, setSelectedExam } = props;
+    const { setSelectedExam } = props;
 
     useEffect(() => {
         axios({
@@ -17,13 +16,19 @@ export default function SelectExam(props) {
             .catch(err => console.log(err))
     }, []);
 
+
     return (
         <>
-            <Dropdown className="d-inline mx-2" autoClose="inside" onSelect={(examid) => {
+            <Dropdown className="d-inline" autoClose="inside" onSelect={(examid) => {
                 setSelectedExam(exams.find(e => e.id === examid))
             }}>
-                <Dropdown.Toggle id="dropdown-autoclose-inside">
-                    Exam: {selectedExam?.name ? selectedExam.name : 'select'}
+                <Dropdown.Toggle id="dropdown-autoclose-inside" style={{
+                    wordWrap: 'break-word'
+                }}
+                    variant='info'
+                >
+                    Select Exam
+                    {/* Exam: {selectedExam?.name ? selectedExam.name : 'select'} */}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu >

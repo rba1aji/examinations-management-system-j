@@ -3,25 +3,30 @@ import StudentLogin from "../pages/Student/Login"
 import StudentWorkspace from "../pages/Student/Workspace"
 import ManageStudents from "../pages/Admin/ManageStudents"
 import AdminWorkspace from "../pages/Admin/Workspace"
-// import RegisterStudents from "../pages/Admin/RegisterStudents"
 import ManageCourses from "../pages/Admin/ManageCourses"
-import ManageMarks from "../pages/Admin/ManageMarks"
+import ManageExamMarks from "../pages/Admin/ManageExams"
+import ManageFaculties from "../pages/Admin/ManageFaculties"
 
 export const AdminWorkspaceRoutes = [
     {
         path: '/admin/manage-students',
-        title: 'Manage students',
+        title: 'Manage Students',
         component: <ManageStudents />
     },
     {
+        path: '/admin/manage-faculties',
+        title: 'Manage Faculties',
+        component: <ManageFaculties />
+    },
+    {
         path: '/admin/manage-courses',
-        title: 'Manage courses',
+        title: 'Manage Courses',
         component: <ManageCourses />
     },
     {
         path: '/admin/manage-exam-marks',
-        title: 'Manage exam marks',
-        component: <ManageMarks />
+        title: 'Manage Exams',
+        component: <ManageExamMarks />
     }
 ];
 

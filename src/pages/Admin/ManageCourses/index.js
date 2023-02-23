@@ -1,6 +1,6 @@
-import { Table } from "react-bootstrap"
 import RegisterMultipleCourses from "./RegisterCourses"
 import CourseTable from "./CourseTable"
+import RegisterSingleCourse from "./RegisterSingleCourse"
 
 export default function ManageStudents() {
 
@@ -9,16 +9,18 @@ export default function ManageStudents() {
             margin: '0 7.5vw',
         }}>
             <div className="h6 text-end ">Manage Courses</div>
-            <Table style={{
-                width: '100%'
-            }}>
-                <tbody>
-                    <tr>
-                        <td><RegisterMultipleCourses /></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </Table>
+            <div className="mb-3">
+                {
+                    [
+                        <RegisterMultipleCourses />,
+                        <RegisterSingleCourse />
+                    ].map((el, ind) => {
+                        return <span className="pe-5" key={ind}>
+                            {el}
+                        </span>;
+                    })
+                }
+            </div>
             <CourseTable />
         </div>
     )

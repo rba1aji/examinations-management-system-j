@@ -14,7 +14,7 @@ export default function MenuBar() {
             className="h1 mb-0 ps-3 me-auto"
           >
             <a href='/ '
-              className='text-decoration-none ps-5'
+              className='text-decoration-none ps-5 text-info'
             >
               COEAMS
             </a>

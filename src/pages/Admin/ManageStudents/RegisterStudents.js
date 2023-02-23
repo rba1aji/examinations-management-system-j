@@ -103,11 +103,12 @@ function MyVerticallyCenteredModal(props) {
                         <Button type='submit'
                             className="ms-3 py-1"
                             disabled={!file}
+                            variant='info'
                         >Register</Button>
                     </Form>
                 </div>
                 <br />
-                {`file column names should be: { id, dateofbirth, fullname, degree, branch, section, yearofjoin, yearofpassout, email, phone, address } `}
+                {`file column names should be: { id, dateofbirth, fullname, degreeid, branchid, section, batch, phone } `}
             </Modal.Body>
         </Modal >
     );
@@ -118,7 +119,7 @@ export default function RegisterMultipleStudents() {
 
     return (
         <>
-            <Button variant="primary" onClick={() => setModalShow(true)}>
+            <Button variant="info" onClick={() => setModalShow(true)}>
                 Register students
             </Button>
 

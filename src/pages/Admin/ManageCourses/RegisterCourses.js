@@ -98,6 +98,7 @@ function MyVerticallyCenteredModal(props) {
                         <Button type='submit'
                             className="ms-3 py-1"
                             disabled={!file}
+                            variant='info'
                         >Register</Button>
                     </Form>
                 </div>
@@ -113,7 +114,7 @@ export default function RegisterMultipleCourses() {
 
     return (
         <>
-            <Button variant="primary" onClick={() => setModalShow(true)}>
+            <Button variant="info" onClick={() => setModalShow(true)}>
                 Register Courses
             </Button>
 

@@ -11,7 +11,10 @@ export default function StudentsTable() {
             method: 'get',
             url: serverurl + '/students/getAll'
         })
-            .then((res) => seData(res.data.studentsList))
+            .then((res) => {
+                console.log(res.data)
+                seData(res.data.studentsList)
+            })
             .catch((err) => console.log(err.message))
     }, [])
 
@@ -37,7 +40,7 @@ export default function StudentsTable() {
                             zIndex: 1
                         }}>
                             {
-                                ["Sno", "RegNo", "Name", "Degree", "Branch", "Section", "Batch", "Email", "Phone", "DOB", "Address"].map((item, index) => {
+                                ["Sno", "RegNo", "Name", "Degree", "Branch", "Section", "Batch", "Phone", "DOB"].map((item, index) => {
                                     return <th
                                         key={index}
                                         className="bg-light"
@@ -54,19 +57,17 @@ export default function StudentsTable() {
                             overflow: 'scroll'
                         }}>
                         {
-                            data?.map((item, index) => {
+                            data?.map((st, index) => {
                                 return <tr key={index}>
                                     <td>{index + 1}</td>
-                                    <td>{item.id}</td>
-                                    <td>{item.fullname}</td>
-                                    <td>{item.degree}</td>
-                                    <td>{item.branch}</td>
-                                    <td>{item.section}</td>
-                                    <td>{item.yearofjoin + "-" + item.yearofpassout}</td>
-                                    <td>{item.email}</td>
-                                    <td>{item.phone}</td>
-                                    <td>{item.dateofbirth}</td>
-                                    <td>{item.address}</td>
+                                    <td>{st.id}</td>
+                                    <td>{st.fullname}</td>
+                                    <td>{st.degreeid}</td>
+                                    <td>{st.branchid}</td>
+                                    <td>{st.section}</td>
+                                    <td>{st.batch}</td>
+                                    <td>{st.phone}</td>
+                                    <td>{st.dateofbirth}</td>
                                 </tr>
                             })
                         }

@@ -59,7 +59,7 @@ export default function StudentLogin() {
                     />
                 </Form.Group>
                 <div className="text-end">
-                    <Button variant="primary" type="submit">
+                    <Button variant="info" type="submit">
                         Login
                     </Button>
                 </div>
