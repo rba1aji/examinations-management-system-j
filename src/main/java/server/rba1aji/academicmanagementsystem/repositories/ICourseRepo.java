@@ -9,7 +9,7 @@ public interface ICourseRepo {
 
     Course findById(String id);
 
-    List<Course> findByDegreeBranchSemesterBatch(String degreeid, String branchid, Integer semester, String batch);
+    List<Course> findByBranchidSemesterBatch( String branchid, Integer semester, String batch);
     List<Course> findAll();
     Course update(Course updatedCourse);
 

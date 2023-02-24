@@ -44,9 +44,9 @@ public class CourseRepo implements ICourseRepo {
     }
 
     @Override
-    public List<Course> findByDegreeBranchSemesterBatch(String degreeid, String branchid, Integer semester, String batch) {
+    public List<Course> findByBranchidSemesterBatch(String branchid, Integer semester, String batch) {
         return jdbcTemplate.query(
-                SQL_COURSE_FIND_BY_DEGREE_BRANCH_SEMESTER_BATCH, new Object[]{degreeid, branchid, semester, batch}, courseRowMapper
+                SQL_COURSE_FIND_BY_BRANCH_SEMESTER_BATCH, new Object[]{branchid, semester, batch}, courseRowMapper
         );
     }
 
@@ -66,7 +66,7 @@ public class CourseRepo implements ICourseRepo {
         return null;
     }
 
-    private RowMapper<Course> courseRowMapper = ((rs, rowNo) -> (
+    private final RowMapper<Course> courseRowMapper = ((rs, rowNo) -> (
             new Course(rs.getString("ID"),
                     rs.getString("NAME"),
                     rs.getInt("CREDITS"),

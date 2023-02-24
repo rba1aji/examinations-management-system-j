@@ -21,19 +21,24 @@ public class ExamService implements IExamService {
 
     @Override
     public void registerExamForBranches(Exam exam, List<String> branchidList) {
-        examRepo.create(exam);
+        Integer examid = examRepo.create(exam);
         for (String branchid : branchidList) {
-            examRepo.createExamForBranch(exam.getId(), branchid);
+            examRepo.createExamForBranch(examid, branchid);
         }
     }
 
     @Override
-    public List<Branch> getBranchesByExamid(String examid) {
+    public List<Branch> getBranchesByExamid(Integer examid) {
         List<String> branchidList = examRepo.findBranchidlistByExamid(examid);
         List<Branch> branchList = new ArrayList<>();
-        for(String branchid : branchidList){
+        for (String branchid : branchidList) {
             branchList.add(branchRepo.findById(branchid));
         }
         return branchList;
+    }
+
+    @Override
+    public List<Exam> getAll() {
+        return examRepo.findAll();
     }
 }

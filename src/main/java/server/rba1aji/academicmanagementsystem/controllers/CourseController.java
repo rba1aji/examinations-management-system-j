@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import server.rba1aji.academicmanagementsystem.models.Course;
 import server.rba1aji.academicmanagementsystem.services.ICourseService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,13 +34,26 @@ public class CourseController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @GetMapping("/getByDegreeBranchSemesterBatch")
+    @GetMapping("/getByBranchidSemesterBatch")
     public ResponseEntity<Map<String, List<Course>>> getByDegBranchSemBatch(
-            @RequestParam String degreeid, @RequestParam String branchid, @RequestParam Integer semester, @RequestParam String batch
+            @RequestParam String branchid, @RequestParam Integer semester, @RequestParam String batch
     ) {
-        List<Course> courseList = courseService.getByDegreeBranchSemesterBatch(degreeid, branchid, semester, batch);
+        List<Course> courseList = courseService.getByBranchidSemesterBatch(branchid, semester, batch);
         var res = new HashMap<String, List<Course>>();
         res.put("courses", courseList);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/batch{batch}/semester{semester}/getByBranchidList")
+    public ResponseEntity<Map<String, List<Course>>> getByBatchSemesterBranchList(
+            @PathVariable("batch") String batch, @PathVariable("semester") Integer semester, @RequestParam List<String> branchidList
+    ){
+        List<Course> courseList = new ArrayList<>();
+        for(String branchid: branchidList){
+            courseList.addAll(courseService.getByBranchidSemesterBatch(branchid, semester, batch));
+        }
+        var res = new HashMap<String, List<Course>>();
+        res.put("courses",courseList);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 

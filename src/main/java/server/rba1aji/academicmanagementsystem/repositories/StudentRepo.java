@@ -86,7 +86,7 @@ public class StudentRepo implements IStudentRepo {
                 });
     }
 
-    private RowMapper<Student> studentRowMapper = ((rs, rowNo) ->
+    private final RowMapper<Student> studentRowMapper = ((rs, rowNo) ->
             new Student(
                     rs.getString("ID"),
                     rs.getString("DATEOFBIRTH"),

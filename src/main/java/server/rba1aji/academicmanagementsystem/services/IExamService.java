@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface IExamService {
     void registerExamForBranches(Exam exam, List<String> branchidList);
-    List<Branch> getBranchesByExamid(String examid);
+    List<Branch> getBranchesByExamid(Integer examid);
+    List<Exam> getAll();
 }

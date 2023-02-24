@@ -1,24 +1,25 @@
 package server.rba1aji.academicmanagementsystem.models;
 
 public class Exam {
-    private String id;
+    private Integer id;
     private String name;
     private Integer semester;
     private String batch;
 
     public Exam(){}
-    public Exam(String id, String name, Integer semester, String batch) {
+
+    public Exam(Integer id, String name, Integer semester, String batch) {
         this.id = id;
         this.name = name;
         this.semester = semester;
         this.batch = batch;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

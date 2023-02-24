@@ -34,25 +34,17 @@ create table students
 create table faculties
 (
     id          varchar primary key,
-    password    varchar,
-    dateofbirth varchar(10) not null,
-    fullname    varchar     not null,
+    password    varchar not null,
+    fullname    varchar not null,
+    department  varchar,
+    designation varchar,
     email       varchar,
     phone       varchar
 );
 
-create table marks
-(
-    id        integer primary key,
-    mark      float,
-    studentid varchar references students (id),
-    examid    integer references exams (id),
-    courseid  varchar references courses (id)
-);
-
 create table exams
 (
-    id       varchar primary key,
+    id       integer primary key,
     name     varchar not null,
     semester integer,
     batch    varchar
@@ -69,6 +61,15 @@ create table courses
     batch    varchar
 );
 
+create table marks
+(
+    id        integer primary key,
+    mark      float,
+    studentid varchar references students (id),
+    examid    integer references exams (id),
+    courseid  varchar references courses (id)
+);
+
 create table grades
 (
     id   integer primary key,
@@ -80,28 +81,43 @@ create table blocked_students
     id integer primary key
 );
 
--- create sequence student_id_seq increment by 1 start 1;
--- create sequence faculty_id_seq increment by 1 start 1;
-
 
 create table branch_exam
 (
-    examid   varchar references exams (id),
+    examid   integer references exams (id),
     branchid varchar references branches (id),
     primary key (examid, branchid)
 );
 
+
 create table exam_batches
 (
-    id              varchar primary key,
-    courseid        varchar references courses (id),
-    examid          varchar references exams (id),
-    branchid        varchar references branches (id),
+    id              integer,
+    name            varchar,
     start_studentid varchar references students (id),
     end_studentid   varchar references students (id),
     starttime       timestamp,
-    endtime         timestamp
+    endtime         timestamp,
+    facultyid       varchar references faculties (id),
+    venue           varchar,
+    courseid        varchar references courses (id),
+    examid          integer references exams (id),
+    branchid        varchar references branches (id),
+    primary key (name, examid, start_studentid, end_studentid)
 );
+
+-- create table exam_batch_allocation(
+--   exambatch_id  integer references exam_batches(id),
+--   faculty_id    varchar references faculties(id),
+--   starttime     timestamp,
+--   endtime       timestamp,
+--   venue         varchar,
+--   primary key (exambatch_id, faculty_id)
+-- );
+
+create sequence exam_batch_id_seq increment by 1 start 1;
+create sequence exam_id_seq increment by 1 start 1;
+
 
 -- static data
 

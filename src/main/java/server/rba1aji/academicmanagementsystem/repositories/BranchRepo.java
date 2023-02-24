@@ -20,9 +20,10 @@ public class BranchRepo implements IBranchRepo{
     }
 
     @Override
-    public Branch findById(String id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM BRANCHES WHERE ID = ?", new Object[]{id}, branchRowMapper);
+    public Branch findById(String branchid) {
+        return jdbcTemplate.queryForObject("SELECT * FROM BRANCHES WHERE ID = ?", new Object[]{branchid}, branchRowMapper);
     }
+
 
     private RowMapper<Branch> branchRowMapper = ((rs, rowNo) ->
             new Branch(

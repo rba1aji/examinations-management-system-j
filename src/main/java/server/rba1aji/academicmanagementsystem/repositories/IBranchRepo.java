@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface IBranchRepo {
     List<Branch> findAll();
-    Branch findById(String id);
+    Branch findById(String branchid);
 }

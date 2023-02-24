@@ -5,8 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+
 import org.springframework.web.bind.annotation.*;
 import server.rba1aji.academicmanagementsystem.models.Branch;
 import server.rba1aji.academicmanagementsystem.models.Exam;
@@ -16,21 +15,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static server.rba1aji.academicmanagementsystem.sqlqueries.ExamSQL.SQL_EXAM_FIND_ALL;
-
 @RestController
 @RequestMapping("/api/exams")
 public class ExamController {
     @Autowired
-    JdbcTemplate jdbcTemplate;
-    @Autowired
     IExamService examService;
+
     ObjectMapper objectMapper = new ObjectMapper();
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> register(@RequestBody Map<String, Object> request) {
+    public ResponseEntity<Map<String, String>> registerForBranchidList(@RequestBody Map<String, Object> request) {
         Exam exam = objectMapper.convertValue(request.get("exam"), Exam.class);
-        List<String> branchidList = objectMapper.convertValue(request.get("branchidList"), new TypeReference<List<String>>() {});
+        List<String> branchidList = objectMapper.convertValue(request.get("branchidList"), new TypeReference<List<String>>() {
+        });
         examService.registerExamForBranches(exam, branchidList);
 
         var res = new HashMap<String, String>();
@@ -39,7 +36,7 @@ public class ExamController {
     }
 
     @GetMapping("/{examid}/getBranches")
-    public ResponseEntity<Map<String, List<Branch>>> getBranchesByExamid(@PathVariable String examid){
+    public ResponseEntity<Map<String, List<Branch>>> getBranchesByExamid(@PathVariable Integer examid) {
         List<Branch> branchList = examService.getBranchesByExamid(examid);
 
         var res = new HashMap<String, List<Branch>>();
@@ -49,18 +46,10 @@ public class ExamController {
 
     @GetMapping("/getAll")
     public ResponseEntity<Map<String, List<Exam>>> getAll() {
-        List<Exam> examList = jdbcTemplate.query(SQL_EXAM_FIND_ALL, examRowMapper);
+        List<Exam> examList = examService.getAll();
         var res = new HashMap<String, List<Exam>>();
         res.put("exams", examList);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    private RowMapper<Exam> examRowMapper = ((rs, rowNo) ->
-            new Exam(
-                    rs.getString("ID"),
-                    rs.getString("NAME"),
-                    rs.getInt("SEMESTER"),
-                    rs.getString("BATCH")
-            )
-    );
 }
