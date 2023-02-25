@@ -15,7 +15,7 @@ function MyVerticallyCenteredModal(props) {
         console.log(data)
         axios({
             method: 'post',
-            url: serverurl + '/students/registerMultiple',
+            url: serverurl + '/faculties/registerMultiple',
             data: data
         })
             .then(async (res) => {
@@ -59,7 +59,6 @@ function MyVerticallyCenteredModal(props) {
             const wsname = wb.SheetNames[0];
             const ws = wb.Sheets[wsname];
             let aoaData = [];
-            // aoaData = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, dateNF: 'yyyy-mm-dd' });
             aoaData = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, dateNF: "yyyy/mm/dd" });
             sendToServer(aoaToJson(aoaData));
         }
@@ -77,7 +76,7 @@ function MyVerticallyCenteredModal(props) {
             <Modal.Header closeButton style={{
                 padding: '10px 20px'
             }}>
-                Register students
+                Register Faculties
             </Modal.Header>
             <Modal.Body >
                 <div className='text-center'>Drop an Excel/CSV file</div>
@@ -108,19 +107,19 @@ function MyVerticallyCenteredModal(props) {
                     </Form>
                 </div>
                 <br />
-                {`file column names should be: { id, dateofbirth, fullname, degreeid, branchid, section, batch, phone } `}
+                {`file column names should be: { id, password, fullname, department, designation, email, phone } `}
             </Modal.Body>
         </Modal >
     );
 }
 
-export default function RegisterMultipleStudents() {
+export default function RegisterMultipleFaculties() {
     const [modalShow, setModalShow] = useState(false);
 
     return (
         <>
             <Button variant="info" onClick={() => setModalShow(true)}>
-                Register Students
+                Register Faculties
             </Button>
 
             <MyVerticallyCenteredModal

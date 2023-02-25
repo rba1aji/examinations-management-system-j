@@ -1,19 +1,22 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Table } from "react-bootstrap"
-import CreateBatches from "./CreateBatches";
-import MarksTable from "./MarksTable";
+// import MarksTable from "./MarksTable";
 import RegisterExam from "./RegisterExam";
 import SelectExam from "./SelectExam"
 import SelectCourse from "./SelectCourse";
 import SelectBranches from "./SelectBranches";
 import ManageBatches from "./ManageBatches";
+import CreateOrEditBatch from "./CreateOrEditBatch";
 
-export default function ManageMarks() {
+export default function ManageExams() {
     const [selectedExam, setSelectedExam] = useState({});
     const [selectedBranches, setSelectedBranches] = useState([]);
-    const [selectedCourse, setSelectedCourse] = useState([])
+    const [selectedCourse, setSelectedCourse] = useState({})
 
-    console.log(selectedExam)
+    useEffect(() => {
+        setSelectedCourse({})
+    }, [selectedBranches])
+
     return (
         <div style={{
             margin: '0 5vw',
@@ -42,12 +45,15 @@ export default function ManageMarks() {
                             setSelectedCourse={setSelectedCourse}
                         />,
 
-                        <CreateBatches
+                        <CreateOrEditBatch
+                            selectedExam={selectedExam}
                             selectedCourse={selectedCourse}
+                            type="create"
                         />,
 
                         <ManageBatches
                             selectedCourse={selectedCourse}
+                            selectedExam={selectedExam}
                         />
 
                     ].map((el, ind) => {
@@ -57,35 +63,33 @@ export default function ManageMarks() {
                     })
                 }
             </div>
-            <div className="mb-3">
-                <div className="">Selected info:</div>
-                {
-                    [
-                        { key: "Exam Name", val: selectedExam.name },
-                        { key: "Semester", val: selectedExam.semester },
-                        { key: "Batch", val: selectedExam.batch },
-                        { key: "Branches", val: selectedBranches.map(b => b.id).join(", ") },
-                        { key: "Course", val: !selectedCourse.id ? null : (selectedCourse?.id + " " + selectedCourse?.name) }
-                    ].map((itm, ind) => (
-                        itm.val && <div key={ind} className='ps-5'>
-                            {itm.key}: <b>{itm.val}</b>
-                        </div>
-                    ))
-                }
+            <br />
+            <div style={{
+            }}>
+                <table className="mb-3" style={{
+                    // width: '60%'
+                }}>
+                    <tbody >
+                        {
+                            [
+                                { key: "Exam Name", val: selectedExam?.name },
+                                { key: "Semester", val: selectedExam?.semester },
+                                { key: "Batch", val: selectedExam?.batch },
+                                { key: "Branches", val: selectedBranches.map(b => b.id).join(", ") },
+                                { key: "Course", val: !selectedCourse?.id ? null : (selectedCourse?.id + " " + selectedCourse?.name) }
+                            ].map((itm, ind) => (
+                                itm.val && <tr key={ind}
+                                >
+                                    <td className="px-3 py-3">{itm.key + ":"}</td>
+                                    <td className="px-3 py-3"><b>{itm.val}</b></td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
             </div>
-            {/* <div className="mb-3">
-                <span className="pe-3">Selected branches:</span>
-                {
-                    selectedBranches.map((b, ind) => {
-                        return <div key={ind} className='pe-4'>
-                            <b>{b.id}</b>
-                        </div>
-                    })
-                }
-            </div> */}
             <Table style={{
                 width: '100%',
-                // tableLayout: 'fixed',
                 wordBreak: 'break-all'
             }}
             >

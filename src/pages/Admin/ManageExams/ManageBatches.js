@@ -1,62 +1,108 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
-import { AppState } from '../../../reducers/AppContextProvider';
+import React, { useEffect, useState } from 'react';
+import { Table } from 'react-bootstrap';
 import axios from 'axios';
 import { serverurl } from '../../../reducers/Constants';
+import { outputFormateDateTime } from '../../../reducers/Utils';
+import CreateOrEditBatch from './CreateOrEditBatch';
 
 function MyVerticallyCenteredModal(props) {
-    const { degrees, branches } = AppState();
-    const [newExam, setNewExam] = useState({
-        id: '',
-        name: '',
-        semester: '',
-        batch: ''
-    });
-    const [selectedDegree, setSelectedDegree] = useState([]);
-    const [selectedBranch, setSelectedBranch] = useState([]);
-    const { onHide } = props;
+    const { selectedCourse, selectedExam } = props;
+    const [batches, setBatches] = useState([]);
+    const [faculties, setFaculties] = useState([]);
 
-    async function handleRegisterExam(e) {
-        e.preventDefault();
-        console.log(newExam, selectedBranch);
-        await axios({
-            method: 'post',
-            url: serverurl + '/exams/register',
-            data: {
-                exam: newExam,
-                branchidList: selectedBranch
+    useEffect(() => {
+        axios({
+            method: 'get',
+            url: serverurl + '/faculties/getAll'
+        })
+            .then((res) => setFaculties(res.data.faculties))
+            .catch((err) => alert(err.message))
+    }, []);
+
+
+    useEffect(() => {
+        axios({
+            method: 'get',
+            url: serverurl + '/exambatches/getByBranchidExamidCourseid',
+            params: {
+                branchid: selectedCourse.branchid,
+                examid: selectedExam.id,
+                courseid: selectedCourse.id
             }
         })
-            .then(res => {
-                onHide();
-                alert(res.data.message)
-                setNewExam({
-                    id: '',
-                    name: '',
-                    semester: '',
-                    batch: ''
-                })
+            .then((res) => {
+                console.log("exam batches fetched", res.data);
+                setBatches(res.data.examBatches)
             })
-            .catch(err => alert(err))
-    }
+    }, [selectedCourse, selectedExam])
 
     return (
         <Modal
             {...props}
-            size="lg"
+            size="xl"
             aria-labelledby="contained-modal-title-vcenter"
             centered
             backdrop='static'
+
         >
             <Modal.Header closeButton style={{
                 padding: '10px 20px'
             }}>
                 Manage Batches
             </Modal.Header>
-            <Modal.Body >
-                batch info - edit -faculty
+            <Modal.Body style={{
+                minHeight: '80vh',
+            }}
+                className='bg-light'>
+                <div className='mx-5  my-1'>
+                    <Table className='text-center align-middle bg-white' bordered>
+                        <thead>
+                            <tr>
+                                <th>Batch Name</th>
+                                <th>Student Reg no</th>
+                                <th>Time of Exam</th>
+                                <th>Faculty</th>
+                                <th>Venue</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                batches.map((b, ind) => {
+                                    return (
+                                        <tr key={ind}>
+                                            <td style={{
+                                                // fontSize: '150%'
+                                            }}>{b.name}</td>
+                                            <td>
+                                                {b.startStudentid}<br />to<br />{b.endStudentid}
+                                            </td>
+                                            <td>
+                                                {outputFormateDateTime(b.starttime)}
+                                                <br />to<br />
+                                                {outputFormateDateTime(b.endtime)}
+                                            </td>
+                                            <td>
+                                                {faculties.find(f => f.id === b.facultyid)?.fullname}
+                                            </td>
+                                            <td>{b.venue}</td>
+                                            <td>
+                                                <CreateOrEditBatch
+                                                    selectedExam={selectedExam}
+                                                    selectedCourse={selectedCourse}
+                                                    type="edit"
+                                                    prevBatch={b}
+                                                />
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </Table>
+                </div>
             </Modal.Body>
         </Modal >
     );
@@ -77,6 +123,7 @@ export default function ManageBatches(props) {
             <MyVerticallyCenteredModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
+                {...props}
             />
         </>
     );

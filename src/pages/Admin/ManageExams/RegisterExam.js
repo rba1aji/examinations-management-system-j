@@ -54,7 +54,7 @@ function MyVerticallyCenteredModal(props) {
             <Modal.Header closeButton style={{
                 padding: '10px 20px'
             }}>
-                Register new exam
+                Create new exam
             </Modal.Header>
             <Modal.Body >
                 <Form className='bg-light'
@@ -73,14 +73,14 @@ function MyVerticallyCenteredModal(props) {
                         }}>
                             {
                                 [
-                                    {
-                                        label: 'Exam ID',
-                                        placeholder: 'Enter exam id',
-                                        type: 'text',
-                                        value: newExam.id,
-                                        onChange: (e) => setNewExam({ ...newExam, id: e.target.value }),
-                                        required: true
-                                    },
+                                    // {
+                                    //     label: 'Exam ID',
+                                    //     placeholder: 'Enter exam id',
+                                    //     type: 'text',
+                                    //     value: newExam.id,
+                                    //     onChange: (e) => setNewExam({ ...newExam, id: e.target.value }),
+                                    //     required: true
+                                    // },
                                     {
                                         label: 'Exam name',
                                         placeholder: 'Enter exam name',
@@ -95,6 +95,14 @@ function MyVerticallyCenteredModal(props) {
                                         type: 'number',
                                         value: newExam.semester,
                                         onChange: (e) => setNewExam({ ...newExam, semester: e.target.value }),
+                                        required: true
+                                    },
+                                    {
+                                        label: 'Students Batch',
+                                        placeholder: 'yyyy-YYYY',
+                                        type: 'text',
+                                        value: newExam.batch,
+                                        onChange: (e) => setNewExam({ ...newExam, batch: e.target.value }),
                                         required: true
                                     }
                                 ].map((item, index) => {
@@ -115,7 +123,7 @@ function MyVerticallyCenteredModal(props) {
                             width: '50%',
                             padding: '2% 5% 2% 5%',
                         }}>
-                            <Form.Group className="mb-3" >
+                            {/* <Form.Group className="mb-3" >
                                 <Form.Label>Students Batch</Form.Label>
                                 <Form.Control
                                     placeholder='yyyy-YYYY'
@@ -124,12 +132,12 @@ function MyVerticallyCenteredModal(props) {
                                     required={true}
                                     type='text'
                                 />
-                            </Form.Group>
-                            <Form.Group className="mb-2" style={{
+                            </Form.Group> */}
+                            <Form.Group className="mb-3" style={{
                             }}>
                                 <Form.Label>Degrees</Form.Label>
                                 <div style={{
-                                    fontSize: '70%'
+                                    fontSize: '80%'
                                 }}>
                                     {degrees.map((item, ind) => (
                                         <Form.Check
@@ -150,13 +158,10 @@ function MyVerticallyCenteredModal(props) {
                                     ))}
                                 </div>
                             </Form.Group>
-                            <Form.Group className="mb-2" style={{
-                                // height: '33.3%',
-                                // overflowY: 'scroll'
-                            }}>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Branches</Form.Label>
                                 <div style={{
-                                    fontSize: '70%',
+                                    fontSize: '80%',
                                 }}>
                                     {branches.filter(b => selectedDegree.includes(b.degreeid)).map((item, ind) => (
                                         <Form.Check
@@ -195,7 +200,7 @@ export default function RegisterExam() {
     return (
         <>
             <Button variant="info" onClick={() => setModalShow(true)}>
-                Register new Exam
+                Create new Exam
             </Button>
 
             <MyVerticallyCenteredModal

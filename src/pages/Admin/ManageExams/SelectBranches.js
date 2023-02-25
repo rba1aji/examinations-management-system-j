@@ -7,18 +7,22 @@ export default function SelectBranches(props) {
     const [branches, setBranches] = useState([]);
     const { selectedExam,
         selectedBranches, setSelectedBranches,
-        setSelectedCourse
     } = props;
 
     useEffect(() => {
         setSelectedBranches([])
-        setSelectedCourse({})
-        axios({
-            method: 'GET',
-            url: serverurl + '/exams/' + selectedExam?.id + '/getBranches'
-        })
-            .then(res => setBranches(res.data.branches))
-            .catch(err => console.log(err))
+        if (selectedExam.id) {
+            console.log('exam is selected', selectedExam)
+            axios({
+                method: 'GET',
+                url: serverurl + '/exams/' + selectedExam.id + '/getBranches'
+            })
+                .then(res => {
+                    setBranches(res.data.branches)
+                    console.log('branches are fetched', res.data)
+                })
+                .catch(err => console.log(err))
+        }
     }, [selectedExam, setSelectedBranches]);
 
     if (!selectedExam.id) return <></>

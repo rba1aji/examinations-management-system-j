@@ -14,6 +14,7 @@ export default function SelectCourse(props) {
     useEffect(() => {
         setCourses([])
         if (selectedBranches.length > 0) {
+            console.log('branches are selected', selectedBranches)
             axios({
                 method: 'get',
                 url: serverurl + `/courses/batch${selectedExam.batch}/semester${selectedExam.semester}/getByBranchidList`,
@@ -23,6 +24,7 @@ export default function SelectCourse(props) {
             })
                 .then(res => {
                     setCourses(res.data.courses)
+                    console.log("courses are fetched", res.data)
                 })
                 .catch(err => console.log(err))
         }
@@ -40,11 +42,12 @@ export default function SelectCourse(props) {
                 <Form.Select
                     value={selectedCourse?.id}
                     onChange={(e) => {
-                        setSelectedCourse(courses.find(c => c.id === e.target.value))
+                        setSelectedCourse(courses.find(c => c.id == e.target.value))
+                        console.log("course is selected")
                     }}
                     className='border border-info'
                 >
-                    <option value=''>Select course</option>
+                    <option value={null}>Select course</option>
                     {
                         courses.map((c, ind) => {
                             return (

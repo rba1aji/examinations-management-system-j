@@ -12,7 +12,10 @@ export default function SelectExam(props) {
             method: 'GET',
             url: serverurl + '/exams/getAll'
         })
-            .then(res => setExams(res.data.exams))
+            .then(res => {
+                setExams(res.data.exams)
+                console.log("exams are fetched", res.data);
+            })
             .catch(err => console.log(err))
     }, []);
 
@@ -20,7 +23,8 @@ export default function SelectExam(props) {
     return (
         <>
             <Dropdown className="d-inline" autoClose="inside" onSelect={(examid) => {
-                setSelectedExam(exams.find(e => e.id === examid))
+                setSelectedExam(exams.find(e => e.id == examid))
+                // console.log('type', typeof (exams[0].id), typeof (examid))
             }}>
                 <Dropdown.Toggle id="dropdown-autoclose-inside" style={{
                     wordWrap: 'break-word'
