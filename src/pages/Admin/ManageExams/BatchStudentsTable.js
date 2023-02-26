@@ -3,24 +3,22 @@ import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { serverurl } from "../../../reducers/Constants";
 
-export default function MarksTable(props) {
-    const { selectedBranches } = props;
+export default function BatchStudentsTable(props) {
     const [students, setStudents] = useState([]);
+    const { selectedBatch } = props;
 
     useEffect(() => {
-        if (selectedBranches.length > 0) {
-            // console.log(selectedBranch.map(b => b.id))
-            axios({
-                method: 'get',
-                url: serverurl + '/students/getByBranchidList',
-                params: {
-                    branchidList: selectedBranches.map((b) => b.id).join(",")
-                }
-            })
-                .then((res) => setStudents(res.data.students))
-                .catch((err) => alert(err.message))
-        }
-    }, [selectedBranches])
+        axios({
+            method: 'get',
+            url: serverurl + '/students/getByStartidEndid',
+            params: {
+                startid: selectedBatch.startStudentid,
+                endid: selectedBatch.endStudentid
+            }
+        })
+            .then((res) => setStudents(res.data.students))
+            .catch((err) => alert(err.message))
+    }, [selectedBatch])
 
     return (
         <>
@@ -28,7 +26,7 @@ export default function MarksTable(props) {
                 width: '100%',
                 height: '82vh',
                 overflow: 'scroll',
-                fontSize: '80%'
+                fontSize: '90%'
             }}
                 className=" border "
             >
@@ -45,7 +43,7 @@ export default function MarksTable(props) {
                             zIndex: 1
                         }}>
                             {
-                                ["Sno", "Reg no", "Branch", "Course1", "Course 2", "Course 3", 'course4', 'course 5', "course 6"]
+                                ["Sno", "Register no", "Name"]
                                     .map((item, index) => {
                                         return <th
                                             key={index}
@@ -63,17 +61,12 @@ export default function MarksTable(props) {
                             overflow: 'scroll'
                         }}>
                         {
-                            students?.map((item, index) => {
+                            students?.map((st, index) => {
                                 return (
                                     <tr key={index}>
-                                        <td>{index}</td>
-                                        <td>{item.id}</td>
-                                        <td>{item.branchid}</td>
-                                        {/* <td>{item.credits}</td>
-                                        <td>{degrees.find(e => e.id === item.degreeid)?.name}</td>
-                                        <td>{branches.find(e => e.id === item.branchid)?.name}</td>
-                                        <td>{item.semester}</td>
-                                        <td>{item.batch}</td>  */}
+                                        <td>{index + 1}</td>
+                                        <td>{st.id}</td>
+                                        <td>{st.fullname}</td>
                                     </tr>
                                 )
                             })

@@ -194,7 +194,7 @@ export default function CreateOrEditBatch(props) {
         <>
             <Button variant="info" onClick={() => setModalShow(true)}
                 className={type === 'edit' ? 'py-0' : ''}>
-                {type === "create" ? 'Create Batches' : 'Edit'}
+                {type === "create" ? 'Create Batch' : 'Edit'}
             </Button>
 
             <MyVerticallyCenteredModal

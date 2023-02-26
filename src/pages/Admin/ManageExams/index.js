@@ -7,15 +7,31 @@ import SelectCourse from "./SelectCourse";
 import SelectBranches from "./SelectBranches";
 import ManageBatches from "./ManageBatches";
 import CreateOrEditBatch from "./CreateOrEditBatch";
+import SelectBatch from "./SelectBatch";
+import BatchStudentsTable from "./BatchStudentsTable";
 
 export default function ManageExams() {
-    const [selectedExam, setSelectedExam] = useState({});
-    const [selectedBranches, setSelectedBranches] = useState([]);
+    const [selectedExam, setSelectedExam] = useState(
+        JSON.parse(window.sessionStorage.getItem('selectedExam'))
+    );
+    const [selectedBranches, setSelectedBranches] = useState(
+        // (window.sessionStorage.getItem('selectedBranches').split('###')).map((i) => JSON.parse(i))
+        []
+    );
     const [selectedCourse, setSelectedCourse] = useState({})
+    const [selectedBatch, setSelectedBatch] = useState({});
+
+    useEffect(() => {
+        window.sessionStorage.setItem('selectedExam', JSON.stringify(selectedExam));
+        window.sessionStorage.setItem('selectedBranches', selectedBranches.map((i) => JSON.stringify(i)).join('###'));
+    }, [selectedExam, selectedBranches])
 
     useEffect(() => {
         setSelectedCourse({})
     }, [selectedBranches])
+    useEffect(() => {
+        setSelectedBatch({})
+    }, [selectedCourse])
 
     return (
         <div style={{
@@ -23,6 +39,7 @@ export default function ManageExams() {
         }}>
             <div className="h6 text-end ">Manage Exams</div>
             <div className="mb-3">
+                <br />
                 {
                     [
                         <RegisterExam />,
@@ -54,6 +71,12 @@ export default function ManageExams() {
                         <ManageBatches
                             selectedCourse={selectedCourse}
                             selectedExam={selectedExam}
+                        />,
+
+                        <SelectBatch
+                            selectedExam={selectedExam}
+                            selectedCourse={selectedCourse}
+                            setSelectedBatch={setSelectedBatch}
                         />
 
                     ].map((el, ind) => {
@@ -76,7 +99,8 @@ export default function ManageExams() {
                                 { key: "Semester", val: selectedExam?.semester },
                                 { key: "Batch", val: selectedExam?.batch },
                                 { key: "Branches", val: selectedBranches.map(b => b.id).join(", ") },
-                                { key: "Course", val: !selectedCourse?.id ? null : (selectedCourse?.id + " " + selectedCourse?.name) }
+                                { key: "Course", val: !selectedCourse?.id ? null : (selectedCourse?.id + " " + selectedCourse?.name) },
+                                { key: "Batch", val: selectedBatch?.name }
                             ].map((itm, ind) => (
                                 itm.val && <tr key={ind}
                                 >
@@ -102,10 +126,9 @@ export default function ManageExams() {
                     </tr>
                 </tbody>
             </Table>
-            <div>
-
+            <div className="mx-5">
+                {selectedBatch.id && <BatchStudentsTable selectedBatch={selectedBatch} />}
             </div>
-            {/* <MarksTable selectedBranches={selectedBranches} /> */}
         </div >
     )
 }

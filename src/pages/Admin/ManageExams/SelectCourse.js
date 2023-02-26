@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import { serverurl } from "../../../reducers/Constants";
 
 export default function SelectCourse(props) {
     const [courses, setCourses] = useState([]);
-    const { selectedExam, selectedBranches,
-        // selectedCourses, setSelectedCourses 
-        selectedCourse, setSelectedCourse
+    const {
+        selectedExam, selectedBranches,
+        setSelectedCourse
     } = props;
 
 
@@ -34,36 +34,63 @@ export default function SelectCourse(props) {
     if (!selectedBranches.length) return <></>
     return (
         <>
-            <button style={{
-            }}
-                className='p-0 bg-transparent border-0'
-            >
-                {/* <FloatingLabel controlId="floatingSelect" label="Course"> */}
-                <Form.Select
-                    value={selectedCourse?.id}
-                    onChange={(e) => {
-                        setSelectedCourse(courses.find(c => c.id == e.target.value))
-                        console.log("course is selected")
-                    }}
-                    className='border border-info'
+            <Dropdown className="d-inline" autoClose="inside" onSelect={(courseid) => {
+                setSelectedCourse(courses.find(c => c.id === courseid))
+                console.log("batch selected", courseid)
+            }}>
+                <Dropdown.Toggle id="dropdown-autoclose-inside" style={{
+                    wordWrap: 'break-word'
+                }}
+                    variant='info'
                 >
-                    <option value={null}>Select course</option>
+                    Select Course
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu >
                     {
-                        courses.map((c, ind) => {
+                        courses?.map((b, ind) => {
                             return (
-                                <option
+                                <Dropdown.Item
                                     key={ind}
-                                    value={c.id}
-                                    id={c.id}
+                                    eventKey={b.id}
                                 >
-                                    {c.id}
-                                </option>
+                                    {b.id + " " + b.name}
+                                </Dropdown.Item>
                             )
                         })
                     }
-                </Form.Select>
-                {/* </FloatingLabel> */}
-            </button>
+                </Dropdown.Menu>
+            </Dropdown>
+            {/* /* <button style={{
+            }}
+                className='p-0 bg-transparent border-0'
+            >
+                <FloatingLabel controlId="floatingSelect" label="Course"> 
+            <Form.Select
+                value={selectedCourse?.id}
+                onChange={(e) => {
+                    setSelectedCourse(courses.find(c => c.id == e.target.value))
+                    console.log("course is selected")
+                }}
+                className='border border-info'
+            >
+                <option value={null}>Select course</option>
+                {
+                    courses.map((c, ind) => {
+                        return (
+                            <option
+                                key={ind}
+                                value={c.id}
+                                id={c.id}
+                            >
+                                {c.id}
+                            </option>
+                        )
+                    })
+                }
+            </Form.Select>
+            </FloatingLabel> 
+        </button> * /} */}
         </>
     )
 }
