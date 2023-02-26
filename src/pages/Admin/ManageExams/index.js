@@ -62,11 +62,11 @@ export default function ManageExams() {
                             setSelectedCourse={setSelectedCourse}
                         />,
 
-                        <CreateOrEditBatch
-                            selectedExam={selectedExam}
-                            selectedCourse={selectedCourse}
-                            type="create"
-                        />,
+                        // <CreateOrEditBatch
+                        //     selectedExam={selectedExam}
+                        //     selectedCourse={selectedCourse}
+                        //     type="create"
+                        // />,
 
                         <ManageBatches
                             selectedCourse={selectedCourse}

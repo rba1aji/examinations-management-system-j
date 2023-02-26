@@ -55,6 +55,7 @@ function MyVerticallyCenteredModal(props) {
             .then(res => {
                 alert(res.data.message)
                 onHide()
+                props.setRender(prev => prev + 1)
             })
             .catch(err => alert(err.message))
 
@@ -193,8 +194,8 @@ export default function CreateOrEditBatch(props) {
     return (
         <>
             <Button variant="info" onClick={() => setModalShow(true)}
-                className={type === 'edit' ? 'py-0' : ''}>
-                {type === "create" ? 'Create Batch' : 'Edit'}
+                className={type === 'edit' ? 'py-0' : 'py-0'}>
+                {type === "create" ? 'Create new' : 'Edit'}
             </Button>
 
             <MyVerticallyCenteredModal

@@ -11,6 +11,7 @@ function MyVerticallyCenteredModal(props) {
     const { selectedCourse, selectedExam } = props;
     const [batches, setBatches] = useState([]);
     const [faculties, setFaculties] = useState([]);
+    const [render, setRender] = useState(0);
 
     useEffect(() => {
         axios({
@@ -36,7 +37,7 @@ function MyVerticallyCenteredModal(props) {
                 console.log("exam batches fetched", res.data);
                 setBatches(res.data.examBatches)
             })
-    }, [selectedCourse, selectedExam])
+    }, [selectedCourse, selectedExam, render])
 
     return (
         <Modal
@@ -65,7 +66,14 @@ function MyVerticallyCenteredModal(props) {
                                 <th>Time of Exam</th>
                                 <th>Faculty</th>
                                 <th>Venue</th>
-                                <th></th>
+                                <th>
+                                    <CreateOrEditBatch
+                                        selectedExam={selectedExam}
+                                        selectedCourse={selectedCourse}
+                                        type="create"
+                                        setRender={setRender}
+                                    />
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,6 +102,7 @@ function MyVerticallyCenteredModal(props) {
                                                     selectedCourse={selectedCourse}
                                                     type="edit"
                                                     prevBatch={b}
+                                                    setRender={setRender}
                                                 />
                                             </td>
                                         </tr>
