@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface IExamBatchRepo {
     void create(ExamBatch examBatch);
-    List<ExamBatch> findByBranchidExamid(String branchid, String examid);
+    List<ExamBatch> findByBranchidExamidCourseid(String branchid, Integer examid, String courseid);
+    void updateByid(Integer id, ExamBatch examBatch);
 }

@@ -25,13 +25,22 @@ public class ExamBatchController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @GetMapping("/getByBranchidExamid")
+    @GetMapping("/getByBranchidExamidCourseid")
     public ResponseEntity<Map<String, List<ExamBatch>>> getBatchesByBranchidExamid(
-            @RequestParam String branchid, @RequestParam String examid) {
-        List<ExamBatch> examBatchList = examBatchService.getByBranchidExamid(branchid, examid);
+            @RequestParam String branchid, @RequestParam Integer examid, @RequestParam String courseid) {
+        List<ExamBatch> examBatchList = examBatchService.getByBranchidExamidCourseid(branchid, examid, courseid);
 
         var res = new HashMap<String, List<ExamBatch>>();
-        res.put("examBatchList", examBatchList);
+        res.put("examBatches", examBatchList);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/update")
+    public ResponseEntity<Map<String, String>> update(@PathVariable Integer id, @RequestBody ExamBatch batch) {
+        examBatchService.updateByid(id, batch);
+
+        var res = new HashMap<String, String>();
+        res.put("message", "batch " + batch.getName() + " is updated successfully");
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }

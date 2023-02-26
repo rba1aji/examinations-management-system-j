@@ -103,7 +103,8 @@ create table exam_batches
     courseid        varchar references courses (id),
     examid          integer references exams (id),
     branchid        varchar references branches (id),
-    primary key (name, examid, start_studentid, end_studentid)
+    primary key (name, examid, courseid, start_studentid, end_studentid),
+    unique (name, examid, courseid)
 );
 
 -- create table exam_batch_allocation(

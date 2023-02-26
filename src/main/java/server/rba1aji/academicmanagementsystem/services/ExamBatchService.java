@@ -20,7 +20,12 @@ public class ExamBatchService implements IExamBatchService{
     }
 
     @Override
-    public List<ExamBatch> getByBranchidExamid(String branchid, String examid) {
-        return examBatchRepo.findByBranchidExamid(branchid, examid);
+    public List<ExamBatch> getByBranchidExamidCourseid(String branchid, Integer examid, String courseid) {
+        return examBatchRepo.findByBranchidExamidCourseid(branchid, examid, courseid);
+    }
+
+    @Override
+    public void updateByid(Integer id, ExamBatch batch) {
+        examBatchRepo.updateByid(id, batch);
     }
 }
