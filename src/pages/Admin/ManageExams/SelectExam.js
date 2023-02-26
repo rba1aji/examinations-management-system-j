@@ -32,7 +32,6 @@ export default function SelectExam(props) {
                     variant='info'
                 >
                     Select Exam
-                    {/* Exam: {selectedExam?.name ? selectedExam.name : 'select'} */}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu >

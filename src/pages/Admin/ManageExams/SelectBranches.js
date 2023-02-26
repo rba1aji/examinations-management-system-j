@@ -11,11 +11,11 @@ export default function SelectBranches(props) {
 
     useEffect(() => {
         setSelectedBranches([])
-        if (selectedExam.id) {
+        if (selectedExam?.id) {
             console.log('exam is selected', selectedExam)
             axios({
                 method: 'GET',
-                url: serverurl + '/exams/' + selectedExam.id + '/getBranches'
+                url: serverurl + '/exams/' + selectedExam?.id + '/getBranches'
             })
                 .then(res => {
                     setBranches(res.data.branches)
@@ -25,7 +25,7 @@ export default function SelectBranches(props) {
         }
     }, [selectedExam, setSelectedBranches]);
 
-    if (!selectedExam.id) return <></>
+    if (!selectedExam?.id) return <></>
     return (
         <>
             <Dropdown className="d-inline" autoClose="inside">

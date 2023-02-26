@@ -43,7 +43,7 @@ export default function StudentsTable() {
                                 ["Sno", "RegNo", "Name", "Degree", "Branch", "Section", "Batch", "Phone", "DOB"].map((item, index) => {
                                     return <th
                                         key={index}
-                                        className="bg-light"
+                                        className="bg-info"
                                     >
                                         {item}
                                     </th>;

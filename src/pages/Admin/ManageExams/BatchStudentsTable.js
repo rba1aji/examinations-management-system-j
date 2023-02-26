@@ -43,11 +43,14 @@ export default function BatchStudentsTable(props) {
                             zIndex: 1
                         }}>
                             {
-                                ["Sno", "Register no", "Name"]
+                                ["Sno", "Register no", "Name", "Attendance", "Marks in numbers", "Marks in words"]
                                     .map((item, index) => {
                                         return <th
                                             key={index}
-                                            className="bg-light"
+                                            className="bg-info"
+                                            style={{
+                                                // backgroundColor: 'azure'
+                                            }}
                                         >
                                             {item}
                                         </th>;
@@ -67,6 +70,9 @@ export default function BatchStudentsTable(props) {
                                         <td>{index + 1}</td>
                                         <td>{st.id}</td>
                                         <td>{st.fullname}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 )
                             })

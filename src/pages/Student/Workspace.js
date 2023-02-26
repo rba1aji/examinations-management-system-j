@@ -8,7 +8,9 @@ export default function StudentWorkspace() {
         <div style={{
             padding: '0 5vw'
         }}>
+            <br />
             <div className="h3">Hi {user?.fullname}!</div>
+            <br />
             <ListGroup>
                 {
                     [
@@ -22,8 +24,8 @@ export default function StudentWorkspace() {
                         }
                     ]
                         .map((item, index) => {
-                            return <Link to={item.link} key={index}>
-                                <ListGroup.Item>{item.title}</ListGroup.Item>
+                            return <Link to={item.link} key={index} className='pb-3 text-decoration-none'>
+                                <ListGroup.Item variant="info">{item.title}</ListGroup.Item>
                             </Link>;
                         })
                 }

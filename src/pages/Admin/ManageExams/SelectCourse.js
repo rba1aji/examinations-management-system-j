@@ -17,7 +17,7 @@ export default function SelectCourse(props) {
             console.log('branches are selected', selectedBranches)
             axios({
                 method: 'get',
-                url: serverurl + `/courses/batch${selectedExam.batch}/semester${selectedExam.semester}/getByBranchidList`,
+                url: serverurl + `/courses/batch${selectedExam?.batch}/semester${selectedExam?.semester}/getByBranchidList`,
                 params: {
                     branchidList: selectedBranches?.map(b => b.id).join(",")
                 }

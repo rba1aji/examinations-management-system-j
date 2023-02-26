@@ -18,9 +18,9 @@ function MyVerticallyCenteredModal(props) {
         endtime: new Date(),
         facultyid: '',
         venue: '',
-        courseid: selectedCourse.id,
-        examid: selectedExam.id,
-        branchid: selectedCourse.branchid
+        courseid: selectedCourse?.id,
+        examid: selectedExam?.id,
+        branchid: selectedCourse?.branchid
     }
     if (type === 'edit') {
         initialVal = {
@@ -32,9 +32,9 @@ function MyVerticallyCenteredModal(props) {
             endtime: inputFormateDateTime(prevBatch.endtime),
             facultyid: prevBatch.facultyid,
             venue: prevBatch.venue,
-            courseid: selectedCourse.id,
-            examid: selectedExam.id,
-            branchid: selectedCourse.branchid
+            courseid: selectedCourse?.id,
+            examid: selectedExam?.id,
+            branchid: selectedCourse?.branchid
         }
     }
 
@@ -111,13 +111,12 @@ function MyVerticallyCenteredModal(props) {
                         <Col>
                             <Form.Group className="mb-3 text-center">
                                 <Form.Label className='pb-2'> Student register no</Form.Label>
-                                <Form.Control
-                                    type="text" placeholder="Start reg no" required
+                                <Form.Control type="number" placeholder="Start reg no" required
                                     value={newBatch.startStudentid}
                                     onChange={e => setNewBatch(prev => ({ ...prev, startStudentid: e.target.value }))}
                                 />
                                 to
-                                <Form.Control type="text" placeholder="End reg no" className='mt-1' required
+                                <Form.Control type="number" placeholder="End reg no" className='mt-1' required
                                     value={newBatch.endStudentid}
                                     onChange={e => setNewBatch(prev => ({ ...prev, endStudentid: e.target.value }))}
                                 />

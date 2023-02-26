@@ -1,51 +1,91 @@
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
-import { adminRoutes, studentRoutes } from '../reducers/Routes'
+import { adminRoutes, facultyRoutes, studentRoutes } from '../reducers/Routes'
+import { Link } from 'react-router-dom'
 
 export default function MenuBar() {
   return (
     <>
-      <Navbar collapseOnSelect bg="light" expand="lg" fixed="top" className='border border-1'>
-        <Container>
-          <span className="mb-1">
+      <Navbar collapseOnSelect bg="info" expand="lg" fixed="top" className='py-2'>
+        <Container className='border-dark'>
+          <span className="">
             logo
           </span>
           <p
-            style={{ fontWeight: 'bold', fontSize: 24, letterSpacing: 2 }}
+            style={{ fontWeight: 'bold', fontSize: 25, letterSpacing: 3 }}
             className="h1 mb-0 ps-3 me-auto"
           >
-            <a href='/ '
-              className='text-decoration-none ps-5 text-info'
+            <Link to='/ '
+              className='text-decoration-none ps-5 text-dark'
             >
               COEAMS
-            </a>
+            </Link>
           </p>
           <Navbar.Toggle
             aria-controls="responsive-navbar-nav"
             style={{ border: 'none' }}
           />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="ms-auto text-dark">
+          <Navbar.Collapse >
+            <Nav className="ms-auto text-white text-bolder">
 
-              <NavDropdown title="Student" className='text-dark' >
+              <NavDropdown title="Student" className='text-white ps-3'
+                style={{
+                  fontSize: '100%',
+                  fontWeight: '600'
+                }} >
                 {
                   studentRoutes.map((item, index) => {
-                    return <NavDropdown.Item
+                    return <Link to={item.path}
                       key={index}
-                      href={item.path} >
-                      {item.title}
-                    </NavDropdown.Item>
+                      className='text-decoration-none'
+                    >
+                      <NavDropdown.Item
+                        href={item.path} >
+                        {item.title}
+                      </NavDropdown.Item>
+                    </Link>
                   })
                 }
               </NavDropdown>
 
-              <NavDropdown title="Admin" >
+
+              <NavDropdown title="Faculty" className='text-white ps-3'
+                style={{
+                  fontSize: '100%',
+                  fontWeight: '600'
+                }} >
+                {
+                  facultyRoutes.map((item, index) => {
+                    return <Link to={item.path}
+                      key={index}
+                      className='text-decoration-none'
+                    >
+                      <NavDropdown.Item
+                        href={item.path} >
+                        {item.title}
+                      </NavDropdown.Item>
+                    </Link>
+                  })
+                }
+              </NavDropdown>
+
+              <NavDropdown title="Admin" className='ps-3'
+                style={{
+                  fontSize: '100%',
+                  fontWeight: '600'
+                }}
+              >
                 {
                   adminRoutes.map((item, index) => {
-                    return <NavDropdown.Item
+                    return <Link to={item.path}
                       key={index}
-                      href={item.path} >
-                      {item.title}
-                    </NavDropdown.Item>
+                      className='text-decoration-none'
+                    >
+                      <NavDropdown.Item
+                        href={item.path}
+                      >
+                        {item.title}
+                      </NavDropdown.Item>
+                    </Link>
                   })
                 }
               </NavDropdown>

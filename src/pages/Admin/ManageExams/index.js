@@ -6,7 +6,6 @@ import SelectExam from "./SelectExam"
 import SelectCourse from "./SelectCourse";
 import SelectBranches from "./SelectBranches";
 import ManageBatches from "./ManageBatches";
-import CreateOrEditBatch from "./CreateOrEditBatch";
 import SelectBatch from "./SelectBatch";
 import BatchStudentsTable from "./BatchStudentsTable";
 
@@ -62,12 +61,6 @@ export default function ManageExams() {
                             setSelectedCourse={setSelectedCourse}
                         />,
 
-                        // <CreateOrEditBatch
-                        //     selectedExam={selectedExam}
-                        //     selectedCourse={selectedCourse}
-                        //     type="create"
-                        // />,
-
                         <ManageBatches
                             selectedCourse={selectedCourse}
                             selectedExam={selectedExam}
@@ -86,47 +79,51 @@ export default function ManageExams() {
                     })
                 }
             </div>
-            <br />
             <div style={{
             }}>
-                <table className="mb-3" style={{
-                    // width: '60%'
+                <table className="my-5 p-4" style={{
+                    width: '100%'
                 }}>
                     <tbody >
-                        {
-                            [
-                                { key: "Exam Name", val: selectedExam?.name },
-                                { key: "Semester", val: selectedExam?.semester },
-                                { key: "Batch", val: selectedExam?.batch },
-                                { key: "Branches", val: selectedBranches.map(b => b.id).join(", ") },
-                                { key: "Course", val: !selectedCourse?.id ? null : (selectedCourse?.id + " " + selectedCourse?.name) },
-                                { key: "Batch", val: selectedBatch?.name }
-                            ].map((itm, ind) => (
-                                itm.val && <tr key={ind}
-                                >
-                                    <td className="px-3 py-3">{itm.key + ":"}</td>
-                                    <td className="px-3 py-3"><b>{itm.val}</b></td>
-                                </tr>
-                            ))
-                        }
+                        <tr>
+                            <td style={{
+                                width: '37.5%'
+                            }}>
+                                {
+                                    [
+                                        { key: "Exam Name", val: selectedExam?.name },
+                                        { key: "Semester", val: selectedExam?.semester },
+                                        { key: "Students Batch", val: selectedExam?.batch },
+                                    ].map((itm, ind) => (
+                                        itm.val && <tr key={ind}
+                                        >
+                                            <td className="px-3 py-3">{itm.key + ":"}</td>
+                                            <td className="px-3 py-3"><b>{itm.val}</b></td>
+                                        </tr>
+                                    ))
+                                }
+                            </td>
+                            <td>
+                                {
+                                    [
+                                        { key: "Branch", val: selectedBranches.map(b => b.id).join(", ") },
+                                        { key: "Course", val: !selectedCourse?.id ? null : (selectedCourse?.id + " " + selectedCourse?.name) },
+                                        { key: "Exam Batch", val: selectedBatch?.name }
+                                    ].map((itm, ind) => (
+                                        itm.val && <tr key={ind}
+                                        >
+                                            <td className="px-3 py-3">{itm.key + ":"}</td>
+                                            <td className="px-3 py-3"><b>{itm.val}</b></td>
+                                        </tr>
+                                    ))
+                                }
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-            <Table style={{
-                width: '100%',
-                wordBreak: 'break-all'
-            }}
-            >
 
-                <tbody style={{
-                    width: '100%'
-                }}>
-                    <tr className="border border-info border-1">
-
-                    </tr>
-                </tbody>
-            </Table>
-            <div className="mx-5">
+            <div className="mx-2">
                 {selectedBatch.id && <BatchStudentsTable selectedBatch={selectedBatch} />}
             </div>
         </div >

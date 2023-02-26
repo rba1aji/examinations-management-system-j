@@ -28,9 +28,9 @@ function MyVerticallyCenteredModal(props) {
             method: 'get',
             url: serverurl + '/exambatches/getByBranchidExamidCourseid',
             params: {
-                branchid: selectedCourse.branchid,
-                examid: selectedExam.id,
-                courseid: selectedCourse.id
+                branchid: selectedCourse?.branchid,
+                examid: selectedExam?.id,
+                courseid: selectedCourse?.id
             }
         })
             .then((res) => {

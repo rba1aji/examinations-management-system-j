@@ -25,5 +25,5 @@ export const outputFormateDateTime = (val) => {
     let ampm = hour >= 12 ? 'PM' : 'AM';
     hour = hour % 12;
     hour = hour ? hour : 12;
-    return date + "-" + month + "-" + year + ", " + hour + ":" + minute + " " + ampm;
+    return date + "/" + month + "/" + year + ", " + hour + ":" + minute + " " + ampm;
 }

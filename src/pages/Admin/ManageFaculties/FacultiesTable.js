@@ -43,7 +43,7 @@ export default function FacultiesTable() {
                                 ["Sno", "ID", "Password", "Name", "Department", "Designation", "Email", "Phone"].map((item, index) => {
                                     return <th
                                         key={index}
-                                        className="bg-light"
+                                        className="bg-info"
                                     >
                                         {item}
                                     </th>;

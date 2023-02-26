@@ -8,13 +8,15 @@ export default function AdminWorkspace() {
         <div style={{
             padding: '0 5vw'
         }}>
+            <br />
             <div className="h3">Hi Admin!</div>
+            <br />
             <ListGroup>
                 {
                     [...AdminWorkspaceRoutes]
                         .map((item, index) => {
-                            return <Link to={item.path} key={index}>
-                                <ListGroup.Item>{item.title}</ListGroup.Item>
+                            return <Link to={item.path} key={index} className='pb-3 text-decoration-none'>
+                                <ListGroup.Item variant="info">{item.title}</ListGroup.Item>
                             </Link>;
                         })
                 }

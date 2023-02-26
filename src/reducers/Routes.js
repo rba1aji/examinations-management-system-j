@@ -6,6 +6,7 @@ import AdminWorkspace from "../pages/Admin/Workspace"
 import ManageCourses from "../pages/Admin/ManageCourses"
 import ManageExams from "../pages/Admin/ManageExams"
 import ManageFaculties from "../pages/Admin/ManageFaculties"
+import FacultyLogin from "../pages/Faculty/FacultyLogin"
 
 export const AdminWorkspaceRoutes = [
     {
@@ -51,6 +52,19 @@ export const studentRoutes = [
     {
         path: '/student/workspace',
         title: 'Student Workspace',
+        component: <StudentWorkspace />
+    }
+]
+
+export const facultyRoutes = [
+    {
+        path: '/faculty/login',
+        title: 'Faculty Login',
+        component: <FacultyLogin />
+    },
+    {
+        path: '/faculty/workspace',
+        title: 'Faculty Workspace',
         component: <StudentWorkspace />
     }
 ]

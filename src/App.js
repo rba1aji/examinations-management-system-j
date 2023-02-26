@@ -2,21 +2,22 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MenuBar from './components/MenuBar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { studentRoutes, adminRoutes, defaultRoutes, AdminWorkspaceRoutes } from './reducers/Routes';
+import { studentRoutes, adminRoutes, defaultRoutes, AdminWorkspaceRoutes, facultyRoutes } from './reducers/Routes';
 
 function App() {
 
   return (
     <div style={{
-      minHeight: '100vh'
-    }}>
+      minHeight: '100vh',
+    }}
+    >
       <BrowserRouter>
         <MenuBar />
         <br />
         <br />
         <br />
         <Routes>
-          {[...defaultRoutes, ...studentRoutes, ...adminRoutes, ...AdminWorkspaceRoutes]
+          {[...defaultRoutes, ...studentRoutes, ...adminRoutes, ...AdminWorkspaceRoutes, ...facultyRoutes]
             .map((item, index) => (
               <Route
                 key={index}

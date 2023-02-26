@@ -9,16 +9,9 @@ export default function ManageStudents() {
             margin: '0 5vw',
         }}>
             <div className="h6 text-end ">Manage Students</div>
-            <Table style={{
-                width: '100%'
-            }}>
-                <tbody>
-                    <tr>
-                        <td><RegisterMultipleStudents /></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </Table>
+            <RegisterMultipleStudents />
+            <br />
+            <br />
             <StudentsTable />
         </div>
     )
