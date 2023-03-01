@@ -21,7 +21,7 @@ create table branches
 
 create table students
 (
-    id          varchar primary key,
+    id          bigint primary key,
     dateofbirth varchar(10) not null,
     fullname    varchar     not null,
     degreeid    varchar references degrees (id),
@@ -65,7 +65,7 @@ create table marks
 (
     id        integer primary key,
     mark      float,
-    studentid varchar references students (id),
+    studentid bigint references students (id),
     examid    integer references exams (id),
     courseid  varchar references courses (id)
 );
@@ -94,8 +94,8 @@ create table exam_batches
 (
     id              integer,
     name            varchar,
-    start_studentid varchar references students (id),
-    end_studentid   varchar references students (id),
+    start_studentid bigint references students (id),
+    end_studentid   bigint references students (id),
     starttime       timestamp,
     endtime         timestamp,
     facultyid       varchar references faculties (id),

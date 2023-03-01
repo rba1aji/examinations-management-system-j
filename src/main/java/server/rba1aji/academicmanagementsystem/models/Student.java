@@ -1,7 +1,7 @@
 package server.rba1aji.academicmanagementsystem.models;
 
 public class Student {
-    private String id;
+    private Long id;
     private String dateofbirth;
     private String fullname;
     private String degreeid;
@@ -13,7 +13,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(String id, String dateofbirth, String fullname, String degreeid, String branchid, String section, String batch, String phone) {
+    public Student(Long id, String dateofbirth, String fullname, String degreeid, String branchid, String section, String batch, String phone) {
         this.id = id;
         this.dateofbirth = dateofbirth;
         this.fullname = fullname;
@@ -24,11 +24,11 @@ public class Student {
         this.phone = phone;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

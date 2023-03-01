@@ -20,12 +20,12 @@ public class StudentService implements IStudentService {
 
     @Override
     public Student register(Student newstudent) throws Exception {
-        String id = studentRepo.create(newstudent);
+        Long id = studentRepo.create(newstudent);
         return studentRepo.findById(id);
     }
 
     @Override
-    public Student getByIdDob(String id, String dateofbirth) {
+    public Student getByIdDob(Long id, String dateofbirth) {
         return studentRepo.findByIdDob(id, dateofbirth);
     }
 
@@ -40,7 +40,7 @@ public class StudentService implements IStudentService {
         Collections.sort(students, new Comparator<Student>() {
             @Override
             public int compare(Student o1, Student o2) {
-                return Long.compare(Long.parseLong(o1.getId()), Long.parseLong(o2.getId()));
+                return Long.compare(o1.getId(), o2.getId());
             }
         });
         return students;
@@ -56,13 +56,18 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public Student update(String id, Student student) throws Exception {
+    public Student update(Long id, Student student) throws Exception {
         studentRepo.update(id, student);
         return studentRepo.findById(student.getId());
     }
 
     @Override
-    public Student getById(String id) throws Exception {
+    public Student getById(Long id) throws Exception {
         return studentRepo.findById(id);
+    }
+
+    @Override
+    public List<Student> getByStartidEndid(Long startid, Long endid) {
+        return studentRepo.findByStartEndId(startid, endid);
     }
 }

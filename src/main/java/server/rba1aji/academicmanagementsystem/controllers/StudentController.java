@@ -35,7 +35,7 @@ public class StudentController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<Map<String, Student>> login(@RequestParam String id, @RequestParam String dateofbirth) {
+    public ResponseEntity<Map<String, Student>> login(@RequestParam Long id, @RequestParam String dateofbirth) {
         Student student = studentService.getByIdDob(id, dateofbirth);
         var res = new HashMap<String, Student>();
         res.put("student", student);
@@ -59,12 +59,21 @@ public class StudentController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Map<String, Student>> update(@PathVariable String id, @RequestParam Student student) throws Exception {
+    public ResponseEntity<Map<String, Student>> update(@PathVariable Long id, @RequestParam Student student) throws Exception {
         studentService.update(id, student);
         Student updatedStudent = studentService.getById(id);
 
         var res = new HashMap<String, Student>();
         res.put("student", updatedStudent);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/getByStartidEndid")
+    public ResponseEntity<Map<String,List<Student>>> getByStartidEndid(@RequestParam Long startid, @RequestParam Long endid){
+        List<Student> studentList = studentService.getByStartidEndid(startid, endid);
+
+        var res = new HashMap<String,List<Student>>();
+        res.put("students", studentList);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }

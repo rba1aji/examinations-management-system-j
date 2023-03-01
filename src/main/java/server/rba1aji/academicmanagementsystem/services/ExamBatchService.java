@@ -28,4 +28,14 @@ public class ExamBatchService implements IExamBatchService{
     public void updateByid(Integer id, ExamBatch batch) {
         examBatchRepo.updateByid(id, batch);
     }
+
+    @Override
+    public List<ExamBatch> getActive() {
+        return examBatchRepo.getActive();
+    }
+
+    @Override
+    public List<ExamBatch> getActiveByFacultyid(String facultyid) {
+        return examBatchRepo.getActiveBatchesByFacultyid(facultyid);
+    }
 }

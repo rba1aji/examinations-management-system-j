@@ -8,4 +8,6 @@ public interface IExamBatchRepo {
     void create(ExamBatch examBatch);
     List<ExamBatch> findByBranchidExamidCourseid(String branchid, Integer examid, String courseid);
     void updateByid(Integer id, ExamBatch examBatch);
+    List<ExamBatch> getActive();
+    List<ExamBatch> getActiveBatchesByFacultyid(String facultyid);
 }

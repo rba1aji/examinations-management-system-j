@@ -10,4 +10,6 @@ public class StudentSQL {
     public static final String SQL_STUDENT_UPDATE = "UPDATE STUDENTS " +
             "SET ID = ?, DATEOFBIRTH = ?, FULLNAME = ?, DEGREEID = ?, BRANCHID = ? , SECTION = ?, BATCH = ?, PHONE = ?" +
             "WHERE ID = ?";
+    public static final String SQL_STUDENT_FIND_BY_START_END_ID = "SELECT * FROM STUDENTS " +
+            "WHERE ID >= ? AND ID <= ?";
 }

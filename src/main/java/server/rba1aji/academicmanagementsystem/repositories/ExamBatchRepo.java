@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import server.rba1aji.academicmanagementsystem.models.ExamBatch;
 
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 
 import static server.rba1aji.academicmanagementsystem.sqlqueries.ExamBatchSQL.*;
@@ -23,12 +26,12 @@ public class ExamBatchRepo implements IExamBatchRepo {
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(SQL_EXAMBATCH_CREATE);
             ps.setString(1, batch.getName());
-            ps.setString(2, batch.getStartStudentid());
-            ps.setString(3, batch.getEndStudentid());
+            ps.setLong(2, batch.getStartStudentid());
+            ps.setLong(3, batch.getEndStudentid());
             ps.setTimestamp(4, batch.getStarttime());
             ps.setTimestamp(5, batch.getEndtime());
             ps.setString(6, batch.getFacultyid());
-            ps.setString(7,batch.getVenue());
+            ps.setString(7, batch.getVenue());
             ps.setString(8, batch.getCourseid());
             ps.setInt(9, batch.getExamid());
             ps.setString(10, batch.getBranchid());
@@ -43,26 +46,39 @@ public class ExamBatchRepo implements IExamBatchRepo {
 
     @Override
     public void updateByid(Integer id, ExamBatch batch) {
-        jdbcTemplate.update(con->{
+        jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(SQL_UPDATE_BY_ID);
-            ps.setString(1,batch.getName());
-            ps.setString(2,batch.getStartStudentid());
-            ps.setString(3, batch.getEndStudentid());
+            ps.setString(1, batch.getName());
+            ps.setLong(2, batch.getStartStudentid());
+            ps.setLong(3, batch.getEndStudentid());
             ps.setTimestamp(4, batch.getStarttime());
             ps.setTimestamp(5, batch.getEndtime());
             ps.setString(6, batch.getFacultyid());
-            ps.setString(7,batch.getVenue());
-            ps.setInt(8,id);
+            ps.setString(7, batch.getVenue());
+            ps.setInt(8, id);
             return ps;
         });
     }
+
+    @Override
+    public List<ExamBatch> getActive() {
+        Instant now = Instant.now().plus(Duration.ofHours(5).plusMinutes(30));
+        return jdbcTemplate.query(SQL_EXAMBATCH_FIND_BY_MIN_TIME, new Object[]{java.sql.Timestamp.from(now)}, examBatchRowMapper);
+    }
+
+    @Override
+    public List<ExamBatch> getActiveBatchesByFacultyid(String facultyid) {
+        Instant now = Instant.now().plus(Duration.ofHours(5).plusMinutes(30));
+        return jdbcTemplate.query(SQL_EXAMBATCH_FIND_BY_MIN_TIME_FACULTYID, new Object[]{java.sql.Timestamp.from(now), facultyid}, examBatchRowMapper);
+    }
+
 
     private final RowMapper<ExamBatch> examBatchRowMapper = ((rs, rowNo) -> (
             new ExamBatch(
                     rs.getInt("ID"),
                     rs.getString("NAME"),
-                    rs.getString("START_STUDENTID"),
-                    rs.getString("END_STUDENTID"),
+                    rs.getLong("START_STUDENTID"),
+                    rs.getLong("END_STUDENTID"),
                     rs.getTimestamp("STARTTIME"),
                     rs.getTimestamp("ENDTIME"),
                     rs.getString("FACULTYID"),

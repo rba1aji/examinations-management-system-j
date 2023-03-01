@@ -5,8 +5,8 @@ import java.sql.Timestamp;
 public class ExamBatch {
     private Integer id;
     private String name;
-    private String startStudentid;
-    private String endStudentid;
+    private Long startStudentid;
+    private Long endStudentid;
     private Timestamp starttime;
     private Timestamp endtime;
     private String facultyid;
@@ -15,7 +15,7 @@ public class ExamBatch {
     private Integer examid;
     private String branchid;
 
-    public ExamBatch(Integer id, String name, String startStudentid, String endStudentid, Timestamp starttime, Timestamp endtime, String facultyid, String venue, String courseid, Integer examid, String branchid) {
+    public ExamBatch(Integer id, String name, Long startStudentid, Long endStudentid, Timestamp starttime, Timestamp endtime, String facultyid, String venue, String courseid, Integer examid, String branchid) {
         this.id = id;
         this.name = name;
         this.startStudentid = startStudentid;
@@ -45,19 +45,19 @@ public class ExamBatch {
         this.name = name;
     }
 
-    public String getStartStudentid() {
+    public Long getStartStudentid() {
         return startStudentid;
     }
 
-    public void setStartStudentid(String startStudentid) {
+    public void setStartStudentid(Long startStudentid) {
         this.startStudentid = startStudentid;
     }
 
-    public String getEndStudentid() {
+    public Long getEndStudentid() {
         return endStudentid;
     }
 
-    public void setEndStudentid(String endStudentid) {
+    public void setEndStudentid(Long endStudentid) {
         this.endStudentid = endStudentid;
     }
 

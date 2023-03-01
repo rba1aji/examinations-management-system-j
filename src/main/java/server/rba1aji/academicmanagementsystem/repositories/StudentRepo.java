@@ -23,12 +23,12 @@ public class StudentRepo implements IStudentRepo {
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public String create(Student student) throws AuthException {
+    public Long create(Student student) throws AuthException {
         try {
             KeyHolder keyholder = new GeneratedKeyHolder();
             jdbcTemplate.update(con -> {
                 PreparedStatement ps = con.prepareStatement(SQL_STUDENT_CREATE, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, student.getId());
+                ps.setLong(1, student.getId());
                 ps.setString(2, student.getDateofbirth());
                 ps.setString(3, student.getFullname());
                 ps.setString(4, student.getDegreeid());
@@ -38,7 +38,7 @@ public class StudentRepo implements IStudentRepo {
                 ps.setString(8, student.getPhone());
                 return ps;
             }, keyholder);
-            return (String) keyholder.getKeys().get("ID");
+            return (Long) keyholder.getKeys().get("ID");
         } catch (Exception e) {
             throw new AuthException("Error at student creation. " + e.getMessage());
         }
@@ -58,12 +58,12 @@ public class StudentRepo implements IStudentRepo {
     }
 
     @Override
-    public Student findById(String id) throws Exception {
+    public Student findById(Long id) throws Exception {
         return jdbcTemplate.queryForObject(SQL_STUDENT_FIND_BY_ID, new Object[]{id}, studentRowMapper);
     }
 
     @Override
-    public Student findByIdDob(String id, String dateofbirth) {
+    public Student findByIdDob(Long id, String dateofbirth) {
         return jdbcTemplate.queryForObject(SQL_STUDENT_FIND_BY_ID_DOB, new Object[]{id, dateofbirth}, studentRowMapper);
     }
 
@@ -78,7 +78,7 @@ public class StudentRepo implements IStudentRepo {
     }
 
     @Override
-    public void update(String id, Student st) {
+    public void update(Long id, Student st) {
         jdbcTemplate.update(SQL_STUDENT_UPDATE,
                 new Object[]{
                         st.getId(), st.getDateofbirth(), st.getFullname(), st.getDegreeid(),
@@ -86,9 +86,14 @@ public class StudentRepo implements IStudentRepo {
                 });
     }
 
+    @Override
+    public List<Student> findByStartEndId(Long startid, Long endid) {
+        return jdbcTemplate.query(SQL_STUDENT_FIND_BY_START_END_ID, new Object[]{startid, endid}, studentRowMapper);
+    }
+
     private final RowMapper<Student> studentRowMapper = ((rs, rowNo) ->
             new Student(
-                    rs.getString("ID"),
+                    rs.getLong("ID"),
                     rs.getString("DATEOFBIRTH"),
                     rs.getString("FULLNAME"),
                     rs.getString("DEGREEID"),

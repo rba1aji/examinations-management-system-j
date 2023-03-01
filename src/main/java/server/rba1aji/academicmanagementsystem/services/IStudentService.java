@@ -11,13 +11,14 @@ public interface IStudentService {
 
     String registerMultiple(List<Student> studentList) throws AuthException;
 
-    Student getByIdDob(String id, String dateofbirth);
+    Student getByIdDob(Long id, String dateofbirth);
 
     List<Student> getAll();
 
     List<Student> getByBranchidList(List<String> branchidList);
 
-    Student update(String id, Student student) throws Exception;
+    Student update(Long id, Student student) throws Exception;
 
-    Student getById(String id) throws Exception;
+    Student getById(Long id) throws Exception;
+    List<Student> getByStartidEndid(Long startid, Long endid);
 }
