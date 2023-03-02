@@ -13,7 +13,7 @@ function MyVerticallyCenteredModal(props) {
         name: '',
         credits: '',
         degreeid: '',
-        brancheid: '',
+        branchid: '',
         semester: '',
         batch: ''
     });
@@ -38,7 +38,7 @@ function MyVerticallyCenteredModal(props) {
                     name: '',
                     credits: '',
                     degreeid: '',
-                    brancheid: '',
+                    branchid: '',
                     semester: '',
                     batch: ''
                 })
@@ -150,9 +150,9 @@ function MyVerticallyCenteredModal(props) {
                                     </Col>
                                     <Col>
                                         <Form.Select
-                                            value={newCourse.brancheid}
+                                            value={newCourse.branchid}
                                             onChange={(e) => {
-                                                setNewCourse({ ...newCourse, brancheid: e.target.value });
+                                                setNewCourse({ ...newCourse, branchid: e.target.value });
                                                 setSelectedBranch(branches.filter(branch => branch.id === e.target.value)[0]);
                                             }}
                                             required={true}>

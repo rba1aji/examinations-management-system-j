@@ -1,16 +1,24 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { serverurl } from "../../reducers/Constants";
 import { useNavigate } from "react-router-dom";
 import { AppState } from "../../reducers/AppContextProvider";
+import { formateDob } from "../../reducers/Utils";
 
 export default function StudentLogin() {
     const [regno, setRegno] = useState()
     const [dob, setDob] = useState('')
     const navigate = useNavigate();
 
-    const { setUser } = AppState();
+    const { setUser, setUserRole, user, userRole } = AppState();
+
+
+    useEffect(() => {
+        if (user) {
+            navigate(`/${userRole}/workspace`)
+        }
+    }, [])
 
     function handleLogin(e) {
         e.preventDefault();
@@ -20,13 +28,16 @@ export default function StudentLogin() {
             url: serverurl + '/students/login',
             params: {
                 id: regno,
-                dateofbirth: dob
+                dateofbirth: formateDob(dob)
             }
         })
-            .then(function (response) {
-                console.log(response.data?.student);
-                setUser(response.data?.student)
+            .then(function (res) {
+                console.log(res.data?.student);
+                setUser(res.data?.student)
+                setUserRole('student')
                 navigate('/student/workspace');
+                window.sessionStorage.setItem('user', JSON.stringify(res.data.faculty))
+                window.sessionStorage.setItem('userRole', 'student')
             })
             .catch(function (error) {
                 console.log(error);
@@ -56,8 +67,11 @@ export default function StudentLogin() {
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Date of birth</Form.Label>
                     <Form.Control placeholder="dd/mm/yyyy"
-                        value={dob} onChange={(e) => setDob(e.target.value)}
+                        value={dob} onChange={(e) => {
+                            setDob(e.target.value)
+                        }}
                         required
+                        type='date'
                     />
                 </Form.Group>
                 <div className="text-end">

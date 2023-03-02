@@ -1,16 +1,22 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { serverurl } from "../../reducers/Constants";
 import { useNavigate } from "react-router-dom";
 import { AppState } from "../../reducers/AppContextProvider";
 
 export default function FacultyLogin() {
-    const [regno, setRegno] = useState()
-    const [dob, setDob] = useState('')
+    const [username, setUsername] = useState()
+    const [password, setPassword] = useState('')
     const navigate = useNavigate();
 
-    const { setUser } = AppState();
+    const { setUser, setUserRole, userRole, user } = AppState();
+
+    useEffect(() => {
+        if (user) {
+            navigate(`/${userRole}/workspace`)
+        }
+    }, [])
 
     function handleLogin(e) {
         e.preventDefault();
@@ -19,20 +25,22 @@ export default function FacultyLogin() {
             method: 'get',
             url: serverurl + '/faculties/login',
             params: {
-                id: regno,
-                dateofbirth: dob
+                id: username,
+                password: password
             }
         })
-            .then(function (response) {
-                console.log(response.data?.student);
-                setUser(response.data?.student)
-                navigate('/student/workspace');
+            .then(function (res) {
+                console.log(res.data?.faculty);
+                setUser(res.data?.faculty);
+                setUserRole('faculty')
+                navigate('/faculty/workspace');
+                window.sessionStorage.setItem('user', JSON.stringify(res.data.faculty))
+                window.sessionStorage.setItem('userRole', 'faculty')
             })
             .catch(function (error) {
                 console.log(error);
-                alert("Invalid student credentials!")
+                alert("Invalid faculty credentials!")
             });
-
     }
 
 
@@ -47,7 +55,7 @@ export default function FacultyLogin() {
                 <Form.Group className="mb-3" >
                     <Form.Label>Username</Form.Label>
                     <Form.Control placeholder="Enter username"
-                        value={regno} onChange={(e) => setRegno(e.target.value)}
+                        value={username} onChange={(e) => setUsername(e.target.value)}
                         required
                         type="number"
                     />
@@ -56,7 +64,7 @@ export default function FacultyLogin() {
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control placeholder="Enter password"
-                        value={dob} onChange={(e) => setDob(e.target.value)}
+                        value={password} onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                 </Form.Group>

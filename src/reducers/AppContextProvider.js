@@ -7,8 +7,12 @@ import { serverurl } from "./Constants";
 const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [userRole, setUserRole] = useState('');
+    const [user, setUser] = useState(
+        JSON.parse(window.sessionStorage.getItem('user'))
+    );
+    const [userRole, setUserRole] = useState(
+        window.sessionStorage.getItem('userRole')
+    );
     const [degrees, setDegrees] = useState([]);
     const [branches, setBranches] = useState([]);
 
@@ -17,7 +21,10 @@ const AppContextProvider = ({ children }) => {
             method: 'GET',
             url: serverurl + '/degrees/getAll'
         })
-            .then((res) => setDegrees(res.data.degrees))
+            .then((res) => {
+                console.log(res.data)
+                setDegrees(res.data.degrees)
+            })
             .catch((err) => console.log(err));
 
         axios({
@@ -26,7 +33,9 @@ const AppContextProvider = ({ children }) => {
         })
             .then((res) => setBranches(res.data.branches))
             .catch((err) => console.log(err));
-    }, [setDegrees, setBranches]);
+    }, []);
+
+
 
 
     return (

@@ -2,7 +2,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MenuBar from './components/MenuBar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { studentRoutes, adminRoutes, defaultRoutes, AdminWorkspaceRoutes, facultyRoutes } from './reducers/Routes';
+import { studentRoutes, adminRoutes, defaultRoutes, adminWorkspaceRoutes, facultyRoutes, facultyWorkspaceRoutes } from './reducers/Routes';
 
 function App() {
 
@@ -17,7 +17,7 @@ function App() {
         <br />
         <br />
         <Routes>
-          {[...defaultRoutes, ...studentRoutes, ...adminRoutes, ...AdminWorkspaceRoutes, ...facultyRoutes]
+          {[...defaultRoutes, ...studentRoutes, ...adminRoutes, ...adminWorkspaceRoutes, ...facultyRoutes, ...facultyWorkspaceRoutes]
             .map((item, index) => (
               <Route
                 key={index}
