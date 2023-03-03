@@ -19,9 +19,9 @@ export default function Exam() {
             const m = (h - parseInt(h)) * 60;
             const s = (m - parseInt(m)) * 60;
             setRemTime(
-                ms <= 0 ? '0 : 0 : 0 : 0' : (d + '').split('.')[0] + " : " + (h + '').split('.')[0] + " : " + (m + '').split(".")[0] + " : " + s.toFixed()
+                ms <= 100 ? '0 : 0 : 0 : 0' : (d + '').split('.')[0] + " : " + (h + '').split('.')[0] + " : " + (m + '').split(".")[0] + " : " + s.toFixed()
             )
-        }, 500);
+        }, 1000);
         return () => clearInterval(interval);
     }, [examBatch, remTime, new Date()])
 
@@ -61,12 +61,25 @@ export default function Exam() {
             students.map(s => ({
                 studentid: s.id,
                 attendance: false,
-                mark: '',
+                mark: 0,
                 examid: examBatch.examid,
                 courseid: examBatch.courseid
             }))
         )
     }, [students, examBatch])
+
+    useEffect(() => {
+        // const interval = setInterval(() => {
+        axios({
+            method: 'put',
+            url: serverurl + '/marks/updateForList',
+            data: data
+        })
+            .then(res => console.log(res.data.message))
+            .catch(err => console.log(err.message))
+        // }, 1000);
+        // return () => clearInterval(interval);
+    }, [data])
 
     useEffect(() => {
         console.log(data)
@@ -76,12 +89,11 @@ export default function Exam() {
         <div style={{
             margin: '0 5vw'
         }}>
-            <div className="text-end h5" style={{
+            <div className="text-end h5 mt-1 mb-4" style={{
                 color: 'red'
             }}>
                 <b>{remTime}</b>
             </div>
-            <br />
             {/* {examBatch?.endtime}<br />
             {new Date(new Date().getTime() + 5.5 * 60 * 60 * 1000).toISOString()} */}
             <div style={{
@@ -135,7 +147,7 @@ export default function Exam() {
                                                 value={data[ind]?.mark}
                                                 onChange={e => {
                                                     const newData = [...data];
-                                                    newData[ind].mark = e.target.value.replaceAll("", "");
+                                                    newData[ind].mark = e.target.value;
                                                     setData(newData)
                                                 }}
                                                 min={0}
@@ -144,7 +156,7 @@ export default function Exam() {
                                     </td>
                                     <td className="text-center">
                                         {
-                                            data[ind]?.mark && (data[ind]?.mark + "").split("")?.map((i) => marksInWords[i] + " ")
+                                            data[ind]?.mark ? (data[ind]?.mark + "").split("")?.map((i) => marksInWords[i] + " ") : marksInWords[0]
                                         }
                                     </td>
                                 </tr>

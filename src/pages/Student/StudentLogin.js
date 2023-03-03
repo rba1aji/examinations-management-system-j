@@ -36,7 +36,7 @@ export default function StudentLogin() {
                 setUser(res.data?.student)
                 setUserRole('student')
                 navigate('/student/workspace');
-                window.sessionStorage.setItem('user', JSON.stringify(res.data.faculty))
+                window.sessionStorage.setItem('user', JSON.stringify(res.data.student))
                 window.sessionStorage.setItem('userRole', 'student')
             })
             .catch(function (error) {

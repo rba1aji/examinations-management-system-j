@@ -10,7 +10,8 @@ export default function FacultyWorkspace() {
     const [activeBatches, setActiveBatches] = useState([]);
     const {
         user
-    } = AppState()
+    } = AppState();
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,16 +33,16 @@ export default function FacultyWorkspace() {
 
     return (<>
         <br />
-        <div className="h4" style={{
+        {/* <div className="h4" style={{
             margin: '0 5vw'
         }}>
             Hi {user?.fullname}!
-        </div>
+        </div> */}
         {
             activeBatches?.sort((a, b) => {
                 return (new Date(a.starttime) - new Date(b.starttime))
             })?.map((eb) => {
-                return <Card className='text-center py-3 mb-4' Body style={{
+                return <Card className='bg- text-center py-3 mb-4' Body style={{
                     backgroundColor: 'azure',
                     margin: '0 32.5vw'
                 }}>
@@ -56,7 +57,7 @@ export default function FacultyWorkspace() {
                                     <Card.Subtitle className="mb-3">Exam: {eb.examid}</Card.Subtitle>
                                     <Card.Subtitle className="mb-1">Venue: {eb.venue}</Card.Subtitle>
                                 </td>
-                                <td className="">
+                                <td className="pe-3">
                                     <Button className="" variant="info"
                                         disabled={
                                             new Date(new Date().getTime() + 5.5 * 60 * 60 * 1000) < new Date(eb.starttime)

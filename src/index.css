@@ -1,3 +1,7 @@
 .attendance .form-check-input {
     border-color: black;
 }
+
+.btn-dark {
+    --bs-btn-bg: #212529c0 !important;
+}

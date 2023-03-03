@@ -8,7 +8,7 @@ export default function ManageStudents() {
         <div style={{
             margin: '0 7.5vw',
         }}>
-            <div className="h6 text-end ">Manage Courses</div>
+            <div className="h6 text-end mt-2 me-3">Manage Courses</div>
             <div className="mb-3">
                 {
                     [

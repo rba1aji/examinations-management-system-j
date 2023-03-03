@@ -10,6 +10,24 @@ import FacultyLogin from "../pages/Faculty/FacultyLogin"
 import FacultyWorkspace from "../pages/Faculty/FacultyWorkspace"
 import Exam from "../pages/Faculty/Exam"
 
+export const loginRoutes = [
+    {
+        path: '/student/login',
+        title: 'Student',
+        component: <StudentLogin />
+    },
+    {
+        path: '/faculty/login',
+        title: 'Faculty',
+        component: <FacultyLogin />
+    },
+    {
+        path: '/admin/workspace',
+        title: 'Admin',
+        component: <AdminWorkspace />
+    }
+]
+
 export const adminWorkspaceRoutes = [
     {
         path: '/admin/manage-students',

@@ -7,9 +7,8 @@ import { serverurl } from "./Constants";
 const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
-    const [user, setUser] = useState(
-        JSON.parse(window.sessionStorage.getItem('user'))
-    );
+    const userSession = window.sessionStorage.getItem('user')
+    const [user, setUser] = useState(userSession ? JSON.parse(userSession) : null);
     const [userRole, setUserRole] = useState(
         window.sessionStorage.getItem('userRole')
     );

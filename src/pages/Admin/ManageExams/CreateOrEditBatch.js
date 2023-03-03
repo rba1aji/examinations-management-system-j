@@ -135,6 +135,7 @@ function MyVerticallyCenteredModal(props) {
                                     value={newBatch.endtime}
                                     onChange={e => setNewBatch(prev => ({ ...prev, endtime: e.target.value }))}
                                     step="60"
+                                    min={newBatch.starttime}
                                 />
                             </Form.Group>
                         </Col>

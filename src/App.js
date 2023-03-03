@@ -3,8 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MenuBar from './components/MenuBar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { studentRoutes, adminRoutes, defaultRoutes, adminWorkspaceRoutes, facultyRoutes, facultyWorkspaceRoutes } from './reducers/Routes';
+import { AppState } from './reducers/AppContextProvider';
 
 function App() {
+
+  const { userRole } = AppState()
 
   return (
     <div style={{
@@ -17,7 +20,7 @@ function App() {
         <br />
         <br />
         <Routes>
-          {[...defaultRoutes, ...studentRoutes, ...adminRoutes, ...adminWorkspaceRoutes, ...facultyRoutes, ...facultyWorkspaceRoutes]
+          {[...defaultRoutes, ...studentRoutes, ...adminRoutes, ...facultyRoutes,]
             .map((item, index) => (
               <Route
                 key={index}
@@ -26,6 +29,24 @@ function App() {
                 element={item.component}
               ></Route>
             ))}
+          {userRole === 'faculty' && [...facultyWorkspaceRoutes]
+            .map((item, index) => {
+              return <Route
+                key={index}
+                path={item.path}
+                exact
+                element={item.component}
+              ></Route>
+            })}
+          {userRole === 'admin' && [...adminWorkspaceRoutes]
+            .map((item, index) => {
+              return <Route
+                key={index}
+                path={item.path}
+                exact
+                element={item.component}
+              ></Route>
+            })}
         </Routes>
       </BrowserRouter>
       <br />
