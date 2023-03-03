@@ -13,13 +13,15 @@ export default function SelectCourse(props) {
 
     useEffect(() => {
         setCourses([])
-        if (selectedBranches.length > 0) {
+        if (selectedBranches?.id) {
             console.log('branches are selected', selectedBranches)
             axios({
                 method: 'get',
-                url: serverurl + `/courses/batch${selectedExam?.batch}/semester${selectedExam?.semester}/getByBranchidList`,
+                url: serverurl + `/courses/getByBranchidSemesterBatch`,
                 params: {
-                    branchidList: selectedBranches?.map(b => b.id).join(",")
+                    branchid: selectedBranches?.id,
+                    semester: selectedExam?.semester,
+                    batch: selectedExam?.batch
                 }
             })
                 .then(res => {
@@ -31,7 +33,7 @@ export default function SelectCourse(props) {
     }, [selectedBranches, selectedExam])
 
 
-    if (!selectedBranches.length) return <></>
+    if (!selectedBranches?.id) return <></>
     return (
         <>
             <Dropdown className="d-inline" autoClose="inside" onSelect={(courseid) => {

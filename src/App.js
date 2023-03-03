@@ -38,7 +38,7 @@ function App() {
                 element={item.component}
               ></Route>
             })}
-          {userRole === 'admin' && [...adminWorkspaceRoutes]
+          {[...adminWorkspaceRoutes]
             .map((item, index) => {
               return <Route
                 key={index}

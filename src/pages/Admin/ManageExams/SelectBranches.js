@@ -28,10 +28,15 @@ export default function SelectBranches(props) {
     if (!selectedExam?.id) return <></>
     return (
         <>
-            <Dropdown className="d-inline" autoClose="inside">
-                <Dropdown.Toggle id="dropdown-autoclose-inside" style={{
-                    wordWrap: 'break-word'
-                }}
+            <Dropdown className="d-inline" autoClose="inside"
+                onSelect={(branchid) => {
+                    setSelectedBranches(branches.find(e => e.id == branchid))
+                    console.log("branch selected", branchid)
+                }}>
+                <Dropdown.Toggle id="dropdown-autoclose-inside"
+                    style={{
+                        wordWrap: 'break-word'
+                    }}
                     variant='info'
                 >
                     Select Branches
@@ -42,21 +47,12 @@ export default function SelectBranches(props) {
                         {
                             branches.map((branch, ind) => {
                                 return (
-                                    <div className="px-3" key={ind}>
-                                        <Form.Check
-                                            key={ind}
-                                            value={branch.id}
-                                            label={branch.id}
-                                            onChange={(e) => {
-                                                setSelectedBranches(prev => {
-                                                    return prev.includes(branch) ?
-                                                        prev.filter(el => el !== branch) :
-                                                        [...prev, branch]
-                                                })
-                                            }}
-                                            checked={selectedBranches.includes(branch)}
-                                        />
-                                    </div>
+                                    <Dropdown.Item
+                                        key={ind}
+                                        eventKey={branch.id}
+                                    >
+                                        {branch.name}
+                                    </Dropdown.Item>
                                 )
                             })
                         }

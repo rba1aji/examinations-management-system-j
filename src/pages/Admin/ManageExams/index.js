@@ -14,15 +14,15 @@ export default function ManageExams() {
         JSON.parse(window.sessionStorage.getItem('selectedExam'))
     );
     const [selectedBranches, setSelectedBranches] = useState(
-        // (window.sessionStorage.getItem('selectedBranches').split('###')).map((i) => JSON.parse(i))
-        []
+        JSON.parse(window.sessionStorage.getItem('selectedBranch'))
+        // []
     );
     const [selectedCourse, setSelectedCourse] = useState({})
     const [selectedBatch, setSelectedBatch] = useState({});
 
     useEffect(() => {
         window.sessionStorage.setItem('selectedExam', JSON.stringify(selectedExam));
-        window.sessionStorage.setItem('selectedBranches', selectedBranches.map((i) => JSON.stringify(i)).join('###'));
+        window.sessionStorage.setItem('selectedBranches', selectedBranches);
     }, [selectedExam, selectedBranches])
 
     useEffect(() => {
@@ -106,7 +106,7 @@ export default function ManageExams() {
                             <td>
                                 {
                                     [
-                                        { key: "Branch", val: selectedBranches.map(b => b.id).join(", ") },
+                                        { key: "Branch", val: selectedBranches?.name },
                                         { key: "Course", val: !selectedCourse?.id ? null : (selectedCourse?.id + " " + selectedCourse?.name) },
                                         { key: "Exam Batch", val: selectedBatch?.name }
                                     ].map((itm, ind) => (
@@ -124,7 +124,7 @@ export default function ManageExams() {
             </div>
 
             <div className="mx-2">
-                {selectedBatch.id && <BatchStudentsTable selectedBatch={selectedBatch} />}
+                {selectedBatch?.id && <BatchStudentsTable selectedBatch={selectedBatch} />}
             </div>
         </div >
     )

@@ -30,10 +30,12 @@ export default function SelectBatch(props) {
 
     return (
         <>
-            <Dropdown className="d-inline" autoClose="inside" onSelect={(batchid) => {
-                setSelectedBatch(batches.find(e => e.id == batchid))
-                console.log("batch selected", batchid)
-            }}>
+            <Dropdown className="d-inline" autoClose="inside"
+                onSelect={(batchid) => {
+                    setSelectedBatch(batches.find(e => e.id == batchid))
+                    console.log("batch selected", batchid)
+                }}
+            >
                 <Dropdown.Toggle id="dropdown-autoclose-inside" style={{
                     wordWrap: 'break-word'
                 }}
