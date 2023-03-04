@@ -23,4 +23,9 @@ public class MarkService implements IMarkService {
     public void updateForList(List<Mark> markList) {
         markRepo.updateForList(markList);
     }
+
+    @Override
+    public List<Mark> getByBatchidExamidCourseid(Integer batchid, Integer examid, String courseid) {
+        return markRepo.findByBatchidExamidCourseid(batchid, examid, courseid);
+    }
 }

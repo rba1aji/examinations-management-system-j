@@ -3,10 +3,7 @@ package server.rba1aji.academicmanagementsystem.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import server.rba1aji.academicmanagementsystem.models.Mark;
 import server.rba1aji.academicmanagementsystem.services.IMarkService;
 
@@ -25,6 +22,13 @@ public class MarkController {
         markService.updateForList(markList);
         var res = new HashMap<String, String>();
         res.put("message", "Updated marks");
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/getByBatchidExamidCourseid")
+    public ResponseEntity<Map<String, List<Mark>>> getMarksForBatchStudents(@RequestParam Integer batchid, @RequestParam Integer examid, @RequestParam String courseid) {
+        var res = new HashMap<String, List<Mark>>();
+        res.put("marks", markService.getByBatchidExamidCourseid(batchid, examid, courseid));
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }

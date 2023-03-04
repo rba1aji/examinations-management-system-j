@@ -8,5 +8,10 @@ public class MarkSQL {
     public static final String SQL_MARKS_UPDATE = "UPDATE MARKS " +
             "SET ATTENDANCE = ?, MARK = ? " +
             "WHERE STUDENTID = ? AND EXAMID = ? AND COURSEID = ? ";
-
+    public static final String SQL_MARKS_GET_BY_BATCHID_EXAMID_COURSEID = "SELECT M.* FROM " +
+            "MARKS M INNER JOIN EXAM_BATCHES EB " +
+            "ON M.EXAMID = EB.EXAMID  AND  " +
+            "M.COURSEID = EB.COURSEID  AND " +
+            "M.STUDENTID BETWEEN EB.START_STUDENTID AND EB.END_STUDENTID " +
+            "WHERE EB.ID = ? AND M.EXAMID = ? AND M.COURSEID = ?";
 }

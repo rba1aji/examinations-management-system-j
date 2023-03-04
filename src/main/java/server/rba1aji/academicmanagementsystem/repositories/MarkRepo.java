@@ -2,6 +2,7 @@ package server.rba1aji.academicmanagementsystem.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import server.rba1aji.academicmanagementsystem.models.Mark;
@@ -43,4 +44,18 @@ public class MarkRepo implements IMarkRepo {
             update(mark);
         }
     }
+
+    @Override
+    public List<Mark> findByBatchidExamidCourseid(Integer batchid, Integer examid, String courseid) {
+        return jdbcTemplate.query(SQL_MARKS_GET_BY_BATCHID_EXAMID_COURSEID, new Object[]{batchid, examid, courseid}, markRowMapper);
+    }
+
+    private RowMapper<Mark> markRowMapper = (((rs, rowNum) ->
+            new Mark(
+                    rs.getLong("STUDENTID"),
+                    rs.getBoolean("ATTENDANCE"),
+                    rs.getInt("MARK"),
+                    rs.getInt("EXAMID"),
+                    rs.getString("COURSEID")
+            )));
 }
