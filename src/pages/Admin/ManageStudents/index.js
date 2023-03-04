@@ -1,4 +1,3 @@
-import { Table } from "react-bootstrap"
 import RegisterMultipleStudents from "./RegisterStudents"
 import StudentsTable from "./StudentsTable"
 

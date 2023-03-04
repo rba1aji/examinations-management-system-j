@@ -63,36 +63,6 @@ export default function SelectCourse(props) {
                     }
                 </Dropdown.Menu>
             </Dropdown>
-            {/* /* <button style={{
-            }}
-                className='p-0 bg-transparent border-0'
-            >
-                <FloatingLabel controlId="floatingSelect" label="Course"> 
-            <Form.Select
-                value={selectedCourse?.id}
-                onChange={(e) => {
-                    setSelectedCourse(courses.find(c => c.id == e.target.value))
-                    console.log("course is selected")
-                }}
-                className='border border-info'
-            >
-                <option value={null}>Select course</option>
-                {
-                    courses.map((c, ind) => {
-                        return (
-                            <option
-                                key={ind}
-                                value={c.id}
-                                id={c.id}
-                            >
-                                {c.id}
-                            </option>
-                        )
-                    })
-                }
-            </Form.Select>
-            </FloatingLabel> 
-        </button> * /} */}
         </>
     )
 }

@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react"
-import { Table } from "react-bootstrap"
-// import MarksTable from "./MarksTable";
 import RegisterExam from "./RegisterExam";
 import SelectExam from "./SelectExam"
 import SelectCourse from "./SelectCourse";
@@ -17,13 +15,16 @@ export default function ManageExams() {
         JSON.parse(window.sessionStorage.getItem('selectedBranch'))
         // []
     );
-    const [selectedCourse, setSelectedCourse] = useState({})
+    const [selectedCourse, setSelectedCourse] = useState(
+        JSON.parse(window.sessionStorage.getItem('selectedCourse'))
+    )
     const [selectedBatch, setSelectedBatch] = useState({});
 
     useEffect(() => {
         window.sessionStorage.setItem('selectedExam', JSON.stringify(selectedExam));
-        window.sessionStorage.setItem('selectedBranches', selectedBranches);
-    }, [selectedExam, selectedBranches])
+        window.sessionStorage.setItem('selectedBranch', JSON.stringify(selectedBranches));
+        window.sessionStorage.setItem('selectedCourse', JSON.stringify(selectedCourse));
+    }, [selectedExam, selectedBranches, selectedCourse])
 
     useEffect(() => {
         setSelectedCourse({})

@@ -1,4 +1,3 @@
-import { Table } from "react-bootstrap"
 import FacultiesTable from "./FacultiesTable"
 import RegisterMultipleFaculties from "./RegisterMultipleFaculties"
 

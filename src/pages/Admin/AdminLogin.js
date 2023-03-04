@@ -16,7 +16,7 @@ export default function AdminLogin() {
         if (user) {
             navigate(`/${userRole}/workspace`)
         }
-    }, [])
+    }, [user, userRole])
 
     function handleLogin(e) {
         e.preventDefault();

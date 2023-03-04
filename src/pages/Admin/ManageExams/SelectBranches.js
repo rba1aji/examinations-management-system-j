@@ -10,7 +10,7 @@ export default function SelectBranches(props) {
     } = props;
 
     useEffect(() => {
-        setSelectedBranches([])
+        setSelectedBranches({})
         if (selectedExam?.id) {
             console.log('exam is selected', selectedExam)
             axios({
@@ -56,11 +56,6 @@ export default function SelectBranches(props) {
                                 )
                             })
                         }
-                        {/* <Dropdown.Item className="text-end py-0">
-                            <Button className='py-1 m-0' variant="info" style={{
-                                fontSize: '85%'
-                            }}>Ok</Button>
-                        </Dropdown.Item> */}
                     </Form>
                 </Dropdown.Menu>
             </Dropdown>
