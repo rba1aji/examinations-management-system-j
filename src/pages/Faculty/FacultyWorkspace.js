@@ -18,9 +18,7 @@ export default function FacultyWorkspace() {
         if (!user) {
             navigate('/faculty/login');
         }
-    }, [user])
 
-    useEffect(() => {
         axios({
             method: 'get',
             url: serverurl + '/exambatches/activeByFacultyid' + user?.id
@@ -32,6 +30,9 @@ export default function FacultyWorkspace() {
     }, [user])
 
     return (<>
+        <div className="text-center">
+            Exams allocated to you are listed below
+        </div>
         <br />
         {
             activeBatches?.sort((a, b) => {

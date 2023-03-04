@@ -6,6 +6,25 @@ import { serverurl } from "../../../reducers/Constants";
 export default function BatchStudentsTable(props) {
     const [students, setStudents] = useState([]);
     const { selectedBatch } = props;
+    const [marks, setMarks] = useState([]);
+    const marksinWords = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE', 'TEN']
+
+    useEffect(() => {
+        axios({
+            method: 'get',
+            url: serverurl + '/marks/getByBatchidExamidCourseid',
+            params: {
+                batchid: selectedBatch.id,
+                examid: selectedBatch.examid,
+                courseid: selectedBatch.courseid
+            }
+        })
+            .then((res) => {
+                setMarks(res.data.marks)
+                console.log('marks are fetched', res.data)
+            })
+            .catch((err) => alert(err.message))
+    }, [selectedBatch])
 
     useEffect(() => {
         axios({
@@ -70,9 +89,21 @@ export default function BatchStudentsTable(props) {
                                         <td>{index + 1}</td>
                                         <td>{st.id}</td>
                                         <td>{st.fullname}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>
+                                            {
+                                                marks?.find((m) => m.studentid === st.id)?.attendance === true ? "P" : "Ab"
+                                            }
+                                        </td>
+                                        <td>
+                                            {
+                                                marks?.find((m) => m.studentid === st.id)?.mark
+                                            }
+                                        </td>
+                                        <td>
+                                            {
+                                                (marks?.find((m) => m.studentid === st.id)?.mark + '')?.split('')?.map((m) => marksinWords[m] + " ")
+                                            }
+                                        </td>
                                     </tr>
                                 )
                             })
