@@ -45,16 +45,23 @@ public class ExamBatchController {
     }
 
     @GetMapping("/active")
-    public ResponseEntity<Map<String, List<ExamBatch>>> getActiveBatches(){
-        var res= new HashMap<String,List<ExamBatch>>();
-        res.put("examBatches",examBatchService.getActive());
+    public ResponseEntity<Map<String, List<ExamBatch>>> getActiveBatches() {
+        var res = new HashMap<String, List<ExamBatch>>();
+        res.put("examBatches", examBatchService.getActive());
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @GetMapping("/activeByFacultyid{facultyid}")
-    public ResponseEntity<Map<String,List<ExamBatch>>> getActiveBatchesByFacultyid(@PathVariable String facultyid){
+    public ResponseEntity<Map<String, List<ExamBatch>>> getActiveBatchesByFacultyid(@PathVariable String facultyid) {
         var res = new HashMap<String, List<ExamBatch>>();
-        res.put("examBatches",examBatchService.getActiveByFacultyid(facultyid));
+        res.put("examBatches", examBatchService.getActiveByFacultyid(facultyid));
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<Map<String, ExamBatch>> getById(@PathVariable Integer id) {
+        var res = new HashMap<String, ExamBatch>();
+        res.put("examBatch", examBatchService.getById(id));
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 

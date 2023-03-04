@@ -6,6 +6,13 @@ create database amsdb with template =template0 owner =ams;
 alter default privileges grant all on tables to ams;
 alter default privileges grant all on sequences to ams;
 
+create table admins
+(
+    id       varchar primary key,
+    password varchar not null,
+    fullname varchar
+);
+
 create table degrees
 (
     id   varchar primary key,
@@ -63,11 +70,12 @@ create table courses
 
 create table marks
 (
-    id        integer primary key,
-    mark      float,
-    studentid bigint references students (id),
-    examid    integer references exams (id),
-    courseid  varchar references courses (id)
+    studentid  bigint references students (id),
+    attendance boolean,
+    mark       integer,
+    examid     integer references exams (id),
+    courseid   varchar references courses (id),
+    primary key (studentid, examid, courseid)
 );
 
 create table grades
@@ -107,20 +115,13 @@ create table exam_batches
     unique (name, examid, courseid)
 );
 
--- create table exam_batch_allocation(
---   exambatch_id  integer references exam_batches(id),
---   faculty_id    varchar references faculties(id),
---   starttime     timestamp,
---   endtime       timestamp,
---   venue         varchar,
---   primary key (exambatch_id, faculty_id)
--- );
-
 create sequence exam_batch_id_seq increment by 1 start 1;
 create sequence exam_id_seq increment by 1 start 1;
 
 
 -- static data
+insert into admins
+values ('admin', 'admin', 'Admin');
 
 insert into degrees
 values ('BE', 'BE');

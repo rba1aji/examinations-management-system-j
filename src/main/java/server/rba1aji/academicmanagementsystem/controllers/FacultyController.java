@@ -33,7 +33,7 @@ public class FacultyController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @GetMapping("/getByIdPassword")
+    @GetMapping("/login")
     public ResponseEntity<Map<String, Faculty>> getByIdPassword(@RequestParam String id, @RequestParam String password) {
         Faculty faculty = facultyService.getByIdPassword(id, password);
         var res = new HashMap<String, Faculty>();

@@ -13,5 +13,6 @@ public class ExamBatchSQL {
     public static final String SQL_EXAMBATCH_FIND_BY_MIN_TIME = "SELECT * FROM EXAM_BATCHES " +
             "WHERE STARTTIME >= ?";
     public static final String SQL_EXAMBATCH_FIND_BY_MIN_TIME_FACULTYID = "SELECT * FROM EXAM_BATCHES " +
-            "WHERE STARTTIME >= ? AND FACULTYID = ?";
+            "WHERE ENDTIME >= ? AND FACULTYID = ?";
+    public static final String SQL_EXAMBATCH_FIND_BY_ID = "SELECT * FROM EXAM_BATCHES WHERE ID = ?";
 }

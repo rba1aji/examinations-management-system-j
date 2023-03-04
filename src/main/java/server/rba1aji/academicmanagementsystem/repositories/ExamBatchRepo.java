@@ -72,6 +72,11 @@ public class ExamBatchRepo implements IExamBatchRepo {
         return jdbcTemplate.query(SQL_EXAMBATCH_FIND_BY_MIN_TIME_FACULTYID, new Object[]{java.sql.Timestamp.from(now), facultyid}, examBatchRowMapper);
     }
 
+    @Override
+    public ExamBatch getById(Integer id) {
+        return jdbcTemplate.queryForObject(SQL_EXAMBATCH_FIND_BY_ID, new Object[]{id}, examBatchRowMapper);
+    }
+
 
     private final RowMapper<ExamBatch> examBatchRowMapper = ((rs, rowNo) -> (
             new ExamBatch(

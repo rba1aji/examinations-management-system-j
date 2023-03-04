@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ExamBatchService implements IExamBatchService{
+public class ExamBatchService implements IExamBatchService {
     @Autowired
     IExamBatchRepo examBatchRepo;
 
@@ -37,5 +37,10 @@ public class ExamBatchService implements IExamBatchService{
     @Override
     public List<ExamBatch> getActiveByFacultyid(String facultyid) {
         return examBatchRepo.getActiveBatchesByFacultyid(facultyid);
+    }
+
+    @Override
+    public ExamBatch getById(Integer id) {
+        return examBatchRepo.getById(id);
     }
 }

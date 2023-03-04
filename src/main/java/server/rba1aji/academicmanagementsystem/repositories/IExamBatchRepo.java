@@ -10,4 +10,5 @@ public interface IExamBatchRepo {
     void updateByid(Integer id, ExamBatch examBatch);
     List<ExamBatch> getActive();
     List<ExamBatch> getActiveBatchesByFacultyid(String facultyid);
+    ExamBatch getById(Integer id);
 }
