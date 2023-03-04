@@ -68,7 +68,7 @@ export default function Exam() {
             data: data
         })
             .then(res => console.log(res.data.message))
-            .catch(err => alert(err.message))
+            .catch(err => console.log(err.message))
     }, [data])
 
     // useEffect(() => {
@@ -90,7 +90,7 @@ export default function Exam() {
                     setMarks(res.data.marks)
                     console.log(res.data)
                 })
-                .catch(err => alert(err.message))
+                .catch(err => console.log(err.message))
         }
     }, [examBatch])
 
@@ -159,7 +159,7 @@ export default function Exam() {
                                     </td>
                                     <td className="text-center">
                                         {
-                                            data[ind]?.mark ? (data[ind]?.mark + "").split("")?.map((i) => marksInWords[i] + " ") : marksInWords[0]
+                                            (data.find(m => m.studentid === st.id)?.mark + "").split("")?.map((i) => marksInWords[i] + " ")
                                         }
                                     </td>
                                 </tr>
