@@ -4,15 +4,13 @@ import { Form, Button } from "react-bootstrap";
 import { serverurl } from "../../reducers/Constants";
 import { useNavigate } from "react-router-dom";
 import { AppState } from "../../reducers/AppContextProvider";
-import { formateDob } from "../../reducers/Utils";
 
-export default function StudentLogin() {
-    const [regno, setRegno] = useState()
-    const [dob, setDob] = useState('')
+export default function AdminLogin() {
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
     const navigate = useNavigate();
 
-    const { setUser, setUserRole, user, userRole } = AppState();
-
+    const { setUser, setUserRole, userRole, user } = AppState();
 
     useEffect(() => {
         if (user) {
@@ -22,57 +20,53 @@ export default function StudentLogin() {
 
     function handleLogin(e) {
         e.preventDefault();
-
+        console.log(username, password)
         axios({
             method: 'get',
-            url: serverurl + '/students/login',
+            url: serverurl + '/admins/login',
             params: {
-                id: regno,
-                dateofbirth: formateDob(dob)
+                id: username,
+                password: password
             }
         })
             .then(function (res) {
-                console.log(res.data?.student);
-                setUser(res.data?.student)
-                setUserRole('student')
-                navigate('/student/workspace');
-                window.sessionStorage.setItem('user', JSON.stringify(res.data.student))
-                window.sessionStorage.setItem('userRole', 'student')
+                console.log(res.data?.admin);
+                setUser(res.data?.admin);
+                setUserRole('admin')
+                navigate('/admin/workspace');
+                window.sessionStorage.setItem('user', JSON.stringify(res.data.admin))
+                window.sessionStorage.setItem('userRole', 'admin')
             })
             .catch(function (error) {
                 console.log(error);
-                alert("Invalid student credentials!")
+                alert("Invalid admin credentials!")
             });
-
     }
 
 
     return (
         <>
             <br />
-            <div className="text-center h4">Login as Student</div>
+            <div className="text-center h4">Login as Admin</div>
             <br />
             <Form style={{ margin: '0 40vw' }}
                 onSubmit={handleLogin}
             >
                 <Form.Group className="mb-3" >
-                    <Form.Label>Register number</Form.Label>
-                    <Form.Control placeholder="Enter register no"
-                        value={regno} onChange={(e) => setRegno(e.target.value)}
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control placeholder="Enter username"
+                        value={username} onChange={(e) => setUsername(e.target.value)}
                         required
-                        type="number"
+                        type="text"
                         autoFocus={true}
                     />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Date of birth</Form.Label>
-                    <Form.Control placeholder="dd/mm/yyyy"
-                        value={dob} onChange={(e) => {
-                            setDob(e.target.value)
-                        }}
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control placeholder="Enter password"
+                        value={password} onChange={(e) => setPassword(e.target.value)}
                         required
-                        type='date'
                     />
                 </Form.Group>
                 <div className="text-end">

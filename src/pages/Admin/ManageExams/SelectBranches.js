@@ -6,7 +6,7 @@ import { serverurl } from "../../../reducers/Constants";
 export default function SelectBranches(props) {
     const [branches, setBranches] = useState([]);
     const { selectedExam,
-        selectedBranches, setSelectedBranches,
+        setSelectedBranches,
     } = props;
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export default function SelectBranches(props) {
         <>
             <Dropdown className="d-inline" autoClose="inside"
                 onSelect={(branchid) => {
-                    setSelectedBranches(branches.find(e => e.id == branchid))
+                    setSelectedBranches(branches.find(e => e.id === branchid))
                     console.log("branch selected", branchid)
                 }}>
                 <Dropdown.Toggle id="dropdown-autoclose-inside"

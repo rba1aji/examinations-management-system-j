@@ -33,11 +33,6 @@ export default function FacultyWorkspace() {
 
     return (<>
         <br />
-        {/* <div className="h4" style={{
-            margin: '0 5vw'
-        }}>
-            Hi {user?.fullname}!
-        </div> */}
         {
             activeBatches?.sort((a, b) => {
                 return (new Date(a.starttime) - new Date(b.starttime))

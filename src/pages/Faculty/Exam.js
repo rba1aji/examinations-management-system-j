@@ -2,6 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Form, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom"
+import Timer from "../../components/Timer";
 import { serverurl } from "../../reducers/Constants"
 
 export default function Exam() {
@@ -10,22 +11,9 @@ export default function Exam() {
     const [students, setStudents] = useState([]);
     const marksInWords = ["ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN"]
     const [remTime, setRemTime] = useState('');
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const ms = new Date(examBatch?.endtime) - new Date(new Date().getTime() + (5.5 * 60 * 60 * 1000))
-            const d = ms / (24 * 60 * 60 * 1000);
-            const h = (d - parseInt(d)) * 24;
-            const m = (h - parseInt(h)) * 60;
-            const s = (m - parseInt(m)) * 60;
-            setRemTime(
-                ms <= 100 ? '0 : 0 : 0 : 0' : (d + '').split('.')[0] + " : " + (h + '').split('.')[0] + " : " + (m + '').split(".")[0] + " : " + s.toFixed()
-            )
-        }, 1000);
-        return () => clearInterval(interval);
-    }, [examBatch, remTime, new Date()])
-
+    const [marks, setMarks] = useState([])
     const [data, setData] = useState([])
+
 
     useEffect(() => {
         axios({
@@ -34,8 +22,9 @@ export default function Exam() {
         })
             .then(res => {
                 setExamBatch(res.data.examBatch)
+                console.log(res.data)
             })
-            .catch(err => alert(err.message))
+            .catch(err => console.log(err.message))
     }, [examBatchId])
 
     useEffect(() => {
@@ -57,53 +46,67 @@ export default function Exam() {
 
 
     useEffect(() => {
-        setData(
-            students.map(s => ({
-                studentid: s.id,
-                attendance: false,
-                mark: 0,
-                examid: examBatch.examid,
-                courseid: examBatch.courseid
-            }))
-        )
-    }, [students, examBatch])
+        marks.length > 0 ?
+            setData(marks)
+            :
+            setData(
+                students.map(s => ({
+                    studentid: s.id,
+                    attendance: false,
+                    mark: 0,
+                    examid: examBatch.examid,
+                    courseid: examBatch.courseid
+                }))
+            )
+    }, [students, examBatch, marks])
 
     useEffect(() => {
-        // const interval = setInterval(() => {
+        if (data.length === 0) return;
         axios({
             method: 'put',
             url: serverurl + '/marks/updateForList',
             data: data
         })
             .then(res => console.log(res.data.message))
-            .catch(err => console.log(err.message))
-        // }, 1000);
-        // return () => clearInterval(interval);
+            .catch(err => alert(err.message))
     }, [data])
 
+    // useEffect(() => {
+    //     console.log(data)
+    // }, [data])
+
     useEffect(() => {
-        console.log(data)
-    }, [data])
+        if (examBatch?.id) {
+            axios({
+                method: 'get',
+                url: serverurl + '/marks/getByBatchidExamidCourseid',
+                params: {
+                    batchid: examBatch?.id,
+                    examid: examBatch?.examid,
+                    courseid: examBatch?.courseid
+                }
+            })
+                .then(res => {
+                    setMarks(res.data.marks)
+                    console.log(res.data)
+                })
+                .catch(err => alert(err.message))
+        }
+    }, [examBatch])
 
     return (
         <div style={{
             margin: '0 5vw'
         }}>
-            <div className="text-end h5 mt-1 mb-4" style={{
-                color: 'red'
-            }}>
-                <b>{remTime}</b>
-            </div>
-            {/* {examBatch?.endtime}<br />
-            {new Date(new Date().getTime() + 5.5 * 60 * 60 * 1000).toISOString()} */}
+            <Timer
+                endtime={examBatch?.endtime}
+                remTime={remTime}
+                setRemTime={setRemTime}
+            />
             <div style={{
                 margin: '0 5vw'
             }}>
-                <Table bordered
-                    style={{
-                        // tableLayout: 'fixed'
-                    }}
-                >
+                <Table bordered>
                     <thead className="bg-info">
                         <tr>
                             <th>Sno</th>
@@ -124,10 +127,10 @@ export default function Exam() {
                                     <td className="text-center attendance">
                                         <Form.Check
                                             disabled={remTime === "0 : 0 : 0 : 0"}
-                                            checked={data[ind]?.attendance}
+                                            checked={data.find(i => i.studentid === st.id)?.attendance}
                                             onChange={(e) => {
                                                 let newData = [...data];
-                                                newData[ind].attendance = e.target.checked;
+                                                newData.find(i => i.studentid === st.id).attendance = e.target.checked;
                                                 setData(newData);
                                             }}
                                             size="lg"
@@ -144,10 +147,10 @@ export default function Exam() {
                                                 style={{
                                                     borderColor: 'black'
                                                 }}
-                                                value={data[ind]?.mark}
+                                                value={data.find(m => m.studentid === st.id)?.mark}
                                                 onChange={e => {
                                                     const newData = [...data];
-                                                    newData[ind].mark = e.target.value;
+                                                    newData.find(m => m.studentid === st.id).mark = e.target.value;
                                                     setData(newData)
                                                 }}
                                                 min={0}

@@ -58,6 +58,7 @@ export default function FacultyLogin() {
                         value={username} onChange={(e) => setUsername(e.target.value)}
                         required
                         type="number"
+                        autoFocus={true}
                     />
                 </Form.Group>
 

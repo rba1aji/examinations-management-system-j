@@ -13,7 +13,7 @@ export default function AdminWorkspace() {
             <br />
             <ListGroup>
                 {
-                    [...adminWorkspaceRoutes]
+                    [...adminWorkspaceRoutes.filter(i => i.title !== "Admin Workspace")]
                         .map((item, index) => {
                             return <Link to={item.path} key={index} className='pb-3 text-decoration-none'>
                                 <ListGroup.Item variant="info">{item.title}</ListGroup.Item>
