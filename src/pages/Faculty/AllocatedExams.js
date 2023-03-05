@@ -26,7 +26,7 @@ export default function AllocatedExams() {
             .then((res) => {
                 setActiveBatches(res.data?.examBatches);
             })
-            .catch((err) => alert(err.message))
+            .catch((err) => alert(err.response.data.message))
     }, [user])
 
     return (<>

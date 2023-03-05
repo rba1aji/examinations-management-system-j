@@ -15,7 +15,7 @@ export default function FacultiesTable() {
                 console.log(res.data)
                 seData(res.data.faculties)
             })
-            .catch((err) => console.log(err.message))
+            .catch((err) => alert(err.response.data.message))
     }, [])
 
     return (

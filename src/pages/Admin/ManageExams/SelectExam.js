@@ -16,7 +16,7 @@ export default function SelectExam(props) {
                 setExams(res.data.exams)
                 console.log("exams are fetched", res.data);
             })
-            .catch(err => console.log(err))
+            .catch(err => alert(err.response.data.message))
     }, []);
 
 

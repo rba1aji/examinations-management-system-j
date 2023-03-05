@@ -15,7 +15,7 @@ export default function StudentsTable() {
                 console.log(res.data)
                 seData(res.data.studentsList)
             })
-            .catch((err) => console.log(err.message))
+            .catch((err) => alert(err.response.data.message))
     }, [])
 
     return (

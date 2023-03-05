@@ -37,9 +37,9 @@ export default function FacultyLogin() {
                 window.sessionStorage.setItem('user', JSON.stringify(res.data.faculty))
                 window.sessionStorage.setItem('userRole', 'faculty')
             })
-            .catch(function (error) {
-                console.log(error);
-                alert("Invalid faculty credentials!")
+            .catch(function (err) {
+                console.log(err);
+                alert(err.response.data.message)
             });
     }
 

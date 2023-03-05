@@ -36,9 +36,8 @@ export default function AdminLogin() {
                 window.sessionStorage.setItem('user', JSON.stringify(res.data.admin))
                 window.sessionStorage.setItem('userRole', 'admin')
             })
-            .catch(function (error) {
-                console.log(error);
-                alert("Invalid admin credentials!")
+            .catch(function (err) {
+                alert(err.response.data.message)
             });
     }
 

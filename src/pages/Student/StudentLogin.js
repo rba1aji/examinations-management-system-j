@@ -39,9 +39,9 @@ export default function StudentLogin() {
                 window.sessionStorage.setItem('user', JSON.stringify(res.data.student))
                 window.sessionStorage.setItem('userRole', 'student')
             })
-            .catch(function (error) {
-                console.log(error);
-                alert("Invalid student credentials!")
+            .catch(function (err) {
+                console.log(err);
+                alert(err.response.data.message)
             });
 
     }

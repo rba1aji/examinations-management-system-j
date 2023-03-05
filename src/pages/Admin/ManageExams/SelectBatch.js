@@ -22,7 +22,7 @@ export default function SelectBatch(props) {
                     setBatches(res.data.examBatches)
                     console.log("batches are fetched", res.data);
                 })
-                .catch(err => console.log(err))
+                .catch(err => alert(err.response.data.message))
         }
     }, [selectedCourse, selectedExam]);
 

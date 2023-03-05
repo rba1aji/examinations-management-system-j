@@ -19,7 +19,7 @@ function MyVerticallyCenteredModal(props) {
             url: serverurl + '/faculties/getAll'
         })
             .then((res) => setFaculties(res.data.faculties))
-            .catch((err) => alert(err.message))
+            .catch((err) => alert(err.response.data.message))
     }, []);
 
 

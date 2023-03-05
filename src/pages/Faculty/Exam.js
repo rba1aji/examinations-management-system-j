@@ -24,7 +24,7 @@ export default function Exam() {
                 setExamBatch(res.data.examBatch)
                 console.log(res.data)
             })
-            .catch(err => console.log(err.message))
+            .catch(err => console.log(err.response.data.message))
     }, [examBatchId])
 
     useEffect(() => {
@@ -40,7 +40,7 @@ export default function Exam() {
                 .then(res => {
                     setStudents(res.data.students)
                 })
-                .catch(err => console.log(err.message))
+                .catch(err => console.log(err.response.data.message))
         }
     }, [examBatch])
 
@@ -90,7 +90,7 @@ export default function Exam() {
                     setMarks(res.data.marks)
                     console.log(res.data)
                 })
-                .catch(err => console.log(err.message))
+                .catch(err => console.log(err.response.data.message))
         }
     }, [examBatch])
 

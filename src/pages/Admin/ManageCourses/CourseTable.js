@@ -14,7 +14,7 @@ export default function CourseTable() {
             url: serverurl + '/courses/getAll'
         })
             .then(res => setCourses(res.data.courses))
-            .catch(err => console.log(err))
+            .catch(err => alert(err.response.data.message))
     }, [])
 
     return (

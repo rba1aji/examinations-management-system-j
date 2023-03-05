@@ -23,7 +23,9 @@ export default function BatchStudentsTable(props) {
                 setMarks(res.data.marks)
                 console.log('marks are fetched', res.data)
             })
-            .catch((err) => alert(err.message))
+            .catch((err) =>
+                alert(err.response.data.message)
+            )
     }, [selectedBatch])
 
     useEffect(() => {
@@ -36,7 +38,9 @@ export default function BatchStudentsTable(props) {
             }
         })
             .then((res) => setStudents(res.data.students))
-            .catch((err) => alert(err.message))
+            .catch((err) =>
+                alert(err.response.data.message)
+            )
     }, [selectedBatch])
 
     return (

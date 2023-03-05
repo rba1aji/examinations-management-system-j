@@ -31,7 +31,7 @@ const AppContextProvider = ({ children }) => {
             url: serverurl + '/branches/getAll'
         })
             .then((res) => setBranches(res.data.branches))
-            .catch((err) => console.log(err));
+            .catch((err) => alert(err.response.data.message));
     }, []);
 
 

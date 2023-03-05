@@ -40,7 +40,7 @@ function MyVerticallyCenteredModal(props) {
                     batch: ''
                 })
             })
-            .catch(err => alert(err))
+            .catch(err => alert(err.response.data.message))
     }
 
     return (

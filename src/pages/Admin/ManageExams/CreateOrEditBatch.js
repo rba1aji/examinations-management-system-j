@@ -57,7 +57,9 @@ function MyVerticallyCenteredModal(props) {
                 onHide()
                 props.setRender(prev => prev + 1)
             })
-            .catch(err => alert(err.message))
+            .catch(err =>
+                alert(err.response.data.message)
+            )
 
         console.log('update batch', newBatch)
 
@@ -69,7 +71,7 @@ function MyVerticallyCenteredModal(props) {
             url: serverurl + '/faculties/getAll'
         })
             .then((res) => setFaculties(res.data.faculties))
-            .catch((err) => alert(err.message))
+            .catch((err) => alert(err.response.data.message))
     }, [])
 
     return (

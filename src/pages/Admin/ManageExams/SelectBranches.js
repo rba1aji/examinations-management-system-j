@@ -21,7 +21,7 @@ export default function SelectBranches(props) {
                     setBranches(res.data.branches)
                     console.log('branches are fetched', res.data)
                 })
-                .catch(err => console.log(err))
+                .catch(err => alert(err.response.data.message))
         }
     }, [selectedExam, setSelectedBranches]);
 

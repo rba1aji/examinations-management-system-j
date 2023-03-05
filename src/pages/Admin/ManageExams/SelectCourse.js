@@ -28,7 +28,7 @@ export default function SelectCourse(props) {
                     setCourses(res.data.courses)
                     console.log("courses are fetched", res.data)
                 })
-                .catch(err => console.log(err))
+                .catch(err => alert(err.response.data.message))
         }
     }, [selectedBranches, selectedExam])
 

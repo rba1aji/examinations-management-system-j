@@ -22,8 +22,7 @@ function MyVerticallyCenteredModal(props) {
                 alert(res.data.message)
             })
             .catch(async err => {
-                alert(err.message)
-                console.log(err)
+                alert(err.response.data.message)
             })
     }
 
