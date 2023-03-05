@@ -98,13 +98,14 @@ export default function Exam() {
         <div style={{
             margin: '0 5vw'
         }}>
+            <br />
             <Timer
                 endtime={examBatch?.endtime}
                 remTime={remTime}
                 setRemTime={setRemTime}
             />
             <div style={{
-                margin: '0 5vw'
+                margin: '0 2.5vw'
             }}>
                 <Table bordered>
                     <thead className="bg-info">
@@ -168,6 +169,8 @@ export default function Exam() {
                     </tbody>
                 </Table>
             </div>
+            <br />
+            <br />
         </div>
     )
 }

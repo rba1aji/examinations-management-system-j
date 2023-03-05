@@ -43,7 +43,7 @@ export default function BatchStudentsTable(props) {
         <>
             <div style={{
                 width: '100%',
-                height: '82vh',
+                height: '77.5vh',
                 overflow: 'scroll',
                 fontSize: '90%'
             }}

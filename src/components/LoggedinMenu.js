@@ -6,7 +6,7 @@ export default function LoggedinMenu() {
     const { user, setUser, userRole, setUserRole } = AppState()
     return (
         <>
-            <div className='m-auto me-5 h5'>
+            <div className='m-auto me-5 h5 text-dark'>
                 {userRole.substring(0, 1).toUpperCase() + userRole.substring(1)}:
                 {" " + user?.fullname}
             </div>

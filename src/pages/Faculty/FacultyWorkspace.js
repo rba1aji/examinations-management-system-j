@@ -1,71 +1,46 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Button, Card } from "react-bootstrap";
-import { serverurl } from "../../reducers/Constants";
-import { AppState } from "../../reducers/AppContextProvider";
-import { useNavigate } from "react-router-dom";
-import { outputFormateStartEndDateTime } from "../../reducers/Utils";
+import { useState } from 'react';
+import Nav from 'react-bootstrap/Nav';
+import ChangePassword from '../../components/ChangePassword';
+import AllocatedExams from './AllocatedExams';
 
-export default function FacultyWorkspace() {
-    const [activeBatches, setActiveBatches] = useState([]);
-    const {
-        user
-    } = AppState();
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!user) {
-            navigate('/faculty/login');
-        }
-
-        axios({
-            method: 'get',
-            url: serverurl + '/exambatches/activeByFacultyid' + user?.id
-        })
-            .then((res) => {
-                setActiveBatches(res.data?.examBatches);
-            })
-            .catch((err) => alert(err.message))
-    }, [user])
-
-    return (<>
-        <div className="text-center">
-            Exams allocated to you are listed below
-        </div>
-        <br />
-        {
-            activeBatches?.sort((a, b) => {
-                return (new Date(a.starttime) - new Date(b.starttime))
-            })?.map((eb) => {
-                return <Card className='bg- text-center py-3 mb-4' Body style={{
-                    backgroundColor: 'azure',
-                    margin: '0 32.5vw'
-                }}>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <Card.Title className="mb-3">{outputFormateStartEndDateTime(eb.starttime, eb.endtime)}</Card.Title>
-                                    <Card.Subtitle className="mb-3">Batch: {eb.name}</Card.Subtitle>
-                                    <Card.Subtitle className="mb-3">Branch: {eb.branchid}</Card.Subtitle>
-                                    <Card.Subtitle className="mb-3">Course: {eb.courseid}</Card.Subtitle>
-                                    <Card.Subtitle className="mb-3">Exam: {eb.examid}</Card.Subtitle>
-                                    <Card.Subtitle className="mb-1">Venue: {eb.venue}</Card.Subtitle>
-                                </td>
-                                <td className="pe-3">
-                                    <Button className="" variant="info"
-                                        disabled={
-                                            new Date(new Date().getTime() + 5.5 * 60 * 60 * 1000) < new Date(eb.starttime)
-                                        }
-                                        onClick={() => navigate(`/faculty/exam/${eb.id}`)}
-                                    >Start {'>'}</Button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </Card>
-            })
-        }
-    </>)
+export function FacultyWorkspace() {
+    const components = [<AllocatedExams />, <ChangePassword />];
+    const [key, setKey] = useState(0);
+    return (
+        <table style={{
+            width: '100%',
+            height: '100%',
+        }}>
+            <tbody><tr className=''>
+                <td style={{
+                    width: '15%',
+                    height: '95vh',
+                    backgroundColor: 'azure'
+                }}
+                    className='align-top pt-5 px-3 border-end'
+                >
+                    <Nav defaultActiveKey="exams" className='flex-column position-sticky'
+                        onSelect={(ekey) => {
+                            setKey(ekey);
+                        }}>
+                        {
+                            ['Exams', 'Change Password']
+                                .map((item, index) => {
+                                    return <Nav.Link
+                                        eventKey={index}
+                                        className={parseInt(key) === index ? 'text-decoration-underline text-dark' : 'text-dark'}>
+                                        {item}
+                                    </Nav.Link>
+                                })
+                        }
+                    </Nav>
+                </td>
+                <td className='align-top'>
+                    <br />
+                    <br />
+                    {components[key]}
+                </td>
+            </tr></tbody>
+        </table >
+    );
 }

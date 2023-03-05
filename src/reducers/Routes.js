@@ -7,9 +7,10 @@ import ManageCourses from "../pages/Admin/ManageCourses"
 import ManageExams from "../pages/Admin/ManageExams"
 import ManageFaculties from "../pages/Admin/ManageFaculties"
 import FacultyLogin from "../pages/Faculty/FacultyLogin"
-import FacultyWorkspace from "../pages/Faculty/FacultyWorkspace"
+// import FacultyWorkspace from "../pages/Faculty/FacultyWorkspace"
 import Exam from "../pages/Faculty/Exam"
 import AdminLogin from "../pages/Admin/AdminLogin"
+import { FacultyWorkspace } from "../pages/Faculty/FacultyWorkspace"
 
 export const loginRoutes = [
     {

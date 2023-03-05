@@ -47,6 +47,7 @@ export default function FacultyLogin() {
     return (
         <>
             <br />
+            <br />
             <div className="text-center h4">Login as Faculty</div>
             <br />
             <Form style={{ margin: '0 40vw' }}
@@ -57,7 +58,6 @@ export default function FacultyLogin() {
                     <Form.Control placeholder="Enter username"
                         value={username} onChange={(e) => setUsername(e.target.value)}
                         required
-                        type="number"
                         autoFocus={true}
                     />
                 </Form.Group>
@@ -69,8 +69,8 @@ export default function FacultyLogin() {
                         required
                     />
                 </Form.Group>
-                <div className="text-end">
-                    <Button variant="info" type="submit">
+                <div className="text-end mt-4">
+                    <Button variant="info" type="submit" className="px-4">
                         Login
                     </Button>
                 </div>

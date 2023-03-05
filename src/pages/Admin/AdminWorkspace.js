@@ -9,7 +9,7 @@ export default function AdminWorkspace() {
             padding: '0 5vw'
         }}>
             <br />
-            <div className="h3">Hi Admin!</div>
+            <br />
             <br />
             <ListGroup>
                 {

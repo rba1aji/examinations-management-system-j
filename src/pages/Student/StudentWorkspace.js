@@ -9,6 +9,7 @@ export default function StudentWorkspace() {
             padding: '0 5vw'
         }}>
             <br />
+            <br />
             <div className="h4">Hi {user?.fullname}!</div>
             <br />
             <ListGroup>

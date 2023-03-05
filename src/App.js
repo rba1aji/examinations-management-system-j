@@ -18,7 +18,6 @@ function App() {
         <MenuBar />
         <br />
         <br />
-        <br />
         <Routes>
           {[...defaultRoutes, ...loginRoutes]
             .map((item, index) => (
@@ -38,7 +37,7 @@ function App() {
                 element={item.component}
               ></Route>
             })}
-          {[...adminWorkspaceRoutes]
+          {userRole === 'admin' && [...adminWorkspaceRoutes]
             .map((item, index) => {
               return <Route
                 key={index}
@@ -47,7 +46,7 @@ function App() {
                 element={item.component}
               ></Route>
             })}
-          {[...studentWorkspaceRoutes]
+          {userRole === 'student' && [...studentWorkspaceRoutes]
             .map((item, index) => {
               return <Route
                 key={index}
@@ -59,7 +58,6 @@ function App() {
 
         </Routes>
       </BrowserRouter>
-      <br />
     </div>
   );
 }

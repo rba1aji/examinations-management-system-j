@@ -20,7 +20,6 @@ export default function AdminLogin() {
 
     function handleLogin(e) {
         e.preventDefault();
-        console.log(username, password)
         axios({
             method: 'get',
             url: serverurl + '/admins/login',
@@ -47,6 +46,7 @@ export default function AdminLogin() {
     return (
         <>
             <br />
+            <br />
             <div className="text-center h4">Login as Admin</div>
             <br />
             <Form style={{ margin: '0 40vw' }}
@@ -69,8 +69,8 @@ export default function AdminLogin() {
                         required
                     />
                 </Form.Group>
-                <div className="text-end">
-                    <Button variant="info" type="submit">
+                <div className="text-end mt-4">
+                    <Button variant="info" type="submit" className="px-4">
                         Login
                     </Button>
                 </div>

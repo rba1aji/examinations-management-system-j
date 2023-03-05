@@ -39,7 +39,7 @@ export default function SelectBranches(props) {
                     }}
                     variant='info'
                 >
-                    Select Branches
+                    Select Branch
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu >

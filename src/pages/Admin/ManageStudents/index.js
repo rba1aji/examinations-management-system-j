@@ -5,9 +5,10 @@ export default function ManageStudents() {
 
     return (
         <div style={{
-            margin: '0 5vw',
+            margin: '0 7.5vw',
         }}>
-            <div className="h6 text-end mt-2 me-3">Manage Students</div>
+            <br />
+            <div className="h6 text-end mt-2 ">Manage Students</div>
             <RegisterMultipleStudents />
             <br />
             <br />

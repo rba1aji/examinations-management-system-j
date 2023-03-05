@@ -50,6 +50,7 @@ export default function StudentLogin() {
     return (
         <>
             <br />
+            <br />
             <div className="text-center h4">Login as Student</div>
             <br />
             <Form style={{ margin: '0 40vw' }}
@@ -75,8 +76,8 @@ export default function StudentLogin() {
                         type='date'
                     />
                 </Form.Group>
-                <div className="text-end">
-                    <Button variant="info" type="submit">
+                <div className="text-end mt-4">
+                    <Button variant="info" type="submit" className="px-4">
                         Login
                     </Button>
                 </div>

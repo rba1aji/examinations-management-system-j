@@ -40,7 +40,7 @@ export default function FacultiesTable() {
                             zIndex: 1
                         }}>
                             {
-                                ["Sno", "ID", "Password", "Name", "Department", "Designation", "Email", "Phone"].map((item, index) => {
+                                ["Sno", "ID", "Name", "Department", "Designation", "Email", "Phone"].map((item, index) => {
                                     return <th
                                         key={index}
                                         className="bg-info"
@@ -61,7 +61,7 @@ export default function FacultiesTable() {
                                 return <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td>{f.id}</td>
-                                    <td>{f.password}</td>
+                                    {/* <td>{f.password}</td> */}
                                     <td>{f.fullname}</td>
                                     <td>{f.department}</td>
                                     <td>{f.designation}</td>

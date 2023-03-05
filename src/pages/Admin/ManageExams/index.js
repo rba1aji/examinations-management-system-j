@@ -35,9 +35,10 @@ export default function ManageExams() {
 
     return (
         <div style={{
-            margin: '0 5vw',
+            margin: '0 7.5vw',
         }}>
-            <div className="h6 text-end mt-2 me-3">Manage Exams</div>
+            <br />
+            <div className="h6 text-end mt-2 ">Manage Exams</div>
             <div className="mb-3">
                 <br />
                 {
@@ -127,6 +128,8 @@ export default function ManageExams() {
             <div className="mx-2">
                 {selectedBatch?.id && <BatchStudentsTable selectedBatch={selectedBatch} />}
             </div>
+            <br />
+            <br />
         </div >
     )
 }
