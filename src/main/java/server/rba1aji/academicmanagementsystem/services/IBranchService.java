@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IBranchService {
     List<Branch> getAll();
+    Branch getById(String id);
 }

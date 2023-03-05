@@ -1,5 +1,7 @@
 package server.rba1aji.academicmanagementsystem.repositories;
 
+import jakarta.security.auth.message.AuthException;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,10 +22,11 @@ public class FacultyRepo implements IFacultyRepo {
 
     @Override
     public void create(Faculty faculty) {
+        String hashedPw = BCrypt.hashpw(faculty.getPassword(), BCrypt.gensalt(10));
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(SQL_FACULTY_CREATE);
             ps.setString(1, faculty.getId());
-            ps.setString(2, faculty.getPassword());
+            ps.setString(2, hashedPw);
             ps.setString(3, faculty.getFullname());
             ps.setString(4, faculty.getDepartment());
             ps.setString(5, faculty.getDesignation());
@@ -34,13 +37,28 @@ public class FacultyRepo implements IFacultyRepo {
     }
 
     @Override
-    public Faculty findByIdPassword(String id, String password) {
-        return jdbcTemplate.queryForObject(SQL_FACULTY_FIND_BY_ID_PASSWORD, new Object[]{id, password}, facultyRowMapper);
+    public Faculty findByIdPassword(String id, String password) throws AuthException {
+        Faculty faculty = jdbcTemplate.queryForObject(SQL_FACULTY_FINDBY_ID, new Object[]{id}, facultyRowMapper);
+        if (BCrypt.checkpw(password, faculty.getPassword()))
+            return faculty;
+        throw new AuthException("INVALID PASSWORD");
     }
 
     @Override
     public List<Faculty> findAll() {
-        return jdbcTemplate.query(SQL_FIND_ALL, facultyRowMapper);
+        return jdbcTemplate.query(SQL_FACULTY_FIND_ALL, facultyRowMapper);
+    }
+
+    @Override
+    public void changePassword(String id, String curPw, String newPw) throws AuthException {
+        Faculty faculty = jdbcTemplate.queryForObject(SQL_FACULTY_FINDBY_ID, new Object[]{id}, facultyRowMapper);
+        if (BCrypt.checkpw(curPw, faculty.getPassword())) {
+            jdbcTemplate.update(SQL_FACULTY_UPDATE_PASSWORD, new Object[]{
+                    BCrypt.hashpw(newPw, BCrypt.gensalt(10)),
+                    id
+            });
+        }
+        else throw new AuthException("INVALID CURRENT PASSWORD");
     }
 
     private final RowMapper<Faculty> facultyRowMapper = ((rs, rowNum) -> (

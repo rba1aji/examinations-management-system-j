@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import server.rba1aji.academicmanagementsystem.models.Branch;
 import server.rba1aji.academicmanagementsystem.services.IBranchService;
@@ -25,6 +26,13 @@ public class BranchController {
 
         var res = new HashMap<String, List<Branch>>();
         res.put("branches", branchList);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/getById")
+    public ResponseEntity<Map<String, Branch>> getById(@RequestParam String id) {
+        var res = new HashMap<String, Branch>();
+        res.put("branch", branchService.getById(id));
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }

@@ -17,4 +17,10 @@ public class BranchService implements IBranchService{
     public List<Branch> getAll() {
         return branchRepo.findAll();
     }
+
+    @Override
+    public Branch getById(String id) {
+        return branchRepo.findById(id);
+    }
+
 }

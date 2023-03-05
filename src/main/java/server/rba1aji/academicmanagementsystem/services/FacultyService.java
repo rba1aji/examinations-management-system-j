@@ -1,5 +1,6 @@
 package server.rba1aji.academicmanagementsystem.services;
 
+import jakarta.security.auth.message.AuthException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,12 +28,17 @@ public class FacultyService implements IFacultyService{
     }
 
     @Override
-    public Faculty getByIdPassword(String id, String password) {
+    public Faculty getByIdPassword(String id, String password) throws AuthException {
         return facultyRepo.findByIdPassword(id, password);
     }
 
     @Override
     public List<Faculty> getAll() {
         return facultyRepo.findAll();
+    }
+
+    @Override
+    public void changePassword(String id, String curPw, String newPw) throws AuthException {
+        facultyRepo.changePassword(id, curPw, newPw);
     }
 }

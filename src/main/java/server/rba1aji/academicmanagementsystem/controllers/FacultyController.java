@@ -1,5 +1,6 @@
 package server.rba1aji.academicmanagementsystem.controllers;
 
+import jakarta.security.auth.message.AuthException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class FacultyController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<Map<String, Faculty>> getByIdPassword(@RequestParam String id, @RequestParam String password) {
+    public ResponseEntity<Map<String, Faculty>> getByIdPassword(@RequestParam String id, @RequestParam String password) throws AuthException {
         Faculty faculty = facultyService.getByIdPassword(id, password);
         var res = new HashMap<String, Faculty>();
         res.put("faculty", faculty);
@@ -42,10 +43,20 @@ public class FacultyController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<Map<String, List<Faculty>>> getAll(){
+    public ResponseEntity<Map<String, List<Faculty>>> getAll() {
         List<Faculty> facultyList = facultyService.getAll();
-        var res= new HashMap<String,List<Faculty>>();
+        var res = new HashMap<String, List<Faculty>>();
         res.put("faculties", facultyList);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @PutMapping("/changePassword")
+    public ResponseEntity<Map<String, String>> changePassword(
+            @RequestParam String id, @RequestParam String currentPassword, @RequestParam String newPassword
+    ) throws AuthException {
+        facultyService.changePassword(id, currentPassword, newPassword);
+        var res = new HashMap<String, String>();
+        res.put("message", "Password is changed");
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package server.rba1aji.academicmanagementsystem.controllers;
 
+import jakarta.security.auth.message.AuthException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -21,7 +22,7 @@ public class AdminController {
     IAdminService adminService;
 
     @GetMapping("login")
-    public ResponseEntity<Map<String, Admin>> getByIdPassword(@RequestParam String id, @RequestParam String password) {
+    public ResponseEntity<Map<String, Admin>> getByIdPassword(@RequestParam String id, @RequestParam String password) throws AuthException {
         var res = new HashMap<String, Admin>();
         res.put("admin", adminService.getByIdPassword(id, password));
         return new ResponseEntity<>(res, HttpStatus.OK);
