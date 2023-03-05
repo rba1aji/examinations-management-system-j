@@ -22,9 +22,9 @@ export default function StudentsTable() {
         <>
             <div style={{
                 width: '100%',
-                height: '82vh',
+                height: '75vh',
                 overflow: 'scroll',
-                fontSize: '80%'
+                fontSize: '85%'
             }}
                 className=" border "
             >

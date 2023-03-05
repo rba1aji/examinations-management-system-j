@@ -9,9 +9,17 @@ export default function ManageStudents() {
         }}>
             <br />
             <div className="h6 text-end mt-2 ">Manage Students</div>
-            <RegisterMultipleStudents />
-            <br />
-            <br />
+            <div className="mb-3">
+                {
+                    [
+                        <RegisterMultipleStudents />,
+                    ].map((el, ind) => {
+                        return <span className="pe-5" key={ind}>
+                            {el}
+                        </span>;
+                    })
+                }
+            </div>
             <StudentsTable />
         </div>
     )

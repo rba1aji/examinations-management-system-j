@@ -9,9 +9,17 @@ export default function ManageFaculties() {
         }}>
             <br />
             <div className="h6 text-end mt-2 ">Manage Faculties</div>
-            <RegisterMultipleFaculties />
-            <br />
-            <br />
+            <div className="mb-3">
+                {
+                    [
+                        <RegisterMultipleFaculties />,
+                    ].map((el, ind) => {
+                        return <span className="pe-5" key={ind}>
+                            {el}
+                        </span>;
+                    })
+                }
+            </div>
             <FacultiesTable />
         </div>
     )

@@ -21,9 +21,9 @@ export default function CourseTable() {
         <>
             <div style={{
                 width: '100%',
-                height: '82vh',
+                height: '75vh',
                 overflow: 'scroll',
-                fontSize: '80%'
+                fontSize: '85%'
             }}
                 className=" border "
             >
@@ -33,7 +33,7 @@ export default function CourseTable() {
                 }}
                     bordered
                 >
-                    <thead>
+                    <thead >
                         <tr style={{
                             position: 'sticky',
                             top: 0,
@@ -44,7 +44,7 @@ export default function CourseTable() {
                                     .map((item, index) => {
                                         return <th
                                             key={index}
-                                            className="bg-light"
+                                            className="bg-info"
                                         >
                                             {item}
                                         </th>;
@@ -61,7 +61,7 @@ export default function CourseTable() {
                             courses?.map((item, index) => {
                                 return (
                                     <tr key={index}>
-                                        <td>{index}</td>
+                                        <td>{index + 1}</td>
                                         <td>{item.id}</td>
                                         <td>{item.name}</td>
                                         <td>{item.credits}</td>
