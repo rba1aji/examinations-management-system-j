@@ -18,7 +18,7 @@ export default function StudentLogin() {
         if (user) {
             navigate(`/${userRole}/workspace`)
         }
-    }, [user, userRole])
+    }, [user, userRole, navigate])
 
     function handleLogin(e) {
         e.preventDefault();

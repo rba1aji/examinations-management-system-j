@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import ChangePassword from '../../components/ChangePassword';
 import AllocatedExams from './AllocatedExams';
@@ -19,18 +20,25 @@ export function FacultyWorkspace() {
                 }}
                     className='align-top pt-5 px-3 border-end'
                 >
-                    <Nav defaultActiveKey="exams" className='flex-column position-sticky'
+                    <Nav defaultActiveKey="exams" className=' '
                         onSelect={(ekey) => {
                             setKey(ekey);
                         }}>
                         {
                             ['Exams', 'Change Password']
                                 .map((item, index) => {
-                                    return <Nav.Link
-                                        eventKey={index}
-                                        className={parseInt(key) === index ? 'text-decoration-underline text-dark' : 'text-dark'}>
-                                        {item}
-                                    </Nav.Link>
+                                    return (
+                                        <Nav.Link
+                                            eventKey={index}
+                                            className='text-dark w-100'
+                                        >
+                                            <Button variant={parseInt(key) === index ? 'info' : ''}
+                                                className='w-100'
+                                            >
+                                                {item}
+                                            </Button>
+                                        </Nav.Link>
+                                    )
                                 })
                         }
                     </Nav>

@@ -1,51 +1,25 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Form, Table } from "react-bootstrap";
-import { useParams } from "react-router-dom"
+import { Button, Form, Table } from "react-bootstrap";
+// import { render } from "react-dom";
+import { Link, useParams } from "react-router-dom"
 import Timer from "../../components/Timer";
 import { serverurl } from "../../reducers/Constants"
+import { numbersToWords } from "../../reducers/Utils";
+import ExamData from "./ExamData";
 
 export default function Exam() {
     const { examBatchId } = useParams();
     const [examBatch, setExamBatch] = useState();
     const [students, setStudents] = useState([]);
-    const marksInWords = ["ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN"]
     const [remTime, setRemTime] = useState('');
     const [marks, setMarks] = useState([])
     const [data, setData] = useState([])
+    const [examName, setExamName] = useState('');
+    const [courseName, setCourseName] = useState('');
 
 
-    useEffect(() => {
-        axios({
-            method: 'get',
-            url: serverurl + '/exambatches/getById/' + examBatchId
-        })
-            .then(res => {
-                setExamBatch(res.data.examBatch)
-                console.log(res.data)
-            })
-            .catch(err => console.log(err.response.data.message))
-    }, [examBatchId])
-
-    useEffect(() => {
-        if (examBatch) {
-            axios({
-                method: 'get',
-                url: serverurl + '/students/getByStartidEndid',
-                params: {
-                    startid: examBatch.startStudentid,
-                    endid: examBatch.endStudentid
-                }
-            })
-                .then(res => {
-                    setStudents(res.data.students)
-                })
-                .catch(err => console.log(err.response.data.message))
-        }
-    }, [examBatch])
-
-
-    useEffect(() => {
+    useEffect(() => {   //init marks
         marks.length > 0 ?
             setData(marks)
             :
@@ -60,7 +34,7 @@ export default function Exam() {
             )
     }, [students, examBatch, marks])
 
-    useEffect(() => {
+    useEffect(() => {   //update marks
         if (data.length === 0) return;
         axios({
             method: 'put',
@@ -75,37 +49,76 @@ export default function Exam() {
     //     console.log(data)
     // }, [data])
 
-    useEffect(() => {
-        if (examBatch?.id) {
+    useEffect(() => {   // set examnames coursenames
+        if (examBatch?.examid) {
             axios({
                 method: 'get',
-                url: serverurl + '/marks/getByBatchidExamidCourseid',
-                params: {
-                    batchid: examBatch?.id,
-                    examid: examBatch?.examid,
-                    courseid: examBatch?.courseid
-                }
+                url: serverurl + '/exams/' + examBatch?.examid + '/getName'
             })
                 .then(res => {
-                    setMarks(res.data.marks)
-                    console.log(res.data)
+                    setExamName(res.data.examName)
                 })
                 .catch(err => console.log(err.response.data.message))
+
+            axios({
+                method: 'get',
+                url: serverurl + '/courses/' + examBatch?.courseid + '/getName'
+            })
+                .then(res => {
+                    setCourseName(examBatch.courseid + " " + res.data.courseName)
+                })
+                .catch(err => console.log(err.response.data.message))
+
         }
     }, [examBatch])
 
+
+    // ExamData(examBatchId, examBatch, setExamBatch, setStudents, setMarks);
+
+    // render(<ExamData
+    //     examBatchId={examBatchId}
+    //     examBatch={examBatch}
+    //     setExamBatch={setExamBatch}
+    //     setStudents={setStudents}
+    //     setMarks={setMarks}
+    // />)
+
     return (
         <div style={{
-            margin: '0 5vw'
+            margin: '0 7.5vw'
         }}>
+            <ExamData
+                examBatchId={examBatchId}
+                examBatch={examBatch}
+                setExamBatch={setExamBatch}
+                setStudents={setStudents}
+                setMarks={setMarks}
+            />
             <br />
             <Timer
                 endtime={examBatch?.endtime}
                 remTime={remTime}
                 setRemTime={setRemTime}
             />
+
+            <div className="mb-3">
+                <span className="pe-4">Batch: {examBatch?.name}</span>
+                <span className="pe-4">Exam: {examName}</span>
+                <span className="pe-4">Course: {courseName}</span>
+                <span className="pe-4">Venue: {examBatch?.venue}</span>
+                <span className="">
+                    <Button variant="info" className="ms-auto px-4 py-1"
+                        as={Link}
+                        to={`/faculty/exam/${examBatchId}/print-result`}
+                    >
+                        Print
+                    </Button>
+                    {/* <ResultPdf /> */}
+                </span>
+            </div>
+
             <div style={{
-                margin: '0 2.5vw'
+                // margin: '0 2.5vw'
             }}>
                 <Table bordered>
                     <thead className="bg-info">
@@ -160,7 +173,7 @@ export default function Exam() {
                                     </td>
                                     <td className="text-center">
                                         {
-                                            (data.find(m => m.studentid === st.id)?.mark + "").split("")?.map((i) => marksInWords[i] + " ")
+                                            numbersToWords(data.find(m => m.studentid === st.id)?.mark)
                                         }
                                     </td>
                                 </tr>

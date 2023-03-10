@@ -2,12 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { serverurl } from "../../../reducers/Constants";
+import { numbersToWords } from "../../../reducers/Utils";
+
+
 
 export default function BatchStudentsTable(props) {
     const [students, setStudents] = useState([]);
     const { selectedBatch } = props;
     const [marks, setMarks] = useState([]);
-    const marksinWords = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE', 'TEN']
 
     useEffect(() => {
         axios({
@@ -105,7 +107,7 @@ export default function BatchStudentsTable(props) {
                                         </td>
                                         <td>
                                             {
-                                                (marks?.find((m) => m.studentid === st.id)?.mark + '')?.split('')?.map((m) => marksinWords[m] + " ")
+                                                numbersToWords(marks?.find((m) => m.studentid === st.id)?.mark)
                                             }
                                         </td>
                                     </tr>

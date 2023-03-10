@@ -45,3 +45,8 @@ export const outputFormateStartEndDateTime = (start, end) => {
     else
         return outputFormateDateTime(start) + " - " + outputFormateDateTime(end);
 }
+
+export const numbersToWords = (n) => {
+    const marksInWords = ["ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN"]
+    return (n + "").split("")?.map((i) => marksInWords[i] + " ")
+}

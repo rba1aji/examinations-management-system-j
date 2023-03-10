@@ -18,7 +18,7 @@ export default function Timer(props) {
     }, [endtime])
 
     return (
-        <div className="text-end h5 mt-1 mb-4" style={{
+        <div className="text-end h5" style={{
             color: 'red'
         }}>
             <b>{remTime}</b>

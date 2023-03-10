@@ -10,16 +10,30 @@ export default function MenuBar() {
     <>
       <Navbar collapseOnSelect bg="info" expand="lg" fixed="top" className=''>
         <Container className='p-0'>
-          {/* <img src='https://ksrct.ac.in/wp-content/uploads/2020/06/Brand_logo.png' alt='ksr'
-            width='42.5' height='37.5' /> */}
+          <img src='https://ksrct.ac.in/wp-content/uploads/2020/06/Brand_logo.png' alt='ksr'
+            width='42.5' height='37.5' />
           <p
-            style={{ fontWeight: 'bold', fontSize: 25.25, letterSpacing: 3 }}
-            className="h1 mb-0 ps-3 me-auto"
+            style={{ fontWeight: 'bold' }}
+            className="h1 mb-0 ps-3 me-auto ms-2"
           >
             <Link to='/ '
-              className='text-decoration-none ps-3 text-dark'
+              className='text-decoration-none text-dark'
             >
-              COEAMS
+              <div style={{
+                fontSize: 18,
+                letterSpacing: 2,
+                paddingBottom: '3px'
+              }}
+              >
+                K.S.Rangasamy College of Technology
+              </div>
+              <div style={{
+                fontSize: 16.5,
+                letterSpacing: 1.5
+              }}><i>
+                  Examinations Management System
+                </i>
+              </div>
             </Link>
           </p>
 

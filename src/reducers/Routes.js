@@ -11,6 +11,7 @@ import FacultyLogin from "../pages/Faculty/FacultyLogin"
 import Exam from "../pages/Faculty/Exam"
 import AdminLogin from "../pages/Admin/AdminLogin"
 import { FacultyWorkspace } from "../pages/Faculty/FacultyWorkspace"
+import ResultPdf from "../pages/Faculty/ResultPdf"
 
 export const loginRoutes = [
     {
@@ -68,6 +69,11 @@ export const facultyWorkspaceRoutes = [
         path: '/faculty/exam/:examBatchId',
         title: 'Exam',
         component: <Exam />
+    },
+    {
+        path: '/faculty/exam/:examBatchId/print-result',
+        title: 'Print Result',
+        component: <ResultPdf />
     }
 ];
 
