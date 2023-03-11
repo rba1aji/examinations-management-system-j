@@ -5,10 +5,10 @@ export default function ManageStudents() {
 
     return (
         <div style={{
-            margin: '0 7.5vw',
+            margin: '0 2.5vw',
         }}>
-            <br />
-            <div className="h6 text-end mt-2 ">Manage Students</div>
+            {/* <br /> */}
+            {/* <div className="h6 text-end mt-2 ">Manage Students</div> */}
             <div className="mb-3">
                 {
                     [

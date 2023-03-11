@@ -18,9 +18,8 @@ export default function ChangePassword() {
         e.preventDefault()
         axios({
             method: 'put',
-            url: serverurl + '/' + apipath[userRole] + '/changePassword',
+            url: serverurl + '/' + apipath[userRole] + '/' + user.id + '/changePassword',
             params: {
-                id: user.id,
                 currentPassword: curPw,
                 newPassword: newPw
             }

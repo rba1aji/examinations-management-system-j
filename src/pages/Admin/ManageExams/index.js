@@ -35,10 +35,10 @@ export default function ManageExams() {
 
     return (
         <div style={{
-            margin: '0 7.5vw',
+            margin: '0 2.5vw',
         }}>
-            <br />
-            <div className="h6 text-end mt-2 ">Manage Exams</div>
+            {/* <br />
+            <div className="h6 text-end mt-2 ">Manage Exams</div> */}
             <div className="mb-3">
                 <br />
                 {

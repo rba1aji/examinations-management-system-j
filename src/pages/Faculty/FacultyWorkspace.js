@@ -14,7 +14,7 @@ export function FacultyWorkspace() {
         }}>
             <tbody><tr className=''>
                 <td style={{
-                    width: '15%',
+                    width: '14%',
                     height: '95vh',
                     backgroundColor: 'azure'
                 }}
@@ -33,7 +33,7 @@ export function FacultyWorkspace() {
                                             className='text-dark w-100'
                                         >
                                             <Button variant={parseInt(key) === index ? 'info' : ''}
-                                                className='w-100'
+                                                className='w-100 py-1 my-1'
                                             >
                                                 {item}
                                             </Button>

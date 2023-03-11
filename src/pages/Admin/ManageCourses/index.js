@@ -2,14 +2,14 @@ import RegisterMultipleCourses from "./RegisterCourses"
 import CourseTable from "./CourseTable"
 import RegisterSingleCourse from "./RegisterSingleCourse"
 
-export default function ManageStudents() {
+export default function ManageCourses() {
 
     return (
         <div style={{
-            margin: '0 7.5vw',
+            margin: '0 2.5vw',
         }}>
-            <br />
-            <div className="h6 text-end mt-2 ">Manage Courses</div>
+            {/* <br />
+            <div className="h6 text-end mt-2 ">Manage Courses</div> */}
             <div className="mb-3">
                 {
                     [
