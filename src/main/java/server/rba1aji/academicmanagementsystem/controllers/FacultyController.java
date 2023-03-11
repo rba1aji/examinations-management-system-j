@@ -50,9 +50,9 @@ public class FacultyController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @PutMapping("/changePassword")
+    @PutMapping("/{id}/changePassword")
     public ResponseEntity<Map<String, String>> changePassword(
-            @RequestParam String id, @RequestParam String currentPassword, @RequestParam String newPassword
+            @PathVariable String id, @RequestParam String currentPassword, @RequestParam String newPassword
     ) throws AuthException {
         facultyService.changePassword(id, currentPassword, newPassword);
         var res = new HashMap<String, String>();

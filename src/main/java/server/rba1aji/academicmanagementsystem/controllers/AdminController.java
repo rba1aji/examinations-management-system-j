@@ -25,9 +25,9 @@ public class AdminController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/changePassword")
-    public ResponseEntity<Map<String, String>> changeAdminPassword(@PathVariable String id, @RequestParam String currPwd, @RequestParam String newPwd) throws AuthException {
-        adminService.changePassword(id, currPwd, newPwd);
+    @PutMapping("/{id}/changePassword")
+    public ResponseEntity<Map<String, String>> changeAdminPassword(@PathVariable String id, @RequestParam String currentPassword, @RequestParam String newPassword) throws AuthException {
+        adminService.changePassword(id, currentPassword, newPassword);
         HashMap<String, String> res = new HashMap<>();
         res.put("message", "Admin password is changed");
         return new ResponseEntity<>(res, HttpStatus.OK);
