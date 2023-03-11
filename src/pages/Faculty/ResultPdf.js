@@ -46,29 +46,31 @@ function MyDocument(props) {
                     <View style={styles.table}>
                         {/* head */}
                         <View style={styles.tr}>
-                            <Text style={styles.th}>Register number</Text>
-                            <Text style={styles.th}>Full Name</Text>
-                            <Text style={styles.th}>Attendance</Text>
-                            <Text style={styles.th}>Marks in numbers</Text>
-                            <Text style={styles.th}>Marks in words</Text>
-                            <Text style={styles.th}>Student sign</Text>
+                            <Text style={{ ...styles.th, width: '35%' }}>Sno</Text>
+                            <Text style={{ ...styles.th, width: '110%' }}>Register number</Text>
+                            <Text style={{ ...styles.th, width: '220%' }}>Full name</Text>
+                            <Text style={{ ...styles.th, width: '100%' }}>Attendance</Text>
+                            <Text style={{ ...styles.th, width: '65%', textAlign: '' }}>Marks in numbers</Text>
+                            <Text style={{ ...styles.th, width: '140%' }}>Marks in words</Text>
+                            <Text style={{ ...styles.th, width: '140%' }}>Student sign</Text>
                         </View>
                         {/* body */}
                         {
-                            students.map((st) => (
+                            students.map((st, ind) => (
                                 <View style={styles.tr}>
-                                    <Text style={styles.td}>{st?.id}</Text>
-                                    <Text style={styles.td}>{st?.fullname}</Text>
-                                    <Text style={styles.td}>{
+                                    <Text style={{ ...styles.td, width: '35%' }} >{ind + 1}</Text>
+                                    <Text style={{ ...styles.td, width: '110%' }}>{st?.id}</Text>
+                                    <Text style={{ ...styles.td, width: '220%' }}>{st?.fullname}</Text>
+                                    <Text style={{ ...styles.td, width: '100%' }}>{
                                         marks?.find(m => m.studentid === st.id)?.attendance ? "Present" : "Absent"
                                     }</Text>
-                                    <Text style={styles.td}>{
+                                    <Text style={{ ...styles.td, width: '65%', textAlign: '' }}>{
                                         marks?.find(m => m.studentid === st.id)?.mark
                                     }</Text>
-                                    <Text style={styles.td}>{
-                                        numbersToWords(marks?.find(m => m.studentid === st.id).mark)
+                                    <Text style={{ ...styles.td, width: '140%' }}>{
+                                        numbersToWords(marks?.find(m => m.studentid === st.id)?.mark)
                                     }</Text>
-                                    <Text style={styles.td}></Text>
+                                    <Text style={{ ...styles.td, width: '140%' }}></Text>
                                 </View>
                             ))
                         }
@@ -102,8 +104,7 @@ const styles = StyleSheet.create({
         width: '100%',
         borderRight: '1px solid black',
         fontSize: 9,
-        padding: '1.5px 3px',
-        fontWeight: 'bolder'
+        padding: '4px 3px',
     },
 
     tr: {
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
         width: '100%',
         borderRight: '1px solid black',
         fontSize: 9,
-        padding: '1.5px 3px'
+        padding: '4px 3.5px'
     },
 
 });

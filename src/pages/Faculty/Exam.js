@@ -36,7 +36,14 @@ export default function Exam() {
 
     useEffect(() => {   //update marks
         if (data.length === 0) return;
-        axios({
+
+        let count = 0;
+        data.forEach(d => {
+            if (d.mark === 0 && !d.attendance) count++;
+        })
+        if (count === data.length) return;
+
+        else axios({
             method: 'put',
             url: serverurl + '/marks/updateForList',
             data: data
