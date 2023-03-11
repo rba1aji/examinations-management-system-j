@@ -7,7 +7,7 @@ import { AppState } from "../../reducers/AppContextProvider";
 import { formateDob } from "../../reducers/Utils";
 
 export default function StudentLogin() {
-    const [regno, setRegno] = useState()
+    const [regno, setRegno] = useState('')
     const [dob, setDob] = useState('')
     const navigate = useNavigate();
 

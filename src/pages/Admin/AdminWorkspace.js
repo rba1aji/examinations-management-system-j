@@ -21,7 +21,7 @@ export default function AdminWorkspace() {
         }}>
             <tbody><tr className=''>
                 <td style={{
-                    width: '14%',
+                    width: '15%',
                     height: '95vh',
                     backgroundColor: 'azure'
                 }}
@@ -38,6 +38,7 @@ export default function AdminWorkspace() {
                                         <Nav.Link
                                             eventKey={index}
                                             className='text-dark w-100'
+                                            key={index}
                                         >
                                             <Button variant={parseInt(key) === index ? 'info' : ''}
                                                 className='w-100 py-1 my-1'

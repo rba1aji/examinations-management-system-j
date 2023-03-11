@@ -59,36 +59,40 @@ export default function AllocatedExams() {
         {
             activeBatches?.sort((a, b) => {
                 return (new Date(a.starttime) - new Date(b.starttime))
-            })?.map((eb) => {
-                return <Card className='bg-  py-3 mb-4' Body style={{
+            })?.map((eb, ind) => {
+                return <Card className='bg- mb-4' style={{
                     backgroundColor: 'azure',
-                    margin: '0 25vw'
-                }}>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td className="ps-4">
-                                    <Card.Title className="mb-3 text-center">{outputFormateStartEndDateTime(eb.starttime, eb.endtime)}</Card.Title>
-                                    <Card.Subtitle className="mb-3">Batch: {eb.name}</Card.Subtitle>
-                                    <Card.Subtitle className="mb-3">Branch: {eb.branchid}</Card.Subtitle>
-                                    <Card.Subtitle className="mb-3">Course: {eb.courseid + " " + courseNames?.find(c => c.id === eb.courseid)?.name}</Card.Subtitle>
-                                    <Card.Subtitle className="mb-3">Exam: {examNames?.find(e => e.id === eb.examid)?.name}</Card.Subtitle>
-                                    <Card.Subtitle className="mb-1">Venue: {eb.venue}</Card.Subtitle>
-                                </td>
-                                <td className="pe-3">
-                                    <Button className="" variant="info"
-                                        disabled={
-                                            new Date(new Date().getTime() + 5.5 * 60 * 60 * 1000) < new Date(eb.starttime)
-                                        }
-                                        onClick={() => navigate(`/faculty/exam/${eb.id}`)}
-                                        style={{
+                    margin: '0 24vw',
+                }}
+                    key={ind}
+                >
+                    <Card.Body className="py-3">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td className="ps-3">
+                                        <Card.Title className="mb-3 text-center">{outputFormateStartEndDateTime(eb.starttime, eb.endtime)}</Card.Title>
+                                        <Card.Subtitle className="mb-3">Batch: {eb.name}</Card.Subtitle>
+                                        <Card.Subtitle className="mb-3">Branch: {eb.branchid}</Card.Subtitle>
+                                        <Card.Subtitle className="mb-3">Course: {eb.courseid + " " + courseNames?.find(c => c.id === eb.courseid)?.name}</Card.Subtitle>
+                                        <Card.Subtitle className="mb-3">Exam: {examNames?.find(e => e.id === eb.examid)?.name}</Card.Subtitle>
+                                        <Card.Subtitle className="mb-1">Venue: {eb.venue}</Card.Subtitle>
+                                    </td>
+                                    <td className="ps-4">
+                                        <Button className="" variant="info"
+                                            disabled={
+                                                new Date(new Date().getTime() + 5.5 * 60 * 60 * 1000) < new Date(eb.starttime)
+                                            }
+                                            onClick={() => navigate(`/faculty/exam/${eb.id}`)}
+                                            style={{
 
-                                        }}
-                                    >{'Start >'}</Button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                            }}
+                                        >{'Start >'}</Button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </Card.Body>
                 </Card>
             })
         }

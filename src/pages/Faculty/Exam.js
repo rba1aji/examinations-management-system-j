@@ -10,7 +10,7 @@ import ExamData from "./ExamData";
 
 export default function Exam() {
     const { examBatchId } = useParams();
-    const [examBatch, setExamBatch] = useState();
+    const [examBatch, setExamBatch] = useState({});
     const [students, setStudents] = useState([]);
     const [remTime, setRemTime] = useState('');
     const [marks, setMarks] = useState([])
@@ -52,9 +52,6 @@ export default function Exam() {
             .catch(err => console.log(err.message))
     }, [data])
 
-    // useEffect(() => {
-    //     console.log(data)
-    // }, [data])
 
     useEffect(() => {   // set examnames coursenames
         if (examBatch?.examid) {
@@ -79,16 +76,6 @@ export default function Exam() {
         }
     }, [examBatch])
 
-
-    // ExamData(examBatchId, examBatch, setExamBatch, setStudents, setMarks);
-
-    // render(<ExamData
-    //     examBatchId={examBatchId}
-    //     examBatch={examBatch}
-    //     setExamBatch={setExamBatch}
-    //     setStudents={setStudents}
-    //     setMarks={setMarks}
-    // />)
 
     return (
         <div style={{

@@ -12,7 +12,7 @@ export default function MenuBar() {
         <Container className='p-0'>
           <img src='https://ksrct.ac.in/wp-content/uploads/2020/06/Brand_logo.png' alt='ksr'
             width='42.5' height='37.5' />
-          <p
+          <div
             style={{ fontWeight: 'bold' }}
             className="h1 mb-0 ps-3 me-auto ms-2"
           >
@@ -35,7 +35,7 @@ export default function MenuBar() {
                 </i>
               </div>
             </Link>
-          </p>
+          </div>
 
           <Navbar.Toggle
             aria-controls="responsive-navbar-nav"

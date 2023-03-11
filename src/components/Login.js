@@ -12,14 +12,15 @@ export default function Login() {
             >
                 {
                     [...loginRoutes].map((item, index) => {
-                        return <Link to={item.path}
-                            key={index}
-                            className='text-decoration-none'
-                        >
-                            <Dropdown.Item href={item.path} >
+                        return (
+                            <Dropdown.Item href={item.path}
+                                as={Link}
+                                to={item.path}
+                                key={index}
+                            >
                                 {item.title}
                             </Dropdown.Item>
-                        </Link>
+                        )
                     })
                 }
             </DropdownButton>

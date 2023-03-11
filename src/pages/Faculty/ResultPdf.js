@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { PDFViewer } from '@react-pdf/renderer';
 import ExamData from './ExamData';
 import { useParams } from 'react-router-dom';
 import { numbersToWords } from '../../reducers/Utils';
+import axios from 'axios';
+import { serverurl } from '../../reducers/Constants';
 
 export default function ResultPdf() {
-    const [examBatch, setExamBatch] = useState();
+    const [examBatch, setExamBatch] = useState({});
     const [students, setStudents] = useState([]);
     const [marks, setMarks] = useState([]);
 
@@ -23,12 +25,13 @@ export default function ResultPdf() {
                 setMarks={setMarks}
             />
             <PDFViewer style={{
-                width: '100vw',
+                width: '100%',
                 height: '100vh'
             }}>
                 <MyDocument
                     students={students}
                     marks={marks}
+                    examBatch={examBatch}
                 />
             </PDFViewer>
         </div>
@@ -36,12 +39,23 @@ export default function ResultPdf() {
 }
 
 function MyDocument(props) {
-    const { students, marks } = props;
+    const { students, marks, examBatch } = props;
+    const [examName, setExamName] = useState('');
+    useEffect(() => {
+        if (examBatch.examid) {
+            axios({
+                method: "get",
+                url: serverurl + "/exams/" + examBatch.examid + "/getName"
+            })
+                .then((res) => {
+                    setExamName(res.data.examName)
+                })
+        }
+    }, [examBatch])
 
     return (
         <>
-
-            <Document>
+            <Document title={(examName + "_" + marks[0]?.courseid + "_" + examBatch?.name).replaceAll(" ", "_")}>
                 <Page size="A4" style={styles.page}>
                     <View style={styles.table}>
                         {/* head */}
@@ -57,7 +71,7 @@ function MyDocument(props) {
                         {/* body */}
                         {
                             students.map((st, ind) => (
-                                <View style={styles.tr}>
+                                <View style={styles.tr} key={ind}>
                                     <Text style={{ ...styles.td, width: '35%' }} >{ind + 1}</Text>
                                     <Text style={{ ...styles.td, width: '110%' }}>{st?.id}</Text>
                                     <Text style={{ ...styles.td, width: '220%' }}>{st?.fullname}</Text>
@@ -87,12 +101,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: ''
     },
-    section: {
-        margin: 15,
-        padding: 10,
-        flexGrow: 1
-    },
-
     table: {
         display: 'table',
         borderTop: '1px solid black',

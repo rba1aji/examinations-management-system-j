@@ -97,11 +97,11 @@ export default function ManageExams() {
                                         { key: "Semester", val: selectedExam?.semester },
                                         { key: "Students Batch", val: selectedExam?.batch },
                                     ].map((itm, ind) => (
-                                        itm.val && <tr key={ind}
+                                        itm.val && <table key={ind}><tbody><tr
                                         >
                                             <td className="px-3 py-3">{itm.key + ":"}</td>
                                             <td className="px-3 py-3"><b>{itm.val}</b></td>
-                                        </tr>
+                                        </tr></tbody></table>
                                     ))
                                 }
                             </td>
@@ -112,11 +112,11 @@ export default function ManageExams() {
                                         { key: "Course", val: !selectedCourse?.id ? null : (selectedCourse?.id + " " + selectedCourse?.name) },
                                         { key: "Exam Batch", val: selectedBatch?.name }
                                     ].map((itm, ind) => (
-                                        itm.val && <tr key={ind}
+                                        itm.val && <table key={ind}><tbody><tr
                                         >
                                             <td className="px-3 py-3">{itm.key + ":"}</td>
                                             <td className="px-3 py-3"><b>{itm.val}</b></td>
-                                        </tr>
+                                        </tr></tbody></table>
                                     ))
                                 }
                             </td>

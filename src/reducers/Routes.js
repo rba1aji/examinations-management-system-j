@@ -37,26 +37,26 @@ export const adminWorkspaceRoutes = [
         title: 'Admin Workspace',
         component: <AdminWorkspace />
     },
-    {
-        path: '/admin/manage-students',
-        title: 'Manage Students',
-        component: <ManageStudents />
-    },
-    {
-        path: '/admin/manage-faculties',
-        title: 'Manage Faculties',
-        component: <ManageFaculties />
-    },
-    {
-        path: '/admin/manage-courses',
-        title: 'Manage Courses',
-        component: <ManageCourses />
-    },
-    {
-        path: '/admin/manage-exams',
-        title: 'Manage Exams',
-        component: <ManageExams />
-    }
+    //     {
+    //         path: '/admin/manage-students',
+    //         title: 'Manage Students',
+    //         component: <ManageStudents />
+    //     },
+    //     {
+    //         path: '/admin/manage-faculties',
+    //         title: 'Manage Faculties',
+    //         component: <ManageFaculties />
+    //     },
+    //     {
+    //         path: '/admin/manage-courses',
+    //         title: 'Manage Courses',
+    //         component: <ManageCourses />
+    //     },
+    //     {
+    //         path: '/admin/manage-exams',
+    //         title: 'Manage Exams',
+    //         component: <ManageExams />
+    //     }
 ];
 
 export const facultyWorkspaceRoutes = [
