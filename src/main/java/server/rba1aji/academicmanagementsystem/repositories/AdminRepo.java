@@ -9,8 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import server.rba1aji.academicmanagementsystem.models.Admin;
 
-import static server.rba1aji.academicmanagementsystem.sqlqueries.AdminSQL.SQL_ADMINS_FINDBY_ID;
-import static server.rba1aji.academicmanagementsystem.sqlqueries.AdminSQL.SQL_ADMINS_FINDBY_ID_PASSWORD;
+import static server.rba1aji.academicmanagementsystem.sqlqueries.AdminSQL.*;
 
 @Repository
 @Transactional
@@ -24,6 +23,16 @@ public class AdminRepo implements IAdminRepo {
         if (!BCrypt.checkpw(password, admin.getPassword()))
             throw new AuthException("INVALID PASSWORD");
         return admin;
+    }
+
+    @Override
+    public void changePassword(String id, String currPwd, String newPwd) throws AuthException {
+        Admin admin = jdbcTemplate.queryForObject(SQL_ADMINS_FINDBY_ID, new Object[]{id}, adminRowMapper);
+        if (BCrypt.checkpw(currPwd, admin.getPassword()))
+            jdbcTemplate.update(SQL_ADMINS_CHANGE_PASSWORD, new Object[]{
+                    BCrypt.hashpw(newPwd, BCrypt.gensalt(10)), id
+            });
+        else throw new AuthException("INVALID CURRENT PASSWORD");
     }
 
     private RowMapper<Admin> adminRowMapper = (((rs, rowNum) ->

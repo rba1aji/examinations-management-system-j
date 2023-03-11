@@ -9,4 +9,5 @@ public interface IExamService {
     void registerExamForBranches(Exam exam, List<String> branchidList);
     List<Branch> getBranchesByExamid(Integer examid);
     List<Exam> getAll();
+    String getExamNameByid(Integer id);
 }

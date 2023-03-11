@@ -66,6 +66,11 @@ public class CourseRepo implements ICourseRepo {
         return null;
     }
 
+    @Override
+    public String findCourseNameById(String id) {
+        return jdbcTemplate.queryForObject(SQL_COURSES_FIND_NAME_BY_ID, new Object[]{id}, String.class);
+    }
+
     private final RowMapper<Course> courseRowMapper = ((rs, rowNo) -> (
             new Course(rs.getString("ID"),
                     rs.getString("NAME"),

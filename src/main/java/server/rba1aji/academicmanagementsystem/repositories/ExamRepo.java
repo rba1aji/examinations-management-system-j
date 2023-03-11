@@ -55,6 +55,11 @@ public class ExamRepo implements IExamRepo {
         return jdbcTemplate.query(SQL_EXAM_FIND_ALL, examRowMapper);
     }
 
+    @Override
+    public String findExamNameById(Integer id) {
+        return jdbcTemplate.queryForObject(SQL_FIND_EXAMNAME_BY_ID, new Object[]{id}, String.class);
+    }
+
     private RowMapper<Exam> examRowMapper = ((rs, rowNo) ->
             new Exam(
                     rs.getInt("ID"),

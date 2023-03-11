@@ -47,13 +47,13 @@ public class CourseController {
     @GetMapping("/batch{batch}/semester{semester}/getByBranchidList")
     public ResponseEntity<Map<String, List<Course>>> getByBatchSemesterBranchList(
             @PathVariable("batch") String batch, @PathVariable("semester") Integer semester, @RequestParam List<String> branchidList
-    ){
+    ) {
         List<Course> courseList = new ArrayList<>();
-        for(String branchid: branchidList){
+        for (String branchid : branchidList) {
             courseList.addAll(courseService.getByBranchidSemesterBatch(branchid, semester, batch));
         }
         var res = new HashMap<String, List<Course>>();
-        res.put("courses",courseList);
+        res.put("courses", courseList);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
@@ -62,6 +62,13 @@ public class CourseController {
         List<Course> courseList = courseService.getAll();
         var res = new HashMap<String, List<Course>>();
         res.put("courses", courseList);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/{courseid}/getName")
+    public ResponseEntity<Map<String, String>> getExamNameById(@PathVariable String courseid) {
+        var res = new HashMap<String, String>();
+        res.put("courseName", courseService.getCourseNameById(courseid));
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }

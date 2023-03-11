@@ -52,4 +52,11 @@ public class ExamController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @GetMapping("{examid}/getName")
+    public ResponseEntity<Map<String, String>> getExamNameById(@PathVariable Integer examid) {
+        var res = new HashMap<String, String>();
+        res.put("examName", examService.getExamNameByid(examid));
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
 }

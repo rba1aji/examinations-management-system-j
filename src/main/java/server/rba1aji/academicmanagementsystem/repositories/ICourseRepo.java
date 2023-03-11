@@ -14,4 +14,6 @@ public interface ICourseRepo {
     Course update(Course updatedCourse);
 
     Course delete(Integer id);
+
+    String findCourseNameById(String id);
 }

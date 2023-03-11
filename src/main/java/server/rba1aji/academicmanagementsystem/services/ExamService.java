@@ -41,4 +41,9 @@ public class ExamService implements IExamService {
     public List<Exam> getAll() {
         return examRepo.findAll();
     }
+
+    @Override
+    public String getExamNameByid(Integer id) {
+        return examRepo.findExamNameById(id);
+    }
 }

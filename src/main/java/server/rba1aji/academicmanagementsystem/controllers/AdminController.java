@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import server.rba1aji.academicmanagementsystem.models.Admin;
 import server.rba1aji.academicmanagementsystem.services.IAdminService;
 
@@ -21,10 +18,18 @@ public class AdminController {
     @Autowired
     IAdminService adminService;
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public ResponseEntity<Map<String, Admin>> getByIdPassword(@RequestParam String id, @RequestParam String password) throws AuthException {
         var res = new HashMap<String, Admin>();
         res.put("admin", adminService.getByIdPassword(id, password));
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/changePassword")
+    public ResponseEntity<Map<String, String>> changeAdminPassword(@PathVariable String id, @RequestParam String currPwd, @RequestParam String newPwd) throws AuthException {
+        adminService.changePassword(id, currPwd, newPwd);
+        HashMap<String, String> res = new HashMap<>();
+        res.put("message", "Admin password is changed");
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }

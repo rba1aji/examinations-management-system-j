@@ -8,5 +8,6 @@ import server.rba1aji.academicmanagementsystem.models.Admin;
 import server.rba1aji.academicmanagementsystem.repositories.IAdminRepo;
 
 public interface IAdminService {
-    Admin getByIdPassword(String id, String password) throws AuthException;
+    public Admin getByIdPassword(String id, String password) throws AuthException;
+    public void changePassword(String id, String currPwd, String newPwd) throws AuthException;
 }

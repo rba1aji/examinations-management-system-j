@@ -15,9 +15,13 @@ public class AdminService implements IAdminService {
     @Autowired
     IAdminRepo adminRepo;
 
-
     @Override
     public Admin getByIdPassword(String id, String password) throws AuthException {
         return adminRepo.getByIdPassword(id, password);
+    }
+
+    @Override
+    public void changePassword(String id, String currPwd, String newPwd) throws AuthException {
+        adminRepo.changePassword(id, currPwd, newPwd);
     }
 }

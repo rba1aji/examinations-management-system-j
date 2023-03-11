@@ -10,27 +10,27 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CourseService implements ICourseService{
+public class CourseService implements ICourseService {
     @Autowired
     ICourseRepo courseRepo;
 
     @Override
     public Course register(Course course) {
-        String id= courseRepo.create(course);
+        String id = courseRepo.create(course);
         return courseRepo.findById(id);
     }
 
     @Override
     public String registerMultiple(List<Course> courseList) {
-        for(Course course: courseList){
+        for (Course course : courseList) {
             courseRepo.create(course);
         }
         return "Registration success for all courses";
     }
 
     @Override
-    public List<Course> getByBranchidSemesterBatch( String branchid, Integer semester, String batch) {
-        return courseRepo.findByBranchidSemesterBatch( branchid, semester, batch);
+    public List<Course> getByBranchidSemesterBatch(String branchid, Integer semester, String batch) {
+        return courseRepo.findByBranchidSemesterBatch(branchid, semester, batch);
     }
 
     @Override
@@ -46,5 +46,10 @@ public class CourseService implements ICourseService{
     @Override
     public Course delete(Integer id) {
         return null;
+    }
+
+    @Override
+    public String getCourseNameById(String id) {
+        return courseRepo.findCourseNameById(id);
     }
 }

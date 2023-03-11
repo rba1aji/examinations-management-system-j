@@ -9,4 +9,5 @@ public interface IExamRepo {
     void createExamForBranch(Integer examid, String branchid);
     List<String> findBranchidlistByExamid(Integer examid);
     List<Exam> findAll();
+    String findExamNameById(Integer id);
 }
