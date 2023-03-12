@@ -14,6 +14,6 @@ public class CourseSQL {
     public static String SQL_COURSE_FIND_BY_BRANCH_SEMESTER_BATCH = "SELECT * FROM COURSES " +
             "WHERE BRANCHID = ? AND SEMESTER = ? AND BATCH = ?";
 
-    public static String SQL_COURSES_FIND_NAME_BY_ID = "SELECT NAME FROM COURSES WHERE ID = ?";
+    public static String SQL_COURSES_FIND_NAME_BY_ID = "SELECT NAME FROM COURSES WHERE ID = ? LIMIT 1";
 
 }

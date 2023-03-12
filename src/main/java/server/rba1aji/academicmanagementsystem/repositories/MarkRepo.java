@@ -34,6 +34,7 @@ public class MarkRepo implements IMarkRepo {
             ps.setLong(3, mark.getStudentid());
             ps.setInt(4, mark.getExamid());
             ps.setString(5, mark.getCourseid());
+            ps.setString(6,mark.getBranchid());
             return ps;
         });
     }
@@ -56,6 +57,7 @@ public class MarkRepo implements IMarkRepo {
                     rs.getBoolean("ATTENDANCE"),
                     rs.getInt("MARK"),
                     rs.getInt("EXAMID"),
-                    rs.getString("COURSEID")
+                    rs.getString("COURSEID"),
+                    rs.getString("BRANCHID")
             )));
 }

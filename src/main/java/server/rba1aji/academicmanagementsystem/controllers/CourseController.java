@@ -66,7 +66,7 @@ public class CourseController {
     }
 
     @GetMapping("/{courseid}/getName")
-    public ResponseEntity<Map<String, String>> getExamNameById(@PathVariable String courseid) {
+    public ResponseEntity<Map<String, String>> getCourseNameById(@PathVariable String courseid) {
         var res = new HashMap<String, String>();
         res.put("courseName", courseService.getCourseNameById(courseid));
         return new ResponseEntity<>(res, HttpStatus.OK);

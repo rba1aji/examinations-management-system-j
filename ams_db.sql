@@ -59,13 +59,15 @@ create table exams
 
 create table courses
 (
-    id       varchar primary key,
+    id       varchar,
     name     varchar not null,
     credits  integer,
     degreeid varchar references degrees (id),
     branchid varchar references branches (id),
     semester integer,
-    batch    varchar
+    batch    varchar,
+    primary key (id, branchid),
+    unique (id, branchid)
 );
 
 create table marks
@@ -74,8 +76,10 @@ create table marks
     attendance boolean,
     mark       integer,
     examid     integer references exams (id),
-    courseid   varchar references courses (id),
-    primary key (studentid, examid, courseid)
+    courseid   varchar,
+    branchid   varchar,
+    primary key (studentid, examid, courseid, branchid),
+    foreign key (courseid, branchid) references courses (id, branchid)
 );
 
 create table grades
@@ -108,11 +112,13 @@ create table exam_batches
     endtime         timestamp,
     facultyid       varchar references faculties (id),
     venue           varchar,
-    courseid        varchar references courses (id),
-    examid          integer references exams (id),
-    branchid        varchar references branches (id),
-    primary key (name, examid, courseid, start_studentid, end_studentid),
-    unique (name, examid, courseid)
+    courseid        varchar,
+    examid          integer,
+    branchid        varchar,
+    primary key (id),
+    unique (name, examid, courseid),
+    foreign key (courseid, branchid) references courses (id, branchid),
+    foreign key (examid, branchid) references branch_exam (examid, branchid)
 );
 
 create sequence exam_batch_id_seq increment by 1 start 1;
@@ -121,7 +127,7 @@ create sequence exam_id_seq increment by 1 start 1;
 
 -- static data
 insert into admins
-values ('admin', 'admin', 'Admin');
+values ('admin', '$2a$10$5nwaYpKGftguR5.Kvep5KesDEz9uKEKe/M5VFvGPUWA3eLg8ekP.K', 'Admin');
 
 insert into degrees
 values ('BE', 'BE');

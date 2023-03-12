@@ -6,13 +6,15 @@ public class Mark {
     private Integer mark;
     private Integer examid;
     private String courseid;
+    private String branchid;
 
-    public Mark(Long studentid, Boolean attendance, Integer mark, Integer examid, String courseid) {
+    public Mark(Long studentid, Boolean attendance, Integer mark, Integer examid, String courseid, String branchid) {
         this.studentid = studentid;
         this.attendance = attendance;
         this.mark = mark;
         this.examid = examid;
         this.courseid = courseid;
+        this.branchid = branchid;
     }
 
     public Long getStudentid() {
@@ -53,5 +55,13 @@ public class Mark {
 
     public void setCourseid(String courseid) {
         this.courseid = courseid;
+    }
+
+    public String getBranchid() {
+        return branchid;
+    }
+
+    public void setBranchid(String branchid) {
+        this.branchid = branchid;
     }
 }
