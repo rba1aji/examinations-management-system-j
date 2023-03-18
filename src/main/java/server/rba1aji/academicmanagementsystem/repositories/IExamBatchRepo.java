@@ -2,9 +2,10 @@ package server.rba1aji.academicmanagementsystem.repositories;
 
 import server.rba1aji.academicmanagementsystem.models.ExamBatch;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface IExamBatchRepo {
+public interface IExamBatchRepo  {
     void create(ExamBatch examBatch);
     List<ExamBatch> findByBranchidExamidCourseid(String branchid, Integer examid, String courseid);
     void updateByid(Integer id, ExamBatch examBatch);

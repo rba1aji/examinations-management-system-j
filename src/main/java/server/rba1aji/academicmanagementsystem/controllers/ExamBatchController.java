@@ -19,6 +19,7 @@ public class ExamBatchController {
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> registerBatch(@RequestBody ExamBatch examBatch) {
+        System.out.println(examBatch.toString());
         examBatchService.register(examBatch);
         var res = new HashMap<String, String>();
         res.put("message", "Batch " + examBatch.getName() + " is register successfully");

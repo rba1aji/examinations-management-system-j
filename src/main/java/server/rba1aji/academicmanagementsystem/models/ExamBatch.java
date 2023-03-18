@@ -1,8 +1,9 @@
 package server.rba1aji.academicmanagementsystem.models;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class ExamBatch {
+public class ExamBatch implements Serializable {
     private Integer id;
     private String name;
     private Long startStudentid;
@@ -14,6 +15,24 @@ public class ExamBatch {
     private String courseid;
     private Integer examid;
     private String branchid;
+
+    public ExamBatch() {
+
+    }
+
+    public ExamBatch(String name, Long startStudentid, Long endStudentid, Timestamp starttime, Timestamp endtime, String facultyid, String venue, String courseid, Integer examid, String branchid) {
+        this.id = id;
+        this.name = name;
+        this.startStudentid = startStudentid;
+        this.endStudentid = endStudentid;
+        this.starttime = starttime;
+        this.endtime = endtime;
+        this.facultyid = facultyid;
+        this.venue = venue;
+        this.courseid = courseid;
+        this.examid = examid;
+        this.branchid = branchid;
+    }
 
     public ExamBatch(Integer id, String name, Long startStudentid, Long endStudentid, Timestamp starttime, Timestamp endtime, String facultyid, String venue, String courseid, Integer examid, String branchid) {
         this.id = id;
@@ -27,6 +46,23 @@ public class ExamBatch {
         this.courseid = courseid;
         this.examid = examid;
         this.branchid = branchid;
+    }
+
+    @Override
+    public String toString() {
+        return "ExamBatch{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", startStudentid=" + startStudentid +
+                ", endStudentid=" + endStudentid +
+                ", starttime=" + starttime +
+                ", endtime=" + endtime +
+                ", facultyid='" + facultyid + '\'' +
+                ", venue='" + venue + '\'' +
+                ", courseid='" + courseid + '\'' +
+                ", examid=" + examid +
+                ", branchid='" + branchid + '\'' +
+                '}';
     }
 
     public Integer getId() {
