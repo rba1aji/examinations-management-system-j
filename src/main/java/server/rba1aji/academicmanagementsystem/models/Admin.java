@@ -5,6 +5,10 @@ public class Admin {
     private String password;
     private String fullname;
 
+    public Admin(){
+
+    }
+
     public Admin(String id, String password, String fullname) {
         this.id = id;
         this.password = password;

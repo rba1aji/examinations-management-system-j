@@ -23,7 +23,6 @@ public class ExamBatchRepo implements IExamBatchRepo {
 
     @Override
     public void create(ExamBatch batch) {
-        System.out.println(batch.toString());
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(SQL_EXAMBATCH_CREATE);
             ps.setString(1, batch.getName());

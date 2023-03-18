@@ -9,6 +9,10 @@ public class Faculty {
     private String email;
     private String phone;
 
+    public Faculty(){
+
+    }
+
     public Faculty(String id, String password, String fullname, String department, String designation, String email, String phone) {
         this.id = id;
         this.password = password;

@@ -1,9 +1,8 @@
 package server.rba1aji.academicmanagementsystem.models;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class ExamBatch implements Serializable {
+public class ExamBatch {
     private Integer id;
     private String name;
     private Long startStudentid;
@@ -20,19 +19,6 @@ public class ExamBatch implements Serializable {
 
     }
 
-    public ExamBatch(String name, Long startStudentid, Long endStudentid, Timestamp starttime, Timestamp endtime, String facultyid, String venue, String courseid, Integer examid, String branchid) {
-        this.id = id;
-        this.name = name;
-        this.startStudentid = startStudentid;
-        this.endStudentid = endStudentid;
-        this.starttime = starttime;
-        this.endtime = endtime;
-        this.facultyid = facultyid;
-        this.venue = venue;
-        this.courseid = courseid;
-        this.examid = examid;
-        this.branchid = branchid;
-    }
 
     public ExamBatch(Integer id, String name, Long startStudentid, Long endStudentid, Timestamp starttime, Timestamp endtime, String facultyid, String venue, String courseid, Integer examid, String branchid) {
         this.id = id;

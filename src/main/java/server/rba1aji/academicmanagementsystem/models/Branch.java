@@ -5,6 +5,10 @@ public class Branch {
     private String name;
     private String degreeid;
 
+    public Branch(){
+
+    }
+
     public Branch(String id, String name, String degreeid) {
         this.id = id;
         this.name = name;

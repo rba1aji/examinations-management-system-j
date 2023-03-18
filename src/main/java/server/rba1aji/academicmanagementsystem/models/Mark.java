@@ -8,6 +8,9 @@ public class Mark {
     private String courseid;
     private String branchid;
 
+    public Mark(){
+
+    }
     public Mark(Long studentid, Boolean attendance, Integer mark, Integer examid, String courseid, String branchid) {
         this.studentid = studentid;
         this.attendance = attendance;

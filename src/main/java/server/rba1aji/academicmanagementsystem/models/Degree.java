@@ -4,6 +4,9 @@ public class Degree {
     private String id;
     private String name;
 
+    public Degree(){
+
+    }
     public Degree(String id, String name) {
         this.id = id;
         this.name = name;

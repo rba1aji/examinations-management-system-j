@@ -16,7 +16,6 @@ public class ExamBatchService implements IExamBatchService {
 
     @Override
     public void register(ExamBatch batch) {
-        System.out.println(batch.toString());
         examBatchRepo.create(batch);
     }
 

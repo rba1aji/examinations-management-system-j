@@ -9,6 +9,10 @@ public class Course {
     private Integer semester;
     private String batch;
 
+    public Course(){
+
+    }
+
     public Course(String id, String name, Integer credits, String degreeid, String branchid, Integer semester, String batch) {
         this.id = id;
         this.name = name;
