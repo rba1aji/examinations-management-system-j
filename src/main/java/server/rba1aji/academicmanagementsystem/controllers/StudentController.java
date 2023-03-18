@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import server.rba1aji.academicmanagementsystem.configs.JWToken;
 import server.rba1aji.academicmanagementsystem.models.Student;
 import server.rba1aji.academicmanagementsystem.services.IStudentService;
 
@@ -12,11 +13,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/api/students")
 public class StudentController {
     @Autowired
     IStudentService studentService;
+
+    @Autowired
+    JWToken jwToken;
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, Student>> register(@RequestBody Student newstudent) throws Exception {
@@ -34,10 +39,16 @@ public class StudentController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<Map<String, Student>> login(@RequestParam Long id, @RequestParam String dateofbirth) {
-        Student student = studentService.getByIdDob(id, dateofbirth);
-        var res = new HashMap<String, Student>();
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, Object>> login(@RequestBody HashMap<String, String> map) {
+        Student student = studentService.getByIdDob(
+                Long.parseLong(map.get("id")),
+                map.get("dateofbirth")
+        );
+
+        var res = new HashMap<String, Object>();
+        res.put("token", jwToken.generateJWTToken("student"));
+        student.setDateofbirth(null);
         res.put("student", student);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
@@ -69,10 +80,10 @@ public class StudentController {
     }
 
     @GetMapping("/getByStartidEndid")
-    public ResponseEntity<Map<String,List<Student>>> getByStartidEndid(@RequestParam Long startid, @RequestParam Long endid){
+    public ResponseEntity<Map<String, List<Student>>> getByStartidEndid(@RequestParam Long startid, @RequestParam Long endid) {
         List<Student> studentList = studentService.getByStartidEndid(startid, endid);
 
-        var res = new HashMap<String,List<Student>>();
+        var res = new HashMap<String, List<Student>>();
         res.put("students", studentList);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }

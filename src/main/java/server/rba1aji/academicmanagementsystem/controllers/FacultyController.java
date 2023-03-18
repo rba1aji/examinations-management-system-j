@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import server.rba1aji.academicmanagementsystem.configs.JWToken;
 import server.rba1aji.academicmanagementsystem.models.Faculty;
 import server.rba1aji.academicmanagementsystem.services.IFacultyService;
 
@@ -12,11 +13,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/api/faculties")
 public class FacultyController {
     @Autowired
     IFacultyService facultyService;
+    @Autowired
+    JWToken jwToken;
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody Faculty faculty) {
@@ -34,10 +38,17 @@ public class FacultyController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<Map<String, Faculty>> getByIdPassword(@RequestParam String id, @RequestParam String password) throws AuthException {
-        Faculty faculty = facultyService.getByIdPassword(id, password);
-        var res = new HashMap<String, Faculty>();
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, Object>> getByIdPassword(@RequestBody HashMap<String, String> map) throws AuthException {
+        Faculty faculty = facultyService.getByIdPassword(
+                map.get("id"),
+                map.get("password")
+        );
+        faculty.setPassword(null);
+
+        var res = new HashMap<String, Object>();
+        res.put("token", jwToken.generateJWTToken("faculty"));
+        faculty.setPassword(null);
         res.put("faculty", faculty);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
