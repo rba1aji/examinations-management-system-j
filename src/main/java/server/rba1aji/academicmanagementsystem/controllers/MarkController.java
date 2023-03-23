@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.rba1aji.academicmanagementsystem.models.Mark;
+import server.rba1aji.academicmanagementsystem.security.AllowedRoles;
 import server.rba1aji.academicmanagementsystem.services.IMarkService;
 
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class MarkController {
     @Autowired
     IMarkService markService;
 
+    @AllowedRoles({"admin","faculty"})
     @PutMapping("/updateForList")
     public ResponseEntity<Map<String, String>> updateMarksList(@RequestBody List<Mark> markList) {
         markService.updateForList(markList);

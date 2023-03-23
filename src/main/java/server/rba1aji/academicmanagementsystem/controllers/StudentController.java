@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import server.rba1aji.academicmanagementsystem.configs.JWToken;
+import server.rba1aji.academicmanagementsystem.security.AllowedRoles;
+import server.rba1aji.academicmanagementsystem.security.JWToken;
 import server.rba1aji.academicmanagementsystem.models.Student;
 import server.rba1aji.academicmanagementsystem.services.IStudentService;
 
@@ -23,6 +24,7 @@ public class StudentController {
     @Autowired
     JWToken jwToken;
 
+    @AllowedRoles({"admin"})
     @PostMapping("/register")
     public ResponseEntity<Map<String, Student>> register(@RequestBody Student newstudent) throws Exception {
         Student student = studentService.register(newstudent);
@@ -31,6 +33,7 @@ public class StudentController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @AllowedRoles({"admin"})
     @PostMapping("/registerMultiple")
     public ResponseEntity<Map<String, String>> registerMultiple(@RequestBody List<Student> studentList) throws AuthException {
         String message = studentService.registerMultiple(studentList);
@@ -53,6 +56,7 @@ public class StudentController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @AllowedRoles({"admin", "faculty"})
     @GetMapping("/getAll")
     public ResponseEntity<Map<String, List<Student>>> getAll() {
         List<Student> studentList = studentService.getAll();
@@ -61,6 +65,7 @@ public class StudentController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @AllowedRoles({"admin", "faculty"})
     @GetMapping("/getByBranchidList")
     public ResponseEntity<Map<String, List<Student>>> getByBranches(@RequestParam List<String> branchidList) {
         List<Student> studentList = studentService.getByBranchidList(branchidList);
@@ -79,6 +84,7 @@ public class StudentController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @AllowedRoles({"admin", "faculty"})
     @GetMapping("/getByStartidEndid")
     public ResponseEntity<Map<String, List<Student>>> getByStartidEndid(@RequestParam Long startid, @RequestParam Long endid) {
         List<Student> studentList = studentService.getByStartidEndid(startid, endid);

@@ -1,4 +1,4 @@
-package server.rba1aji.academicmanagementsystem.configs;
+package server.rba1aji.academicmanagementsystem.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

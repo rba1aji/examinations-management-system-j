@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.rba1aji.academicmanagementsystem.models.Course;
+import server.rba1aji.academicmanagementsystem.security.AllowedRoles;
 import server.rba1aji.academicmanagementsystem.services.ICourseService;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class CourseController {
     @Autowired
     ICourseService courseService;
 
+    @AllowedRoles({"admin"})
     @PostMapping("/register")
     public ResponseEntity<Map<String, Course>> register(@RequestBody Course newCourse) {
         var course = courseService.register(newCourse);
@@ -26,6 +28,7 @@ public class CourseController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @AllowedRoles({"admin"})
     @PostMapping("/registerMultiple")
     public ResponseEntity<Map<String, String>> registerMultiple(@RequestBody List<Course> courseList) {
         String message = courseService.registerMultiple(courseList);

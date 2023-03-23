@@ -2,7 +2,6 @@ package server.rba1aji.academicmanagementsystem.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.rba1aji.academicmanagementsystem.models.Branch;
 import server.rba1aji.academicmanagementsystem.models.Exam;
-import server.rba1aji.academicmanagementsystem.security.AdminOnly;
+import server.rba1aji.academicmanagementsystem.security.AllowedRoles;
 import server.rba1aji.academicmanagementsystem.services.IExamService;
 
 import java.util.HashMap;
@@ -25,6 +24,7 @@ public class ExamController {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
+    @AllowedRoles({"admin"})
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> registerForBranchidList(@RequestBody Map<String, Object> request) {
         Exam exam = objectMapper.convertValue(request.get("exam"), Exam.class);
@@ -46,7 +46,7 @@ public class ExamController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @AdminOnly
+    @AllowedRoles({"admin"})
     @GetMapping("/getAll")
     public ResponseEntity<Map<String, List<Exam>>> getAll() {
         List<Exam> examList = examService.getAll();

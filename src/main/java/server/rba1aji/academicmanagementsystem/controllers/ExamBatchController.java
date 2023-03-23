@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.rba1aji.academicmanagementsystem.models.ExamBatch;
+import server.rba1aji.academicmanagementsystem.security.AllowedRoles;
 import server.rba1aji.academicmanagementsystem.services.IExamBatchService;
 
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class ExamBatchController {
     @Autowired
     IExamBatchService examBatchService;
 
+    @AllowedRoles({"admin"})
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> registerBatch(@RequestBody ExamBatch examBatch) {
         examBatchService.register(examBatch);
@@ -35,6 +37,7 @@ public class ExamBatchController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @AllowedRoles({"admin"})
     @PutMapping("/{id}/update")
     public ResponseEntity<Map<String, String>> update(@PathVariable Integer id, @RequestBody ExamBatch batch) {
         examBatchService.updateByid(id, batch);
@@ -44,6 +47,7 @@ public class ExamBatchController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @AllowedRoles({"admin","faculty"})
     @GetMapping("/active")
     public ResponseEntity<Map<String, List<ExamBatch>>> getActiveBatches() {
         var res = new HashMap<String, List<ExamBatch>>();
@@ -51,6 +55,7 @@ public class ExamBatchController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @AllowedRoles({"admin","faculty"})
     @GetMapping("/activeByFacultyid{facultyid}")
     public ResponseEntity<Map<String, List<ExamBatch>>> getActiveBatchesByFacultyid(@PathVariable String facultyid) {
         var res = new HashMap<String, List<ExamBatch>>();
@@ -58,6 +63,7 @@ public class ExamBatchController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @AllowedRoles({"admin","faculty"})
     @GetMapping("/getById/{id}")
     public ResponseEntity<Map<String, ExamBatch>> getById(@PathVariable Integer id) {
         var res = new HashMap<String, ExamBatch>();

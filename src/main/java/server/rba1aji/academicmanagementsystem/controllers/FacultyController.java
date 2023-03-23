@@ -5,10 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import server.rba1aji.academicmanagementsystem.configs.JWToken;
+import server.rba1aji.academicmanagementsystem.security.AllowedRoles;
+import server.rba1aji.academicmanagementsystem.security.JWToken;
 import server.rba1aji.academicmanagementsystem.models.Faculty;
-import server.rba1aji.academicmanagementsystem.security.AdminOnly;
-import server.rba1aji.academicmanagementsystem.security.FacultyOnly;
 import server.rba1aji.academicmanagementsystem.services.IFacultyService;
 
 import java.util.HashMap;
@@ -25,7 +24,7 @@ public class FacultyController {
     @Autowired
     JWToken jwToken;
 
-    @AdminOnly
+    @AllowedRoles({"admin"})
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody Faculty faculty) {
         facultyService.register(faculty);
@@ -34,7 +33,7 @@ public class FacultyController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @AdminOnly
+    @AllowedRoles({"admin"})
     @PostMapping("/registerMultiple")
     public ResponseEntity<Map<String, String>> registerMultiple(@RequestBody List<Faculty> facultyList) {
         facultyService.registerMultiple(facultyList);
@@ -58,7 +57,7 @@ public class FacultyController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @AdminOnly
+    @AllowedRoles({"admin"})
     @GetMapping("/getAll")
     public ResponseEntity<Map<String, List<Faculty>>> getAll() {
         List<Faculty> facultyList = facultyService.getAll().stream()
@@ -69,8 +68,7 @@ public class FacultyController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @FacultyOnly
-    @AdminOnly
+    @AllowedRoles({"faculty"})
     @PutMapping("/{id}/changePassword")
     public ResponseEntity<Map<String, String>> changePassword(
             @PathVariable String id, @RequestParam String currentPassword, @RequestParam String newPassword
