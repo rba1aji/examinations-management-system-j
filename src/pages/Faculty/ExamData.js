@@ -13,7 +13,8 @@ export default function ExamData(props) {
     useEffect(() => {   //set examBatch
         axios({
             method: 'get',
-            url: serverurl + '/exambatches/getById/' + examBatchId
+            url: serverurl + '/exambatches/getById/' + examBatchId,
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then(res => {
                 setExamBatch(res.data.examBatch)
@@ -23,14 +24,15 @@ export default function ExamData(props) {
     }, [examBatchId])
 
     useEffect(() => {  //set students
-        if (examBatch) {
+        if (examBatch?.startStudentid) {
             axios({
                 method: 'get',
                 url: serverurl + '/students/getByStartidEndid',
                 params: {
                     startid: examBatch.startStudentid,
                     endid: examBatch.endStudentid
-                }
+                },
+                headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
             })
                 .then(res => {
                     setStudents(res.data.students)
@@ -48,7 +50,8 @@ export default function ExamData(props) {
                     batchid: examBatch?.id,
                     examid: examBatch?.examid,
                     courseid: examBatch?.courseid
-                }
+                },
+                headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
             })
                 .then(res => {
                     setMarks(res.data.marks)

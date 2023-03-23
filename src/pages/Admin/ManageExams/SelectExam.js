@@ -10,7 +10,8 @@ export default function SelectExam(props) {
     useEffect(() => {
         axios({
             method: 'GET',
-            url: serverurl + '/exams/getAll'
+            url: serverurl + '/exams/getAll',
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then(res => {
                 setExams(res.data.exams)

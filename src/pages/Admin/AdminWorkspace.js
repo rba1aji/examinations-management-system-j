@@ -2,10 +2,6 @@ import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import ChangePassword from '../../components/ChangePassword';
-
-import { ListGroup } from "react-bootstrap"
-import { Link } from "react-router-dom";
-import { adminWorkspaceRoutes } from "../../reducers/Routes";
 import ManageStudents from './ManageStudents';
 import ManageFaculties from './ManageFaculties';
 import ManageCourses from './ManageCourses';
@@ -13,7 +9,9 @@ import ManageExams from './ManageExams';
 
 export default function AdminWorkspace() {
     const components = [<ManageStudents />, <ManageFaculties />, <ManageCourses />, <ManageExams />, <ChangePassword />];
-    const [key, setKey] = useState(0);
+    const [key, setKey] = useState(
+        window.sessionStorage.getItem('adminWorkspacePageKey') || 0
+    );
     return (
         <table style={{
             width: '100%',
@@ -27,9 +25,10 @@ export default function AdminWorkspace() {
                 }}
                     className='align-top pt-5 px-3 border-end'
                 >
-                    <Nav defaultActiveKey="exams" className=' '
+                    <Nav defaultActiveKey={0}
                         onSelect={(ekey) => {
                             setKey(ekey);
+                            window.sessionStorage.setItem('adminWorkspacePageKey', ekey);
                         }}>
                         {
                             ['Manage Students', 'Manage Faculties', 'Manage Courses', 'Manage Exams', 'Change Password']
@@ -62,28 +61,3 @@ export default function AdminWorkspace() {
 }
 
 
-
-
-
-function AdminWsorkspace() {
-
-    return (
-        <div style={{
-            padding: '0 5vw'
-        }}>
-            <br />
-            <br />
-            <br />
-            <ListGroup>
-                {
-                    [...adminWorkspaceRoutes.filter(i => i.title !== "Admin Workspace")]
-                        .map((item, index) => {
-                            return <Link to={item.path} key={index} className='pb-3 text-decoration-none'>
-                                <ListGroup.Item variant="info">{item.title}</ListGroup.Item>
-                            </Link>;
-                        })
-                }
-            </ListGroup>
-        </div>
-    )
-}

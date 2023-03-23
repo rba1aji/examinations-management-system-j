@@ -16,7 +16,8 @@ function MyVerticallyCenteredModal(props) {
     useEffect(() => {
         axios({
             method: 'get',
-            url: serverurl + '/faculties/getAll'
+            url: serverurl + '/faculties/getAll',
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then((res) => setFaculties(res.data.faculties))
             .catch((err) => alert(err.response.data.message))
@@ -31,7 +32,8 @@ function MyVerticallyCenteredModal(props) {
                 branchid: selectedCourse?.branchid,
                 examid: selectedExam?.id,
                 courseid: selectedCourse?.id
-            }
+            },
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then((res) => {
                 console.log("exam batches fetched", res.data);

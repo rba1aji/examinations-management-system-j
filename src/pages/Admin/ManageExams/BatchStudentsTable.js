@@ -19,7 +19,8 @@ export default function BatchStudentsTable(props) {
                 batchid: selectedBatch.id,
                 examid: selectedBatch.examid,
                 courseid: selectedBatch.courseid
-            }
+            },
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then((res) => {
                 setMarks(res.data.marks)
@@ -37,7 +38,8 @@ export default function BatchStudentsTable(props) {
             params: {
                 startid: selectedBatch.startStudentid,
                 endid: selectedBatch.endStudentid
-            }
+            },
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then((res) => setStudents(res.data.students))
             .catch((err) =>
@@ -107,7 +109,7 @@ export default function BatchStudentsTable(props) {
                                         </td>
                                         <td>
                                             {
-                                                numbersToWords(marks?.find((m) => m.studentid === st.id)?.mark)
+                                                numbersToWords(marks?.find((m) => m.studentid === st.id)?.mark || "")
                                             }
                                         </td>
                                     </tr>

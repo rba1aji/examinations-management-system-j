@@ -28,7 +28,8 @@ function MyVerticallyCenteredModal(props) {
             data: {
                 exam: newExam,
                 branchidList: selectedBranch
-            }
+            },
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then(res => {
                 onHide();

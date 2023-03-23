@@ -45,7 +45,8 @@ function MyDocument(props) {
         if (examBatch.examid) {
             axios({
                 method: "get",
-                url: serverurl + "/exams/" + examBatch.examid + "/getName"
+                url: serverurl + "/exams/" + examBatch.examid + "/getName",
+                headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
             })
                 .then((res) => {
                     setExamName(res.data.examName)

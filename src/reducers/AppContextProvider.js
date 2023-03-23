@@ -7,18 +7,23 @@ import { serverurl } from "./Constants";
 const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
-    const userSession = window.sessionStorage.getItem('user')
-    const [user, setUser] = useState(userSession ? JSON.parse(userSession) : null);
+    const [user, setUser] = useState(JSON.parse(window.sessionStorage.getItem('user')));
     const [userRole, setUserRole] = useState(
         window.sessionStorage.getItem('userRole')
     );
     const [degrees, setDegrees] = useState([]);
     const [branches, setBranches] = useState([]);
+    // const [token, setToken] = useState(
+    //     document.cookie.split("token=")[1]
+    // );
 
     useEffect(() => {
-        axios({
+        user && axios({
             method: 'GET',
-            url: serverurl + '/degrees/getAll'
+            url: serverurl + '/degrees/getAll',
+            headers: {
+                'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+            }
         })
             .then((res) => {
                 console.log(res.data)
@@ -26,15 +31,20 @@ const AppContextProvider = ({ children }) => {
             })
             .catch((err) => console.log(err));
 
-        axios({
+        user && axios({
             method: 'GET',
-            url: serverurl + '/branches/getAll'
+            url: serverurl + '/branches/getAll',
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then((res) => setBranches(res.data.branches))
             .catch((err) => alert(err.response.data.message));
-    }, []);
+    }, [user]);
 
 
+
+    // useEffect(() => {
+    //     document.cookie = `token=${token}; expires=${new Date(Date.now() + 0.24 * 24 * 60 * 60 * 1000).toUTCString()}; path=/; SameSite=None; Secure;`;
+    // }, [token])
 
 
     return (
@@ -43,7 +53,8 @@ const AppContextProvider = ({ children }) => {
                 user, setUser,
                 userRole, setUserRole,
                 degrees, setDegrees,
-                branches, setBranches
+                branches, setBranches,
+                // token, setToken
             }}
         >
             {children}

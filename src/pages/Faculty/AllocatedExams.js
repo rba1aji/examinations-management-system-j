@@ -23,7 +23,8 @@ export default function AllocatedExams() {
 
         axios({
             method: 'get',
-            url: serverurl + '/exambatches/activeByFacultyid' + user?.id
+            url: serverurl + '/exambatches/activeByFacultyid' + user?.id,
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then((res) => {
                 setActiveBatches(res.data?.examBatches);
@@ -35,7 +36,8 @@ export default function AllocatedExams() {
         activeBatches?.map(async eb => {
             const exam = await axios({
                 method: 'get',
-                url: serverurl + '/exams/' + eb.examid + '/getName'
+                url: serverurl + '/exams/' + eb.examid + '/getName',
+                headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
             })
             setExamNames((prev) =>
                 [...prev, { id: eb.examid, name: exam.data.examName }]
@@ -43,7 +45,8 @@ export default function AllocatedExams() {
 
             const course = await axios({
                 method: 'get',
-                url: serverurl + '/courses/' + eb.courseid + '/getName'
+                url: serverurl + '/courses/' + eb.courseid + '/getName',
+                headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
             })
             setCourseNames((prev) =>
                 [...prev, { id: eb.courseid, name: course.data.courseName }]
@@ -62,7 +65,7 @@ export default function AllocatedExams() {
             })?.map((eb, ind) => {
                 return <Card className='bg- mb-4' style={{
                     backgroundColor: 'azure',
-                    margin: '0 24vw',
+                    margin: '0 23vw',
                 }}
                     key={ind}
                 >
@@ -87,7 +90,7 @@ export default function AllocatedExams() {
                                             style={{
 
                                             }}
-                                        >{'Start >'}</Button>
+                                        >{'Open >'}</Button>
                                     </td>
                                 </tr>
                             </tbody>

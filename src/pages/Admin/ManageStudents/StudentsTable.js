@@ -9,10 +9,14 @@ export default function StudentsTable() {
     useEffect(() => {
         axios({
             method: 'get',
-            url: serverurl + '/students/getAll'
+            maxBodyLength: Infinity,
+            url: serverurl + '/students/getAll',
+            headers: {
+                'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+            }
         })
             .then((res) => {
-                console.log(res.data)
+                console.log(res)
                 seData(res.data.studentsList)
             })
             .catch((err) => alert(err.response.data.message))
@@ -40,7 +44,7 @@ export default function StudentsTable() {
                             zIndex: 1
                         }}>
                             {
-                                ["Sno", "RegNo", "Name", "Degree", "Branch", "Section", "Batch", "Phone", "DOB"].map((item, index) => {
+                                ["Sno", "Register number", "Name", "Degree", "Branch", "Section", "Batch", "Phone", "DOB"].map((item, index) => {
                                     return <th
                                         key={index}
                                         className="bg-info"

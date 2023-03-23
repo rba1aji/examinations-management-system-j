@@ -11,7 +11,8 @@ export default function CourseTable() {
     useEffect(() => {
         axios({
             method: 'GET',
-            url: serverurl + '/courses/getAll'
+            url: serverurl + '/courses/getAll',
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then(res => setCourses(res.data.courses))
             .catch(err => alert(err.response.data.message))

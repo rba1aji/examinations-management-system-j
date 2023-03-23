@@ -14,6 +14,7 @@ export default function LoggedinMenu() {
                 onClick={() => {
                     setUser(null)
                     setUserRole(null)
+                    window.localStorage.setItem('token', null)
                     window.sessionStorage.setItem('user', null)
                     window.sessionStorage.setItem('userRole', null)
                 }}

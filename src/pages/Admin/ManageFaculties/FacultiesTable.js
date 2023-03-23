@@ -9,7 +9,8 @@ export default function FacultiesTable() {
     useEffect(() => {
         axios({
             method: 'get',
-            url: serverurl + '/faculties/getAll'
+            url: serverurl + '/faculties/getAll',
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then((res) => {
                 console.log(res.data)

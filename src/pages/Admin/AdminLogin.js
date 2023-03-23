@@ -16,20 +16,22 @@ export default function AdminLogin() {
         if (user) {
             navigate(`/${userRole}/workspace`)
         }
-    }, [user, userRole])
+    }, [user, userRole, navigate])
 
     function handleLogin(e) {
         e.preventDefault();
         axios({
-            method: 'get',
+            method: 'post',
             url: serverurl + '/admins/login',
-            params: {
+            data: {
                 id: username,
-                password: password
+                password: password,
             }
         })
             .then(function (res) {
-                console.log(res.data?.admin);
+                console.log(res.data);
+                window.localStorage.setItem('token', res.data.token);
+                // setToken(res.data.token);
                 setUser(res.data?.admin);
                 setUserRole('admin')
                 navigate('/admin/workspace');

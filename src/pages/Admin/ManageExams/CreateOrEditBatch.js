@@ -50,7 +50,8 @@ function MyVerticallyCenteredModal(props) {
         await axios({
             method: type === "create" ? 'post' : 'put',
             url: serverurl + `/exambatches/${type === 'create' ? 'register' : `${prevBatch.id}/update`}`,
-            data: newBatch
+            data: newBatch,
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then(res => {
                 alert(res.data.message)
@@ -68,7 +69,8 @@ function MyVerticallyCenteredModal(props) {
     useEffect(() => {
         axios({
             method: 'get',
-            url: serverurl + '/faculties/getAll'
+            url: serverurl + '/faculties/getAll',
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then((res) => setFaculties(res.data.faculties))
             .catch((err) => alert(err.response.data.message))

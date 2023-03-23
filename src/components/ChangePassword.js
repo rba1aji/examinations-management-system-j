@@ -22,7 +22,8 @@ export default function ChangePassword() {
             params: {
                 currentPassword: curPw,
                 newPassword: newPw
-            }
+            },
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then((res) => {
                 alert(res.data.message)

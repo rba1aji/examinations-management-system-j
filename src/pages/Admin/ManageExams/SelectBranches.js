@@ -15,7 +15,8 @@ export default function SelectBranches(props) {
             console.log('exam is selected', selectedExam)
             axios({
                 method: 'GET',
-                url: serverurl + '/exams/' + selectedExam?.id + '/getBranches'
+                url: serverurl + '/exams/' + selectedExam?.id + '/getBranches',
+                headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
             })
                 .then(res => {
                     setBranches(res.data.branches)

@@ -22,15 +22,17 @@ export default function FacultyLogin() {
         e.preventDefault();
 
         axios({
-            method: 'get',
+            method: 'post',
             url: serverurl + '/faculties/login',
-            params: {
+            data: {
                 id: username,
                 password: password
             }
         })
-            .then(function (res) {
-                console.log(res.data?.faculty);
+            .then((res) => {
+                console.log(res.data);
+                // setToken(res.data.token);
+                window.localStorage.setItem('token', res.data.token);
                 setUser(res.data?.faculty);
                 setUserRole('faculty')
                 navigate('/faculty/workspace');

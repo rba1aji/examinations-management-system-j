@@ -22,7 +22,8 @@ export default function SelectCourse(props) {
                     branchid: selectedBranches?.id,
                     semester: selectedExam?.semester,
                     batch: selectedExam?.batch
-                }
+                },
+                headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
             })
                 .then(res => {
                     setCourses(res.data.courses)

@@ -20,6 +20,7 @@ export default function Exam() {
 
 
     useEffect(() => {   //init marks
+        // console.log(examBatch)
         marks.length > 0 ?
             setData(marks)
             :
@@ -29,12 +30,14 @@ export default function Exam() {
                     attendance: false,
                     mark: 0,
                     examid: examBatch.examid,
-                    courseid: examBatch.courseid
+                    courseid: examBatch.courseid,
+                    branchid: examBatch.branchid
                 }))
             )
     }, [students, examBatch, marks])
 
     useEffect(() => {   //update marks
+        // console.log(data)
         if (data.length === 0) return;
 
         let count = 0;
@@ -46,7 +49,8 @@ export default function Exam() {
         else axios({
             method: 'put',
             url: serverurl + '/marks/updateForList',
-            data: data
+            data: data,
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then(res => console.log(res.data.message))
             .catch(err => console.log(err.message))
@@ -57,7 +61,8 @@ export default function Exam() {
         if (examBatch?.examid) {
             axios({
                 method: 'get',
-                url: serverurl + '/exams/' + examBatch?.examid + '/getName'
+                url: serverurl + '/exams/' + examBatch?.examid + '/getName',
+                headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
             })
                 .then(res => {
                     setExamName(res.data.examName)
@@ -66,7 +71,8 @@ export default function Exam() {
 
             axios({
                 method: 'get',
-                url: serverurl + '/courses/' + examBatch?.courseid + '/getName'
+                url: serverurl + '/courses/' + examBatch?.courseid + '/getName',
+                headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
             })
                 .then(res => {
                     setCourseName(examBatch.courseid + " " + res.data.courseName)

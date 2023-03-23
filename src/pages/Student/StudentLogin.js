@@ -24,15 +24,17 @@ export default function StudentLogin() {
         e.preventDefault();
 
         axios({
-            method: 'get',
+            method: 'post',
             url: serverurl + '/students/login',
-            params: {
+            data: {
                 id: regno,
                 dateofbirth: formateDob(dob)
             }
         })
             .then(function (res) {
-                console.log(res.data?.student);
+                console.log(res.data);
+                window.localStorage.setItem('token', res.data.token);
+                // setToken(res.data.token);
                 setUser(res.data?.student)
                 setUserRole('student')
                 navigate('/student/workspace');
@@ -41,7 +43,7 @@ export default function StudentLogin() {
             })
             .catch(function (err) {
                 console.log(err);
-                alert(err.response.data.message)
+                alert(err?.response.data.message || err.message)
             });
 
     }

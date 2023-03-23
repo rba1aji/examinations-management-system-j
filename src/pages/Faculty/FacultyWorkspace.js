@@ -14,7 +14,7 @@ export function FacultyWorkspace() {
         }}>
             <tbody><tr className=''>
                 <td style={{
-                    width: '14%',
+                    width: '15%',
                     height: '95vh',
                     backgroundColor: 'azure'
                 }}

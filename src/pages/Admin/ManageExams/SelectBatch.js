@@ -16,7 +16,8 @@ export default function SelectBatch(props) {
                     branchid: selectedCourse?.branchid,
                     examid: selectedExam?.id,
                     courseid: selectedCourse?.id
-                }
+                },
+                headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
             })
                 .then(res => {
                     setBatches(res.data.examBatches)

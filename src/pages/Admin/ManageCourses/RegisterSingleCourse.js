@@ -28,7 +28,8 @@ function MyVerticallyCenteredModal(props) {
         await axios({
             method: 'post',
             url: serverurl + '/courses/register',
-            data: newCourse
+            data: newCourse,
+            headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
             .then(res => {
                 onHide();
