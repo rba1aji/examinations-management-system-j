@@ -2,6 +2,7 @@ package server.rba1aji.academicmanagementsystem.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.rba1aji.academicmanagementsystem.models.Branch;
 import server.rba1aji.academicmanagementsystem.models.Exam;
+import server.rba1aji.academicmanagementsystem.security.AdminOnly;
 import server.rba1aji.academicmanagementsystem.services.IExamService;
 
 import java.util.HashMap;
@@ -44,6 +46,7 @@ public class ExamController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @AdminOnly
     @GetMapping("/getAll")
     public ResponseEntity<Map<String, List<Exam>>> getAll() {
         List<Exam> examList = examService.getAll();
@@ -56,6 +59,13 @@ public class ExamController {
     public ResponseEntity<Map<String, String>> getExamNameById(@PathVariable Integer examid) {
         var res = new HashMap<String, String>();
         res.put("examName", examService.getExamNameByid(examid));
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/getByBatchSemester")
+    public ResponseEntity<Map<String, List<Exam>>> getExamsByBatchSemester(@RequestParam String batch, @RequestParam Integer semester) {
+        var res = new HashMap<String, List<Exam>>();
+        res.put("exams", examService.getByBatchSemester(batch, semester));
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.rba1aji.academicmanagementsystem.configs.JWToken;
 import server.rba1aji.academicmanagementsystem.models.Admin;
+import server.rba1aji.academicmanagementsystem.security.AdminOnly;
 import server.rba1aji.academicmanagementsystem.services.IAdminService;
 
 import java.util.HashMap;
@@ -35,6 +36,7 @@ public class AdminController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @AdminOnly
     @PutMapping("/{id}/changePassword")
     public ResponseEntity<Map<String, String>> changeAdminPassword(@PathVariable String id, @RequestParam String currentPassword, @RequestParam String newPassword) throws AuthException {
         adminService.changePassword(id, currentPassword, newPassword);

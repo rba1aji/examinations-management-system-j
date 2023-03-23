@@ -46,4 +46,9 @@ public class ExamService implements IExamService {
     public String getExamNameByid(Integer id) {
         return examRepo.findExamNameById(id);
     }
+
+    @Override
+    public List<Exam> getByBatchSemester(String batch, Integer semester) {
+        return examRepo.findByBatchSemster(batch, semester);
+    }
 }

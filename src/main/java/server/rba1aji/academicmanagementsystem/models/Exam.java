@@ -15,6 +15,16 @@ public class Exam {
         this.batch = batch;
     }
 
+    @Override
+    public String toString() {
+        return "Exam{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", semester=" + semester +
+                ", batch='" + batch + '\'' +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

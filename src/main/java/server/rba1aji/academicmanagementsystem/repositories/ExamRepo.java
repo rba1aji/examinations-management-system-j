@@ -60,6 +60,11 @@ public class ExamRepo implements IExamRepo {
         return jdbcTemplate.queryForObject(SQL_FIND_EXAMNAME_BY_ID, new Object[]{id}, String.class);
     }
 
+    @Override
+    public List<Exam> findByBatchSemster(String batch, Integer semester) {
+        return jdbcTemplate.query(SQL_EXAMS_FIND_BY_BATCH_SEMESTER, new Object[]{batch, semester}, examRowMapper);
+    }
+
     private RowMapper<Exam> examRowMapper = ((rs, rowNo) ->
             new Exam(
                     rs.getInt("ID"),

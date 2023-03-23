@@ -10,4 +10,5 @@ public class ExamSQL {
     public static final String SQL_BRANCH_EXAM_FIND_BRANCHIDS = "SELECT * FROM BRANCH_EXAM " +
             "WHERE EXAMID = ?";
     public static final String SQL_FIND_EXAMNAME_BY_ID = "SELECT NAME FROM EXAMS WHERE ID = ?";
+    public static final String SQL_EXAMS_FIND_BY_BATCH_SEMESTER = " SELECT * FROM EXAMS WHERE BATCH=? AND SEMESTER=?";
 }

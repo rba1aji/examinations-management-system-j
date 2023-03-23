@@ -10,4 +10,5 @@ public interface IExamService {
     List<Branch> getBranchesByExamid(Integer examid);
     List<Exam> getAll();
     String getExamNameByid(Integer id);
+    List<Exam> getByBatchSemester(String batch, Integer semester);
 }

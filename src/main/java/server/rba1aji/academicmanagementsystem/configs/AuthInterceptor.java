@@ -38,8 +38,9 @@ public class AuthInterceptor implements HandlerInterceptor {
                                 .parseClaimsJws(token)
                                 .getBody();
                         httpRequest.setAttribute(
-                                "role", claims.get("role").toString()
+                                "role", claims.get("role")
                         );
+//                        System.out.println(httpRequest.getAttribute("role"));
                     } catch (Exception e) {
                         throw new AccessDeniedException("invalid/expired token - " + e.getMessage());
                     }
@@ -50,7 +51,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                 throw new AccessDeniedException("Authorization token must be provided");
             }
         } catch (Exception e) {
-            throw new Exception(e.getMessage()+ "at auth interceptor");
+            throw new Exception(e.getMessage() + "at auth interceptor");
         }
 
         return true;

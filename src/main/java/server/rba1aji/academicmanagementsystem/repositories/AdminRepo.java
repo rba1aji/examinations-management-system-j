@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import server.rba1aji.academicmanagementsystem.models.Admin;
+import server.rba1aji.academicmanagementsystem.security.AdminOnly;
 
 import static server.rba1aji.academicmanagementsystem.sqlqueries.AdminSQL.*;
 
@@ -26,6 +27,7 @@ public class AdminRepo implements IAdminRepo {
     }
 
     @Override
+    @AdminOnly
     public void changePassword(String id, String currPwd, String newPwd) throws AuthException {
         Admin admin = jdbcTemplate.queryForObject(SQL_ADMINS_FINDBY_ID, new Object[]{id}, adminRowMapper);
         if (BCrypt.checkpw(currPwd, admin.getPassword()))
