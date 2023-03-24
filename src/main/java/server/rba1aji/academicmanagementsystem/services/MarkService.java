@@ -28,4 +28,9 @@ public class MarkService implements IMarkService {
     public List<Mark> getByBatchidExamidCourseid(Integer batchid, Integer examid, String courseid) {
         return markRepo.findByBatchidExamidCourseid(batchid, examid, courseid);
     }
+
+    @Override
+    public List<Mark> getByStudentidExamid(Long studentid, Integer examid) {
+        return markRepo.findByStudentidAndExamid(studentid, examid);
+    }
 }

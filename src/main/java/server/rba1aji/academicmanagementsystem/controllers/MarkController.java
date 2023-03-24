@@ -18,7 +18,7 @@ public class MarkController {
     @Autowired
     IMarkService markService;
 
-    @AllowedRoles({"admin","faculty"})
+    @AllowedRoles({"admin", "faculty"})
     @PutMapping("/updateForList")
     public ResponseEntity<Map<String, String>> updateMarksList(@RequestBody List<Mark> markList) {
         markService.updateForList(markList);
@@ -33,4 +33,16 @@ public class MarkController {
         res.put("marks", markService.getByBatchidExamidCourseid(batchid, examid, courseid));
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
+
+    @GetMapping("/getByStudentidAndExamid")
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, List<Mark>> getMarksByStudentidAndExamid(
+            @RequestParam Long studentid, @RequestParam Integer examid
+    ) {
+        System.out.println(studentid + " " + examid);
+        var res = new HashMap<String, List<Mark>>();
+        res.put("marks", markService.getByStudentidExamid(studentid, examid));
+        return res;
+    }
+
 }

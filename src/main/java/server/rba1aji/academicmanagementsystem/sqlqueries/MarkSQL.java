@@ -14,4 +14,7 @@ public class MarkSQL {
             "M.COURSEID = EB.COURSEID  AND " +
             "M.STUDENTID BETWEEN EB.START_STUDENTID AND EB.END_STUDENTID " +
             "WHERE EB.ID = ? AND M.EXAMID = ? AND M.COURSEID = ?";
+
+    public static final String SQL_MARKS_FINDBY_STUDENTID_EXAMID = "SELECT * FROM MARKS " +
+            "WHERE STUDENTID = ? AND EXAMID = ?";
 }

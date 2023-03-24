@@ -8,4 +8,6 @@ public interface IMarkService {
     public void update(Mark mark);
     public void updateForList(List<Mark> markList);
     public List<Mark> getByBatchidExamidCourseid(Integer batchid, Integer examid, String courseid);
+
+    List<Mark> getByStudentidExamid(Long studentid, Integer examid);
 }

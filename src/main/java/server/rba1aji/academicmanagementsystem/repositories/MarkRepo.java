@@ -34,7 +34,7 @@ public class MarkRepo implements IMarkRepo {
             ps.setLong(3, mark.getStudentid());
             ps.setInt(4, mark.getExamid());
             ps.setString(5, mark.getCourseid());
-            ps.setString(6,mark.getBranchid());
+            ps.setString(6, mark.getBranchid());
             return ps;
         });
     }
@@ -49,6 +49,11 @@ public class MarkRepo implements IMarkRepo {
     @Override
     public List<Mark> findByBatchidExamidCourseid(Integer batchid, Integer examid, String courseid) {
         return jdbcTemplate.query(SQL_MARKS_GET_BY_BATCHID_EXAMID_COURSEID, new Object[]{batchid, examid, courseid}, markRowMapper);
+    }
+
+    @Override
+    public List<Mark> findByStudentidAndExamid(Long studentid, Integer examid) {
+        return jdbcTemplate.query(SQL_MARKS_FINDBY_STUDENTID_EXAMID, new Object[]{studentid, examid}, markRowMapper);
     }
 
     private RowMapper<Mark> markRowMapper = (((rs, rowNum) ->

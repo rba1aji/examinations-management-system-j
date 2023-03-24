@@ -9,4 +9,5 @@ public interface IMarkRepo {
     public void updateForList(List<Mark> markList);
     public List<Mark> findByBatchidExamidCourseid(Integer batchid, Integer examid, String courseid);
 
+    List<Mark> findByStudentidAndExamid(Long studentid, Integer examid);
 }

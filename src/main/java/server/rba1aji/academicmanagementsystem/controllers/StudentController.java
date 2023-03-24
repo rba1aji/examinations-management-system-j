@@ -51,7 +51,7 @@ public class StudentController {
 
         var res = new HashMap<String, Object>();
         res.put("token", jwToken.generateJWTToken("student"));
-        student.setDateofbirth(null);
+//        student.setDateofbirth(null);
         res.put("student", student);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
