@@ -5,3 +5,7 @@
 .btn-dark {
     --bs-btn-bg: #212529c0 !important;
 }
+
+.bg-azure {
+    background-color: azure !important;
+}

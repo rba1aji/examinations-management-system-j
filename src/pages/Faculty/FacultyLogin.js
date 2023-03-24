@@ -69,6 +69,7 @@ export default function FacultyLogin() {
                     <Form.Control placeholder="Enter password"
                         value={password} onChange={(e) => setPassword(e.target.value)}
                         required
+                        type="password"
                     />
                 </Form.Group>
                 <div className="text-end mt-4">
