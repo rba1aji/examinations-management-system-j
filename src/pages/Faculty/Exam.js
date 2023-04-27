@@ -110,6 +110,7 @@ export default function Exam() {
                     <Button variant="info" className="ms-auto px-4 py-1"
                         as={Link}
                         to={`/faculty/exam/${examBatchId}/print-1`}
+                        target="blank"
                     >
                         Print 1
                     </Button>
@@ -118,6 +119,7 @@ export default function Exam() {
                     <Button variant="info" className=" ms-auto px-4 py-1"
                         as={Link}
                         to={`/faculty/exam/${examBatchId}/print-2`}
+                        target="blank"
                     >
                         Print 2
                     </Button>
