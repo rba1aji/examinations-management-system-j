@@ -7,7 +7,7 @@ import { numbersToWords } from '../../reducers/Utils';
 import axios from 'axios';
 import { serverurl } from '../../reducers/Constants';
 
-export default function ResultPdf() {
+export default function Print2() {
     const [examBatch, setExamBatch] = useState({});
     const [students, setStudents] = useState([]);
     const [marks, setMarks] = useState([]);

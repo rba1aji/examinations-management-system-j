@@ -106,14 +106,21 @@ export default function Exam() {
                 <span className="pe-4">Exam: {examName}</span>
                 <span className="pe-4">Course: {courseName}</span>
                 <span className="pe-4">Venue: {examBatch?.venue}</span>
-                <span className="">
+                <span className="pe-4">
                     <Button variant="info" className="ms-auto px-4 py-1"
                         as={Link}
-                        to={`/faculty/exam/${examBatchId}/print-result`}
+                        to={`/faculty/exam/${examBatchId}/print-1`}
                     >
-                        Print
+                        Print 1
                     </Button>
-                    {/* <ResultPdf /> */}
+                </span>
+                <span className="">
+                    <Button variant="info" className=" ms-auto px-4 py-1"
+                        as={Link}
+                        to={`/faculty/exam/${examBatchId}/print-2`}
+                    >
+                        Print 2
+                    </Button>
                 </span>
             </div>
 
