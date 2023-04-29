@@ -110,7 +110,7 @@ export default function Exam() {
                     <Button variant="info" className="ms-auto px-4 py-1"
                         as={Link}
                         to={`/faculty/exam/${examBatchId}/print-1`}
-                        target="blank"
+                    // target="blank"
                     >
                         Print 1
                     </Button>
@@ -119,7 +119,7 @@ export default function Exam() {
                     <Button variant="info" className=" ms-auto px-4 py-1"
                         as={Link}
                         to={`/faculty/exam/${examBatchId}/print-2`}
-                        target="blank"
+                    // target="blank"
                     >
                         Print 2
                     </Button>
@@ -154,6 +154,9 @@ export default function Exam() {
                                             onChange={(e) => {
                                                 let newData = [...data];
                                                 newData.find(i => i.studentid === st.id).attendance = e.target.checked;
+                                                if (!e.target.checked) {
+                                                    newData.find(i => i.studentid === st.id).mark = 0
+                                                }
                                                 setData(newData);
                                             }}
                                             size="lg"
@@ -164,19 +167,24 @@ export default function Exam() {
                                     }}>
                                         <Form.Group className="px-5">
                                             <Form.Control
-                                                disabled={remTime === "0 : 0 : 0 : 0"}
-                                                type='number'
+                                                disabled={remTime === "0 : 0 : 0 : 0" ||
+                                                    !data.find(d => d.studentid === st.id)?.attendance
+                                                }
+                                                // type='number'
                                                 className="py-1 text-center "
                                                 style={{
                                                     borderColor: 'black'
                                                 }}
-                                                value={data.find(m => m.studentid === st.id)?.mark}
+                                                value={
+                                                    !data.find(d => d.studentid === st.id)?.attendance ? "Ab" :
+                                                        data.find(m => m.studentid === st.id)?.mark}
                                                 onChange={e => {
                                                     const newData = [...data];
-                                                    newData.find(m => m.studentid === st.id).mark = e.target.value;
+                                                    newData.find(m => m.studentid === st.id).mark = e.target.value > 100 ? e.target.value % 100 : e.target.value;
                                                     setData(newData)
                                                 }}
                                                 min={0}
+                                                max={100}
                                             />
                                         </Form.Group>
                                     </td>

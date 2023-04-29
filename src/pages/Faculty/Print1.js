@@ -3,7 +3,7 @@ import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { PDFViewer } from '@react-pdf/renderer';
 import ExamData from './ExamData';
 import { useParams } from 'react-router-dom';
-import { numbersToWords } from '../../reducers/Utils';
+// import { numbersToWords } from '../../reducers/Utils';
 import axios from 'axios';
 import { serverurl } from '../../reducers/Constants';
 
@@ -56,7 +56,7 @@ function MyDocument(props) {
 
     return (
         <>
-            <Document title={(examName + "_" + marks[0]?.courseid + "_" + examBatch?.name).replaceAll(" ", "_")}>
+            <Document title={(examName + "_" + marks[0]?.courseid + "_" + examBatch?.name).replaceAll(" ", "_") + " Print 1"}>
                 <Page size="A4" style={styles.page}>
                     <View style={styles.table}>
                         {/* head */}
@@ -65,8 +65,8 @@ function MyDocument(props) {
                             <Text style={{ ...styles.th, width: '110%' }}>Register number</Text>
                             <Text style={{ ...styles.th, width: '220%' }}>Full name</Text>
                             <Text style={{ ...styles.th, width: '100%' }}>Attendance</Text>
-                            <Text style={{ ...styles.th, width: '65%', textAlign: '' }}>Marks in numbers</Text>
-                            <Text style={{ ...styles.th, width: '140%' }}>Marks in words</Text>
+                            {/* <Text style={{ ...styles.th, width: '65%', textAlign: '' }}>Marks in numbers</Text>
+                            <Text style={{ ...styles.th, width: '140%' }}>Marks in words</Text> */}
                             <Text style={{ ...styles.th, width: '140%' }}>Student sign</Text>
                         </View>
                         {/* body */}
@@ -79,12 +79,12 @@ function MyDocument(props) {
                                     <Text style={{ ...styles.td, width: '100%' }}>{
                                         marks?.find(m => m.studentid === st.id)?.attendance ? "Present" : "Absent"
                                     }</Text>
-                                    <Text style={{ ...styles.td, width: '65%', textAlign: '' }}>{
+                                    {/* <Text style={{ ...styles.td, width: '65%', textAlign: '' }}>{
                                         marks?.find(m => m.studentid === st.id)?.mark
                                     }</Text>
                                     <Text style={{ ...styles.td, width: '140%' }}>{
                                         numbersToWords(marks?.find(m => m.studentid === st.id)?.mark)
-                                    }</Text>
+                                    }</Text> */}
                                     <Text style={{ ...styles.td, width: '140%' }}></Text>
                                 </View>
                             ))
