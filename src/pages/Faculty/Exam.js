@@ -180,11 +180,11 @@ export default function Exam() {
                                                         data.find(m => m.studentid === st.id)?.mark}
                                                 onChange={e => {
                                                     const newData = [...data];
-                                                    newData.find(m => m.studentid === st.id).mark = e.target.value > 100 ? e.target.value % 100 : e.target.value;
+                                                    newData.find(m => m.studentid === st.id).mark = e.target.value > 100 ? e.target.value : e.target.value;
                                                     setData(newData)
                                                 }}
-                                                min={0}
-                                                max={100}
+                                            // min={0}
+                                            // max={100}
                                             />
                                         </Form.Group>
                                     </td>
