@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { numbersToWords } from '../../reducers/Utils';
 import axios from 'axios';
 import { serverurl } from '../../reducers/Constants';
+import { numToRoman } from '../../reducers/Utils';
 
 export default function Print2() {
     const [examBatch, setExamBatch] = useState({});
@@ -39,8 +40,13 @@ export default function Print2() {
 }
 
 function MyDocument(props) {
-    const { students, marks, examBatch } = props;
+    const { students, marks, examBatch, facultyName } = props;
     const [examName, setExamName] = useState('');
+    const [courseName, setCourseName] = useState('');
+    const [branchName, setBranchName] = useState('');
+    const [yearOfStudy, setYearOfStudy] = useState('');
+
+
     useEffect(() => {
         if (examBatch.examid) {
             axios({
@@ -51,14 +57,69 @@ function MyDocument(props) {
                 .then((res) => {
                     setExamName(res.data.examName)
                 })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+            axios({
+                method: "get",
+                url: serverurl + "/courses/" + examBatch.courseid,
+                headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
+            })
+                .then((res) => {
+                    setCourseName(res.data.course.name)
+                    setYearOfStudy(numToRoman((res.data.course.semester + 1) / 2))
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+            axios({
+                method: "get",
+                url: serverurl + "/branches/getById",
+                params: { "id": examBatch.branchid },
+                headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
+            })
+                .then((res) => {
+                    setBranchName(res.data.branch.name)
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         }
     }, [examBatch])
 
     return (
         <>
-            <Document title={(examName + "_" + marks[0]?.courseid + "_" + examBatch?.name).replaceAll(" ", "_") + " Print 2"}>
+            <Document title={(examName + "_" + marks[0]?.courseid + "_" + examBatch?.name).replaceAll(" ", "_") + " Print 1"}>
                 <Page size="A4" style={styles.page}>
+
                     <View style={styles.table}>
+                        <Text style={{ ...styles.titleText, paddingBottom: '2.5px' }}>
+                            K.S.RANGASAMY COLLEGE OF TECHNOLOGY, TIRUCHENGODE - 637 215
+                        </Text>
+
+                        <Text style={{ ...styles.titleText, paddingBottom: '15px', fontSize: 9 }}>
+                            (An Autonomous Institution Affiliated to Anna University, Chennai - 600 025)
+                        </Text>
+
+                        <View style={{ ...styles.tr, border: '0', padding: '0 0px' }}>
+                            <Text style={{ ...styles.th, width: '50%', border: '0' }}>
+                                Course Code: {marks[0]?.courseid}
+                            </Text>
+                            <Text style={{ ...styles.th, width: '50%', border: '0', paddingLeft: '20px' }}>
+                                Year: {yearOfStudy}
+                            </Text>
+                        </View>
+                        <View style={{ ...styles.tr, border: '0', padding: '0 0px', paddingBottom: '15px' }}>
+                            <Text style={{ ...styles.th, width: '50%', border: '0', }}>
+                                Course Title: {courseName}
+                            </Text>
+                            <Text style={{ ...styles.th, width: '50%', border: '0', paddingLeft: '20px' }}>
+                                Branch: {branchName}
+                            </Text>
+                        </View>
+
                         {/* head */}
                         <View style={styles.tr}>
                             <Text style={{ ...styles.th, width: '35%' }}>Sno</Text>
@@ -93,6 +154,15 @@ function MyDocument(props) {
                                 </View>
                             ))
                         }
+
+
+                        <Text style={{ ...styles.footerText, paddingTop: '20px' }}>
+                            Internal Examiner 1: {facultyName}
+                        </Text>
+                        <Text style={{ ...styles.footerText, }}>
+                            Internal Examiner 2:
+                        </Text>
+
                     </View>
                 </Page>
             </Document>
@@ -102,21 +172,42 @@ function MyDocument(props) {
 
 
 const styles = StyleSheet.create({
+    titleText: {
+        fontSize: 12,
+        width: '100%',
+        textAlign: 'center',
+        flexDirection: 'row',
+    },
+    examDetail: {
+        fontSize: 11,
+        width: '50%',
+        textAlign: 'left',
+        paddingBottom: '20px'
+    },
+    footerText: {
+        fontSize: 10.5,
+        width: '100%',
+        textAlign: 'left',
+        flexDirection: 'row',
+        paddingBottom: '5px',
+        paddingLeft: '57.5%'
+    },
     page: {
         flexDirection: 'row',
         backgroundColor: ''
     },
     table: {
         display: 'table',
-        borderTop: '1px solid black',
-        margin: '20px',
+        // borderTop: '1px solid black',
+        margin: '25px',
         width: '100%',
     },
 
     th: {
+        borderTop: '1px solid black',
         width: '100%',
         borderRight: '1px solid black',
-        fontSize: 9,
+        fontSize: 10,
         padding: '4px 3px',
     },
 
@@ -129,7 +220,7 @@ const styles = StyleSheet.create({
     td: {
         width: '100%',
         borderRight: '1px solid black',
-        fontSize: 9,
+        fontSize: 9.5,
         padding: '4px 3.5px'
     },
 

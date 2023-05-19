@@ -1,1 +1,1 @@
-export const serverurl = 'http://localhost:8080/api';
+export let serverurl = 'http://localhost:8080/api';

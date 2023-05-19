@@ -51,3 +51,8 @@ export const numbersToWords = (n) => {
     const marksInWords = ["ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN"]
     return (n + "").split("")?.map((i) => marksInWords[i] + " ")
 }
+
+export const numToRoman = (num) => {
+    const roman = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+    return roman[num];
+}
