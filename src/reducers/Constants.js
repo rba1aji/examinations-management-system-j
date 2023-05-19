@@ -1,1 +1,1 @@
-export let serverurl = 'http://localhost:8080/api';
+export let serverurl = process.env.SERVER_URL || "http://localhost:3001";
