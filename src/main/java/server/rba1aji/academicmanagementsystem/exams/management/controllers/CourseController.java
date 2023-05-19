@@ -74,4 +74,11 @@ public class CourseController {
         res.put("courseName", courseService.getCourseNameById(courseid));
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String,Course>> getCourseById(@PathVariable String id){
+        var res = new HashMap<String, Course>();
+        res.put("course", courseService.getById(id));
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
 }

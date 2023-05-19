@@ -17,31 +17,40 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/admins")
 public class AdminController {
-    @Autowired
-    IAdminService adminService;
+  @Autowired
+  IAdminService adminService;
 
-    @Autowired
-    JWToken jwToken;
+  @Autowired
+  JWToken jwToken;
 
-    @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> getByIdPassword(@RequestBody Map<String, String> map) throws AuthException {
-        Admin admin = adminService.getByIdPassword(
-                map.get("id"),
-                map.get("password")
-        );
-        var res = new HashMap<String, Object>();
-        res.put("token", jwToken.generateJWTToken("admin"));
-        admin.setPassword(null);
-        res.put("admin", admin);
-        return new ResponseEntity<>(res, HttpStatus.OK);
-    }
+  @PostMapping("/login")
+  public ResponseEntity<Map<String, Object>> getByIdPassword(@RequestBody Map<String, String> map) throws AuthException {
+    Admin admin = adminService.getByIdPassword(
+        map.get("id"),
+        map.get("password")
+    );
+    var res = new HashMap<String, Object>();
+    res.put("token", jwToken.generateJWTToken("admin"));
+    admin.setPassword(null);
+    res.put("admin", admin);
+    return new ResponseEntity<>(res, HttpStatus.OK);
+  }
 
-    @AllowedRoles({"admin"})
-    @PutMapping("/{id}/changePassword")
-    public ResponseEntity<Map<String, String>> changeAdminPassword(@PathVariable String id, @RequestParam String currentPassword, @RequestParam String newPassword) throws AuthException {
-        adminService.changePassword(id, currentPassword, newPassword);
-        HashMap<String, String> res = new HashMap<>();
-        res.put("message", "Admin password is changed");
-        return new ResponseEntity<>(res, HttpStatus.OK);
-    }
+  @AllowedRoles({"admin"})
+  @PutMapping("/{id}/changePassword")
+  public ResponseEntity<Map<String, String>> changeAdminPassword(@PathVariable String id, @RequestParam String currentPassword, @RequestParam String newPassword) throws AuthException {
+    adminService.changePassword(id, currentPassword, newPassword);
+    HashMap<String, String> res = new HashMap<>();
+    res.put("message", "Admin password is changed");
+    return new ResponseEntity<>(res, HttpStatus.OK);
+  }
+
+  @AllowedRoles({"admin"})
+  @GetMapping("/get-server-url")
+  public ResponseEntity<Map<String, String>> getServerUrl() {
+    var res = new HashMap<String, String>();
+    res.put("serverUrl", adminService.getServerUrl());
+    return new ResponseEntity<>(res, HttpStatus.OK);
+  }
+
 }

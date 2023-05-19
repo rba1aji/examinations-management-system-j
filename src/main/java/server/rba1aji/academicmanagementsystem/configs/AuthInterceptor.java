@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -12,7 +13,8 @@ import java.util.List;
 
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
-
+    @Value("${apisecretkey}")
+    private String signingKey;
     private List<String> exclusions = List.of(
             "/api/students/login", "/api/admins/login", "/api/faculties/login"
     );
@@ -34,7 +36,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                     String token = authHeaderArr[1];
                     try {
                         Claims claims = Jwts.parser()
-                                .setSigningKey("ksrctems1994")
+                                .setSigningKey(signingKey)
                                 .parseClaimsJws(token)
                                 .getBody();
                         httpRequest.setAttribute(

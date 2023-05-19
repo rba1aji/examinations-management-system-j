@@ -20,4 +20,6 @@ public interface IStudentService {
 
     Student getById(Long id) throws Exception;
     List<Student> getByStartidEndid(Long startid, Long endid);
+
+    Integer getYearOfStudy(Long id) throws Exception;
 }

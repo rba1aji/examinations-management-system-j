@@ -23,4 +23,9 @@ public class AdminService implements IAdminService {
     public void changePassword(String id, String currPwd, String newPwd) throws AuthException {
         adminRepo.changePassword(id, currPwd, newPwd);
     }
+
+    @Override
+    public String getServerUrl() {
+        return adminRepo.getServerUrl();
+    }
 }

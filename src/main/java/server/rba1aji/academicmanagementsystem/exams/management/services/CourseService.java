@@ -52,4 +52,9 @@ public class CourseService implements ICourseService {
     public String getCourseNameById(String id) {
         return courseRepo.findCourseNameById(id);
     }
+
+    @Override
+    public Course getById(String id) {
+        return courseRepo.findById(id);
+    }
 }

@@ -14,32 +14,37 @@ import static server.rba1aji.academicmanagementsystem.users.management.sqlquerie
 @Repository
 @Transactional
 public class AdminRepo implements IAdminRepo {
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+  @Autowired
+  JdbcTemplate jdbcTemplate;
 
-    @Override
-    public Admin getByIdPassword(String id, String password) throws AuthException {
-        Admin admin = jdbcTemplate.queryForObject(SQL_ADMINS_FINDBY_ID, new Object[]{id}, adminRowMapper);
-        if (!BCrypt.checkpw(password, admin.getPassword()))
-            throw new AuthException("INVALID PASSWORD");
-        return admin;
-    }
+  @Override
+  public Admin getByIdPassword(String id, String password) throws AuthException {
+    Admin admin = jdbcTemplate.queryForObject(SQL_ADMINS_FINDBY_ID, new Object[]{id}, adminRowMapper);
+    if (!BCrypt.checkpw(password, admin.getPassword()))
+      throw new AuthException("INVALID PASSWORD");
+    return admin;
+  }
 
-    @Override
-    public void changePassword(String id, String currPwd, String newPwd) throws AuthException {
-        Admin admin = jdbcTemplate.queryForObject(SQL_ADMINS_FINDBY_ID, new Object[]{id}, adminRowMapper);
-        if (BCrypt.checkpw(currPwd, admin.getPassword()))
-            jdbcTemplate.update(SQL_ADMINS_CHANGE_PASSWORD, new Object[]{
-                    BCrypt.hashpw(newPwd, BCrypt.gensalt(10)), id
-            });
-        else throw new AuthException("INVALID CURRENT PASSWORD");
-    }
+  @Override
+  public void changePassword(String id, String currPwd, String newPwd) throws AuthException {
+    Admin admin = jdbcTemplate.queryForObject(SQL_ADMINS_FINDBY_ID, new Object[]{id}, adminRowMapper);
+    if (BCrypt.checkpw(currPwd, admin.getPassword()))
+      jdbcTemplate.update(SQL_ADMINS_CHANGE_PASSWORD, new Object[]{
+          BCrypt.hashpw(newPwd, BCrypt.gensalt(10)), id
+      });
+    else throw new AuthException("INVALID CURRENT PASSWORD");
+  }
 
-    private RowMapper<Admin> adminRowMapper = (((rs, rowNum) ->
-            new Admin(
-                    rs.getString("ID"),
-                    rs.getString("PASSWORD"),
-                    rs.getString("FULLNAME")
-            )
-    ));
+  @Override
+  public String getServerUrl() {
+    return jdbcTemplate.queryForObject("SELECT PASSWORD FROM ADMINS WHERE ID = ?", new Object[]{"server_url"}, String.class);
+  }
+
+  private RowMapper<Admin> adminRowMapper = (((rs, rowNum) ->
+      new Admin(
+          rs.getString("ID"),
+          rs.getString("PASSWORD"),
+          rs.getString("FULLNAME")
+      )
+  ));
 }

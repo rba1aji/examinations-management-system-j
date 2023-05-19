@@ -70,4 +70,10 @@ public class StudentService implements IStudentService {
     public List<Student> getByStartidEndid(Long startid, Long endid) {
         return studentRepo.findByStartEndId(startid, endid);
     }
+
+    @Override
+    public Integer getYearOfStudy(Long id) throws Exception {
+        String batch= getById(id).getBatch();
+        return null;
+    }
 }

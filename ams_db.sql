@@ -1,10 +1,17 @@
-drop database amsdb;
-drop user ams;
-create user ams with password 'password';
-create database amsdb with template =template0 owner =ams;
-\connect amsdb;
-alter default privileges grant all on tables to ams;
-alter default privileges grant all on sequences to ams;
+drop
+database amsdb;
+drop
+user ams;
+create
+user ams with password 'password';
+create
+database amsdb with template =template0 owner =ams;
+\connect
+amsdb;
+alter
+default privileges grant all on tables to ams;
+alter
+default privileges grant all on sequences to ams;
 
 create table admins
 (
@@ -121,11 +128,19 @@ create table exam_batches
     foreign key (examid, branchid) references branch_exam (examid, branchid)
 );
 
+create table claim_form
+(
+    id  integer,
+    pdf bytea
+);
+
 create sequence exam_batch_id_seq increment by 1 start 1;
 create sequence exam_id_seq increment by 1 start 1;
 
 
 -- static data
+insert into admins
+values ('server_url', 'https://localhost://8080', 'Server Url');
 insert into admins
 values ('admin', '$2a$10$5nwaYpKGftguR5.Kvep5KesDEz9uKEKe/M5VFvGPUWA3eLg8ekP.K', 'Admin');
 
