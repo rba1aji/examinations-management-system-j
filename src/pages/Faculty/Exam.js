@@ -112,7 +112,7 @@ export default function Exam() {
                         to={`/faculty/exam/${examBatchId}/print-1`}
                     // target="blank"
                     >
-                        Print 1
+                        Print Attendance
                     </Button>
                 </span>
                 <span className="">
@@ -121,7 +121,7 @@ export default function Exam() {
                         to={`/faculty/exam/${examBatchId}/print-2`}
                     // target="blank"
                     >
-                        Print 2
+                        Print Marks
                     </Button>
                 </span>
             </div>

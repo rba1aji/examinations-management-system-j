@@ -7,6 +7,7 @@ import { numbersToWords } from '../../reducers/Utils';
 import axios from 'axios';
 import { serverurl } from '../../reducers/Constants';
 import { numToRoman } from '../../reducers/Utils';
+import { AppState } from '../../reducers/AppContextProvider';
 
 export default function Print2() {
     const [examBatch, setExamBatch] = useState({});
@@ -14,6 +15,9 @@ export default function Print2() {
     const [marks, setMarks] = useState([]);
 
     const { examBatchId } = useParams();
+
+    const { user } = AppState();
+
 
     return (
         <div className='pt-3 bg-dark'>
@@ -33,6 +37,7 @@ export default function Print2() {
                     students={students}
                     marks={marks}
                     examBatch={examBatch}
+                    facultyName={user.fullname}
                 />
             </PDFViewer>
         </div>
