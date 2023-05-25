@@ -87,7 +87,13 @@ function MyVerticallyCenteredModal(props) {
                                                 // fontSize: '150%'
                                             }}>{b.name}</td>
                                             <td>
-                                                {b.startStudentid}<br />to<br />{b.endStudentid}
+                                                {
+                                                    b.students.map((ids, ind) => {
+                                                        return <span key={ind}>
+                                                            {ids.startId} to {ids.endId}<br />
+                                                        </span>
+                                                    })
+                                                }
                                             </td>
                                             <td>
                                                 {outputFormateDateTime(b.starttime)}

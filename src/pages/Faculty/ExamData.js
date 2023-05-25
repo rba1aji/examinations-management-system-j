@@ -24,18 +24,16 @@ export default function ExamData(props) {
     }, [examBatchId])
 
     useEffect(() => {  //set students
-        if (examBatch?.startStudentid) {
+        if (examBatch?.students) {
             axios({
-                method: 'get',
-                url: serverurl + '/students/getByStartidEndid',
-                params: {
-                    startid: examBatch.startStudentid,
-                    endid: examBatch.endStudentid
-                },
+                method: 'post',
+                url: serverurl + '/students/getByArrOfStudentids',
+                data: examBatch.students,
                 headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
             })
                 .then(res => {
                     setStudents(res.data.students)
+                    console.log("students fetched", res.data.students)
                 })
                 .catch(err => console.log(err.response.data.message))
         }

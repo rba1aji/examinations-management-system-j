@@ -12,8 +12,7 @@ function MyVerticallyCenteredModal(props) {
     let initialVal = {
         id: '',
         name: '',
-        startStudentid: '',
-        endStudentid: '',
+        students: [{}],
         starttime: new Date(),
         endtime: new Date(),
         facultyid: '',
@@ -26,8 +25,7 @@ function MyVerticallyCenteredModal(props) {
         initialVal = {
             id: prevBatch.id,
             name: prevBatch.name,
-            startStudentid: prevBatch.startStudentid,
-            endStudentid: prevBatch.endStudentid,
+            students: prevBatch.students,
             starttime: inputFormateDateTime(prevBatch.starttime),
             endtime: inputFormateDateTime(prevBatch.endtime),
             facultyid: prevBatch.facultyid,
@@ -39,6 +37,7 @@ function MyVerticallyCenteredModal(props) {
     }
 
     const [newBatch, setNewBatch] = useState(initialVal);
+
 
     async function handleRegisterBatch(e) {
         e.preventDefault();
@@ -76,6 +75,10 @@ function MyVerticallyCenteredModal(props) {
             .catch((err) => alert(err.response.data.message))
     }, [])
 
+    useEffect(() => {
+        console.log('newBatch', newBatch)
+    }, [newBatch])
+
     return (
         <Modal
             {...props}
@@ -100,6 +103,11 @@ function MyVerticallyCenteredModal(props) {
                         borderRadius: '10px',
                         border: '1px solid #adb5bd',
                     }}>
+
+                    <div className='text-center pb-4 '>
+                        <Button variant='info' type='submit'>{type === "create" ? 'Create' : 'Update'} Batch</Button>
+                    </div>
+
                     <Row>
 
                         <Col>
@@ -113,18 +121,52 @@ function MyVerticallyCenteredModal(props) {
                             </Form.Group>
                         </Col>
                         <Col>
-                            <Form.Group className="mb-3 text-center">
-                                <Form.Label className='pb-2'> Student register no</Form.Label>
-                                <Form.Control type="number" placeholder="Start reg no" required
-                                    value={newBatch.startStudentid}
-                                    onChange={e => setNewBatch(prev => ({ ...prev, startStudentid: e.target.value }))}
-                                />
-                                to
-                                <Form.Control type="number" placeholder="End reg no" className='mt-1' required
-                                    value={newBatch.endStudentid}
-                                    onChange={e => setNewBatch(prev => ({ ...prev, endStudentid: e.target.value }))}
-                                />
-                            </Form.Group>
+                            <Form.Label className='pb-2 text-center'> Students register num</Form.Label>
+                            {
+                                Array(newBatch.students.length).fill(0).map((_, i) => {
+                                    return <Form.Group className="mb-3 text-center" key={i}>
+                                        <Form.Control type="number" placeholder="Start reg no" required
+                                            value={newBatch.students[i]?.startId}
+                                            size='sm'
+                                            onChange={e => {
+                                                let stdns = newBatch.students
+                                                stdns[i] = { ...stdns[i], startId: e.target.value }
+                                                setNewBatch(prev => ({ ...prev, students: stdns }))
+                                            }}
+                                        />
+                                        <span>to</span>
+                                        <Form.Control type="number" placeholder="End reg no" required
+                                            value={newBatch.students[i]?.endId}
+                                            size='sm'
+                                            onChange={e => {
+                                                let stdns = newBatch.students
+                                                stdns[i] = { ...stdns[i], endId: e.target.value }
+                                                setNewBatch(prev => ({ ...prev, students: stdns }))
+                                            }}
+                                        />
+                                    </Form.Group>
+                                })
+                            }
+                            <Row>
+                                <Col>
+                                    <Button variant='info' className="py-0 "
+                                        onClick={() => {
+                                            setNewBatch(prev => ({ ...prev, students: prev.students.slice(0, prev.students.length - 1) }))
+                                        }}
+                                    >
+                                        ➖
+                                    </Button>
+                                </Col>
+                                <Col className='text-end'>
+                                    <Button variant='info' className="py-0"
+                                        onClick={() => {
+                                            setNewBatch(prev => ({ ...prev, students: [...prev.students, { startId: '', endId: '' }] }))
+                                        }}
+                                    >
+                                        ➕
+                                    </Button>
+                                </Col>
+                            </Row>
                         </Col>
                         <Col>
                             <Form.Group className="mb-3 text-center" >
@@ -180,11 +222,9 @@ function MyVerticallyCenteredModal(props) {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <div className='text-center pt-2'>
-                        <Button variant='info' type='submit'>{type === "create" ? 'Create' : 'Update'} Batch</Button>
-                    </div>
+
                 </Form>
-            </Modal.Body>
+            </Modal.Body >
         </Modal >
     );
 }

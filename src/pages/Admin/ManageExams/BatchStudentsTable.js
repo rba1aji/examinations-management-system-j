@@ -33,15 +33,15 @@ export default function BatchStudentsTable(props) {
 
     useEffect(() => {
         axios({
-            method: 'get',
-            url: serverurl + '/students/getByStartidEndid',
-            params: {
-                startid: selectedBatch.startStudentid,
-                endid: selectedBatch.endStudentid
-            },
+            method: 'post',
+            url: serverurl + '/students/getByArrOfStudentids',
+            data: selectedBatch.students,
             headers: { 'Authorization': 'Bearer ' + window.localStorage.getItem('token') }
         })
-            .then((res) => setStudents(res.data.students))
+            .then((res) => {
+                setStudents(res.data.students)
+                console.log('students are fetched', res.data)
+            })
             .catch((err) =>
                 alert(err.response.data.message)
             )
